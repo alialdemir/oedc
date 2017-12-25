@@ -1,0 +1,46 @@
+<div class="example-container mat-elevation-z8">
+    <div class="example-header">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Arama Yap">
+        </mat-form-field>
+    </div>
+    <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear matSortDirection="asc">
+        <!-- Number Column -->
+        <ng-container matColumnDef="#">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass'"></mat-header-cell>
+            <mat-cell *matCellDef="let row" [ngClass]="'customWidthClass'">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>
+                        <mat-icon>edit</mat-icon>
+                        <span>Güncelle</span>
+                    </button>
+                    <button mat-menu-item (click)="onDelete(row.title)">
+                        <mat-icon>delete_forever</mat-icon>
+                        <span>Sil</span>
+                    </button>
+                </mat-menu>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Title Column -->
+        <ng-container matColumnDef="curriculum">
+            <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.title }}</mat-cell>
+        </ng-container>
+
+        <!-- State Column -->
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef>State</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.state }}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns">
+
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
