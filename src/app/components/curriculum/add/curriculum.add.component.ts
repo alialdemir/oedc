@@ -25,7 +25,7 @@ export class CurriculumAddComponent {
             return false;
         }
         this.curriculumService
-            .addCurriculum(new Curriculum(this.form.controls.name.value, this.form.controls.status.value === '1' ? true : false))
+            .addCurriculum(new Curriculum(this.form.controls.name.value, this.form.controls.status.value === '1'))
             .subscribe(isSuccess => {
                 this.snackBar.open(this.form.controls.name.value + ' isimli bölüm eklendi.', '', {
                     duration: 3000,
