@@ -1,6 +1,5 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var bcrypt = require('bcrypt');
 var sql = require('mssql');
 
 // Initialize Express App
@@ -14,12 +13,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use('/', express.static(__dirname));
 
 // Import API Routes
-app.use(require('./controllers/userController'));
-
-
-
-
-
+app.use(require('../controllers/curriculumController'));
 
 port = process.env.PORT || 3000;
 
