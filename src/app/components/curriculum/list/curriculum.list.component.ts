@@ -11,13 +11,12 @@ import { switchMap } from 'rxjs/operators/switchMap';
 
 // Services
 import { MessageService } from '../../../shared/services/message.service';
+import { CurriculumService } from '../../../shared/services/curriculum.service';
 
 import { Subscription } from 'rxjs/Subscription';
 import { Jsonp } from '@angular/http/src/http';
 
-/**
- * @title Table retrieving data through HTTP
- */
+
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'table-http-example',
@@ -40,7 +39,8 @@ export class CurriculumListComponent implements AfterViewInit {
   subscription: Subscription;
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private curriculumService: CurriculumService) {
     this.subscription = this.messageService.getMessage().subscribe(message => { this.GetData(); });
   }
 

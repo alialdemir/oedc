@@ -1,19 +1,25 @@
 {
-  "name": "backend",
+  "name": "oedc",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "Instructor and course evaluation survey automation.",
+  "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Ali Aldemir (https://github.com/alialdemir)",
+  "license": "MIT",
   "dependencies": {
-    "async": "^2.6.0",
-    "bcrypt": "^0.8.7",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
+    "crypto": "0.0.3",
     "express": "^4.14.0",
-    "mssql": "^4.1.0",
-    "tedious": "^2.1.5"
+    "express-handlebars": "^3.0.0",
+    "jwt-simple": "^0.5.1",
+    "moment": "^2.16.0",
+    "mongoose": "^4.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.10.2"
   }
 }
