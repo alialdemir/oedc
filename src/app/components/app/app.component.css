@@ -32,9 +32,13 @@
   }
   .mat-toolbar.mat-primary {
     background: url('../../../assets/images/bg.png') repeat-x;
-}  .admin-links {
-  background: url('../../../assets/images/header-menu-bg.png');
 }
+
+.admin-links, .admin-links:hover {
+  background: url('../../../assets/images/header-menu-bg.png');
+  color:#fff;
+}
+
 .mat-nav-list{
   padding-top: 0;
 }
