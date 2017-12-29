@@ -25,19 +25,19 @@ export class AppComponent {
     {
       Text: 'Programlar',
       Link: 'Yonetim/Programlar',
-      Icon: 'school',
+      Icon: 'local_library',
       Role: []
     },
     {
       Text: 'Dersler',
       Link: 'Yonetim/Dersler',
-      Icon: 'home',
+      Icon: 'library_books',
       Role: []
     },
     {
       Text: 'Öğretim Elemanları',
       Link: 'Yonetim/OgretimElemanları',
-      Icon: 'home',
+      Icon: 'school',
       Role: []
     },
     {
