@@ -32,4 +32,10 @@ export class CurriculumService {
             .get('/Curriculum?curriculumId=' + curriculumId)
             .map(data => data);
     }
+    // Bölüm güncelle
+    updateCurriculum(curriculum: Curriculum) {
+        return this.apiService
+            .put('/Curriculum', curriculum)
+            .map(data => data);
+    }
 }

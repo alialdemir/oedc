@@ -12,6 +12,7 @@ import { getDutchPaginatorIntl } from '../../shared/directives/dutch-paginator-i
 // Components
 import { CurriculumListComponent } from '../curriculum/list/curriculum.list.component';
 import { CurriculumAddComponent } from '../curriculum/add/curriculum.add.component';
+import { CurriculumUpdateComponent } from '../curriculum/update/curriculum.update.component';
 import { ApiService } from '../../shared/services/api.service';
 import { JwtService } from '../../shared/services/jwt.service';
 import { CurriculumService } from '../../shared/services/curriculum.service';
@@ -59,7 +60,8 @@ import {
   declarations: [
     AppComponent,
     CurriculumListComponent,
-    CurriculumAddComponent
+    CurriculumAddComponent,
+    CurriculumUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -164,6 +166,7 @@ import {
     { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() },
     MessageService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CurriculumUpdateComponent]
 })
 export class AppModule { }

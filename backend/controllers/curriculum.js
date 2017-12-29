@@ -2,16 +2,6 @@
 
 const Curriculum = require('../models/curriculum')
 
-function getCurriculumById(req, res) {
-  let curriculumId = req.params.curriculumId
-
-  Curriculum.findById(curriculumId, (err, curriculum) => {
-    if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
-    if (!curriculum) return res.status(404).send({ message: `Bölüm mevcut değil.` })
-    res.status(200).send({ curriculum })
-  })
-}
-
 function getCurriculum(req, res) {
   let pageSize = Number.parseInt(req.query.PageSize)
   let pageNumber = Number.parseInt(req.query.PageNumber)
@@ -45,6 +35,23 @@ function addCurriculum(req, res) {
   })
 }
 
+function updateCurriculum(req, res) {
+  let curriculumId = req.body._id
+  Curriculum.findById(curriculumId, (err, curriculum) => {
+    if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
+
+    curriculum.name = req.body.name || curriculum.name;
+    if (req.body.isActive !== undefined) curriculum.isActive = req.body.isActive
+
+    curriculum.save((err, curriculum) => {
+      if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
+      if (!curriculum) return res.status(404).send({ message: `Bölüm mevcut değil.` })
+
+      res.status(200).send({ message: curriculum.name + ' isimli bölüm güncellendi.', curriculum: curriculum });
+    });
+  });
+}
+
 function deleteCurriculum(req, res) {
   let curriculumId = req.query.curriculumId
 
@@ -57,8 +64,8 @@ function deleteCurriculum(req, res) {
 }
 
 module.exports = {
-  getCurriculumById,
   getCurriculum,
   addCurriculum,
+  updateCurriculum,
   deleteCurriculum
 }

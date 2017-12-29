@@ -15,6 +15,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { Curriculum } from '../../../shared/models/curriculum.model';
 import { MatSnackBar } from '@angular/material';
 import { retry } from 'rxjs/operators/retry';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+import { CurriculumUpdateComponent } from '../update/curriculum.update.component';
 // Animation
 import { TableRowAnimation } from '../../../shared/animations/tablerow.animation';
 @Component({
@@ -35,7 +38,8 @@ export class CurriculumListComponent implements AfterViewInit {
   constructor(
     private messageService: MessageService,
     private curriculumService: CurriculumService,
-    public snackBar: MatSnackBar) {
+    public snackBar: MatSnackBar,
+    private dialog: MatDialog) {
     this.NewRecordSubscription();
   }
   // App.component kısmında Yeni kayıt eklendiğinde oluşan event
@@ -66,6 +70,18 @@ export class CurriculumListComponent implements AfterViewInit {
         });
         this.resultsLength = this.dataSource.data.length;
       });
+  }
+  // Delete curriculum by curriculum id
+  onUpdate(row: Curriculum) {
+    const dialogRef = this.dialog.open(CurriculumUpdateComponent, {
+      width: '400px',
+      data: row
+    });
+    dialogRef.afterClosed().subscribe(curriculum => {
+      const index = this.dataSource.data.findIndex(p => p._id === row._id);
+      this.dataSource.data.splice(index, 1, curriculum);
+      this.dataSource.data = [...this.dataSource.data];
+    });
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
