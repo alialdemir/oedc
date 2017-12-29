@@ -1,10 +1,10 @@
 ﻿export class Curriculum {
-    constructor(name: string, isActive: boolean, curriculumId?: number) {
-        this.curriculumId = curriculumId;
+    constructor(name: string, isActive: boolean, _id?: string) {
+        this._id = _id;
         this.name = name;
         this.isActive = isActive;
     }
-    curriculumId: number;
+    _id: string;
     name: string;
     isActive: boolean;
 }

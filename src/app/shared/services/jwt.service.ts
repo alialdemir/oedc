@@ -2,11 +2,12 @@
 @Injectable()
 export class JwtService {
 
-    getToken(): String {
+    getToken(): string {
+        // tslint:disable-next-line:max-line-length
         return window.localStorage['jwtToken'];
     }
 
-    saveToken(token: String) {
+    saveToken(token: string) {
         window.localStorage['jwtToken'] = token;
     }
 

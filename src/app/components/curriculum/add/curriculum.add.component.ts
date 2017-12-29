@@ -27,10 +27,10 @@ export class CurriculumAddComponent {
         this.curriculumService
             .addCurriculum(new Curriculum(this.form.controls.name.value, this.form.controls.status.value === '1'))
             .subscribe(isSuccess => {
-                this.snackBar.open(this.form.controls.name.value + ' isimli bölüm eklendi.', '', {
+                this.snackBar.open(isSuccess.message, '', {
                     duration: 3000,
                 });
-                this.dialogRef.close();
+                this.dialogRef.close(isSuccess.curriculum);
             });
     }
 }

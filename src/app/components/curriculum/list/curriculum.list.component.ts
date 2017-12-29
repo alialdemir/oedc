@@ -1,7 +1,5 @@
 import { Component, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { Observable } from 'rxjs/Observable';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { merge } from 'rxjs/observable/merge';
 import { of as observableOf } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators/catchError';
@@ -14,110 +12,101 @@ import { MessageService } from '../../../shared/services/message.service';
 import { CurriculumService } from '../../../shared/services/curriculum.service';
 
 import { Subscription } from 'rxjs/Subscription';
-import { Jsonp } from '@angular/http/src/http';
-
-
+import { Curriculum } from '../../../shared/models/curriculum.model';
+import { MatSnackBar } from '@angular/material';
+import { retry } from 'rxjs/operators/retry';
+// Animation
+import { TableRowAnimation } from '../../../shared/animations/tablerow.animation';
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'table-http-example',
   styleUrls: ['curriculum.list.component.css'],
   templateUrl: 'curriculum.list.component.html',
+  animations: [TableRowAnimation],
 })
+
 export class CurriculumListComponent implements AfterViewInit {
-  /* Test */
   displayedColumns = ['#', 'curriculum', 'status'];
-  exampleDatabase: ExampleHttpDao | null;
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<Curriculum>();
 
   resultsLength = 0;
-  isLoadingResults = false;
-  isRateLimitReached = false;
-
+  isFilterShow = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
   subscription: Subscription;
+
   constructor(
-    private http: HttpClient,
     private messageService: MessageService,
-    private curriculumService: CurriculumService) {
-    this.subscription = this.messageService.getMessage().subscribe(message => { this.GetData(); });
+    private curriculumService: CurriculumService,
+    public snackBar: MatSnackBar) {
+    this.NewRecordSubscription();
+  }
+  // App.component kısmında Yeni kayıt eklendiğinde oluşan event
+  NewRecordSubscription() {
+    this.subscription = this.messageService
+      .getMessage()
+      .subscribe(curriculum => {
+        if (curriculum.text) {
+          this.dataSource.data.unshift({ ...curriculum.text, state: 'active' });
+          this.dataSource.data = [...this.dataSource.data];
+          this.resultsLength = this.dataSource.data.length;
+        }
+      });
   }
 
-  onDelete(curriculumId) {
-    alert(curriculumId);
+  // Delete curriculum by curriculum id
+  onDelete(row: any) {
+    const curriculumId = row._id;
+    this.curriculumService
+      .deleteCurriculum(curriculumId)
+      .subscribe(isSuccess => {
+        this.snackBar.open(isSuccess.message, '', {
+          duration: 3000,
+        });
+
+        this.dataSource.data = this.dataSource.data.filter(p => {
+          return p._id !== curriculumId;
+        });
+        this.resultsLength = this.dataSource.data.length;
+      });
   }
+
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  /* Test */
+
+  // Search event
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+
+  // Once the component is in, take the data from the service.
   ngAfterViewInit() {
     this.GetData();
   }
-  /* Test */
+
+  // Reflesh
+  onReflesh() {
+    this.paginator.pageIndex = 0;
+    this.GetData();
+  }
+
   GetData() {
-    this.exampleDatabase = new ExampleHttpDao(this.http);
-
-    // If the user changes the sort order, reset back to the first page.
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(this.paginator.page)
       .pipe(
       startWith({}),
       switchMap(() => {
-        this.isLoadingResults = true;
-        // tslint:disable-next-line:no-non-null-assertion
-        return this.exampleDatabase!.getRepoIssues(
-          this.sort.active, this.sort.direction, this.paginator.pageIndex);
+        return this.curriculumService.getCurriculum(this.paginator.pageSize, this.paginator.pageIndex + 1);
       }),
       map(data => {
-        console.log(JSON.stringify(data));
-        // Flip flag to show that loading has finished.
-        this.isLoadingResults = false;
-        this.isRateLimitReached = false;
         this.resultsLength = data.total_count;
-
         return data.items;
       }),
       catchError(() => {
-        this.isLoadingResults = false;
-        // Catch if the GitHub API has reached its rate limit. Return empty data.
-        this.isRateLimitReached = true;
         return observableOf([]);
       })
-      ).subscribe(data => this.dataSource.data = data);
-  }
-}
-
-/* Test */
-export interface GithubApi {
-  items: GithubIssue[];
-  total_count: number;
-}
-
-/* Test */
-export interface GithubIssue {
-  created_at: string;
-  number: string;
-  state: string;
-  title: string;
-}
-
-/* Test */
-export class ExampleHttpDao {
-  constructor(private http: HttpClient) { }
-
-  getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
-    const href = 'https://api.github.com/search/issues';
-    const requestUrl =
-      `${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
-
-    return this.http.get<GithubApi>(requestUrl);
+      ).subscribe(data => {
+        this.dataSource.data = [...data];
+      });
   }
 }

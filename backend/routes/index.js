@@ -7,6 +7,10 @@ const auth = require('../middlewares/auth')
 const api = express.Router()
 
 api.get('/curriculum', auth, curriculumCtrl.getCurriculum)
+api.get('/curriculum', auth, curriculumCtrl.getCurriculumById)
+api.post('/curriculum', auth, curriculumCtrl.addCurriculum)
+api.delete('/curriculum', auth, curriculumCtrl.deleteCurriculum)
+
 api.post('/signup', userCtrl.signUp)
 api.post('/signin', userCtrl.signIn)
 api.get('/private', auth, (req, res) => {

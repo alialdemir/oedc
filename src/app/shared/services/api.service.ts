@@ -1,73 +1,82 @@
 ﻿import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { Headers, Http, Response, URLSearchParams } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { JwtService } from './jwt.service';
+import { ServiceModel } from '../models/service.model';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class ApiService {
     constructor(
-        private http: Http,
-        private jwtService: JwtService
+        private http: HttpClient,
+        private jwtService: JwtService,
+        private snackBar: MatSnackBar
     ) { }
 
-    private setHeaders(): Headers {
-        const headersConfig = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': ''
-        };
+    private setHeaders(): HttpHeaders {
+        return new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json')
+            .set('Authorization', this.jwtService.getToken());
+    }
 
-        if (this.jwtService.getToken()) {
-            headersConfig['Authorization'] = `Token ${this.jwtService.getToken()}`;
+    private setParams(params: any): HttpParams {
+        const httpParams = new HttpParams();
+        for (const key in params) {
+            if (params.hasOwnProperty(key)) {
+                httpParams.set(key, params[key]);
+            }
         }
-        return new Headers(headersConfig);
+        return httpParams;
     }
 
     private formatErrors(error: any) {
-        return Observable.throw(error.json());
+        if (this.snackBar) {
+            this.snackBar.open(error.error.message, '', {
+                duration: 3000,
+            });
+        }
+        return Observable.throw(error);
     }
 
-    get(path: string, params: URLSearchParams = new URLSearchParams()): Observable<any> {
-        return this.http.get(`${environment.api_url}${path}`, { headers: this.setHeaders(), search: params })
-            .catch(this.formatErrors)
-            .map((res: Response) => res.json());
+    get<T>(path: String, params?: any): Observable<ServiceModel<T>> {
+        return this.http.get<ServiceModel<T>>(`${environment.api_url}${path}`, {
+            headers: this.setHeaders(),
+            params: this.setParams(params)
+        });
     }
 
-    put(path: string, body: Object = {}): Observable<any> {
+    put(path: String, body: Object = {}): Observable<any> {
         return this.http.put(
             `${environment.api_url}${path}`,
             JSON.stringify(body),
             { headers: this.setHeaders() }
         )
             .catch(this.formatErrors)
-            .map((res: Response) => res.json());
+            .map((res: Response) => res);
     }
 
-    post(path: string, body: Object = {}): Observable<any> {
+    post(path: String, body: Object = {}): Observable<any> {
         return this.http.post(
             `${environment.api_url}${path}`,
             body,
             { headers: this.setHeaders() }
         )
             .catch(this.formatErrors)
-            .map((res: Response) => {
-                if (!res.ok) {
-                    return res.json();
-                }
-            });
+            .map((res: Response) => res);
     }
 
-    delete(path: string): Observable<any> {
+    delete(path: String): Observable<any> {
         return this.http.delete(
             `${environment.api_url}${path}`,
             { headers: this.setHeaders() }
         )
             .catch(this.formatErrors)
-            .map((res: Response) => res.json());
+            .map((res: Response) => res);
     }
 }
