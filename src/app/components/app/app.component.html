@@ -1,4 +1,6 @@
-<div class="example-container" *ngIf="!shouldRun">
+<!--
+
+   <div class="example-container" *ngIf="!shouldRun">
     <mat-toolbar color="primary" class="example-toolbar">
         <button mat-icon-button (click)="snav.toggle()">
             <mat-icon>menu</mat-icon>
@@ -29,4 +31,32 @@
             <router-outlet></router-outlet>
         </mat-sidenav-content>
     </mat-sidenav-container>
-</div>
+</div> 
+-->
+
+
+<ng-container>
+
+    <mat-sidenav-container class="example-container">
+        <mat-sidenav #snav opened="opened" mode="side" fixedTopGap="0" [fixedInViewport]="true">
+            <mat-nav-list class="nav-list">
+                <a mat-list-item class="list-group-item admin-links">Menü</a>
+                <a mat-list-item *ngFor="let menu of Menus" [routerLink]="[menu.Link]" [routerLinkActive]="['active']">
+                    <mat-icon>{{menu.Icon}}</mat-icon> {{menu.Text}}</a>
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <mat-toolbar color="primary">
+                <mat-toolbar-row>
+                    <img src="../../../assets/images/logo.png" width="60" class="header-logo docs-angular-logo" />
+                    <span class="toolbar-title">Süleyman Demirel Üniversitesi Uluborlu Selahattin Karasoy Meslek Yüksek Okulu</span>
+                </mat-toolbar-row>
+            </mat-toolbar>
+            <div class="container-fluid">
+                <router-outlet></router-outlet>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+
+    <mat-toolbar class="example-footer">Footer</mat-toolbar>
+</ng-container>

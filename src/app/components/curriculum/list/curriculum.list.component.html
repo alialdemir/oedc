@@ -1,13 +1,21 @@
 <div class="example-container mat-elevation-z8">
-    <mat-toolbar>
+    <mat-toolbar color="secondr">
         <mat-toolbar-row>
-            <mat-form-field *ngIf="isFilterShow">
-                <input matInput (keyup)="applyFilter($event.target.value)" style="width:95%;" placeholder="Arama Yap">
-                <mat-icon class="example-icon" (click)="isFilterShow = false;dataSource.filter = ''">close</mat-icon>
+            <span>Bölümler</span>
+            <span class="example-spacer"></span>
+            <mat-form-field *ngIf="isFilterShow" class="search-input">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Arama Yap">
             </mat-form-field>
             <span class="example-spacer"></span>
-            <mat-icon class="example-icon" *ngIf="!isFilterShow" (click)="onReflesh()">refresh</mat-icon>
-            <mat-icon class="example-icon" *ngIf="!isFilterShow" (click)="isFilterShow = true">search</mat-icon>
+            <button mat-icon-button>
+                <mat-icon aria-label="Example icon-button with a heart icon" (click)="isFilterShow = !isFilterShow;dataSource.filter = ''">{{isFilterShow ? 'close' : 'search' }}</mat-icon>
+            </button>
+            <button mat-icon-button>
+                <mat-icon aria-label="Example icon-button with a heart icon" (click)="onReflesh()">refresh</mat-icon>
+            </button>
+            <button mat-icon-button>
+                <mat-icon aria-label="Example icon-button with a heart icon" (click)="onCreate()">add</mat-icon>
+            </button>
         </mat-toolbar-row>
     </mat-toolbar>
     <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear matSortDirection="asc">

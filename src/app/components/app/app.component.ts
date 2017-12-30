@@ -5,9 +5,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
-import { MessageService } from '../../shared/services/message.service';
-
-import { MatDialog } from '@angular/material';
 import { Menus } from '../../shared/models/menus.model';
 @Component({
   selector: 'app-root',
@@ -74,26 +71,12 @@ export class AppComponent {
 
   Title: string;
 
-  addComponent: any;
-
-  readonly notifyOptions = {
-    timeOut: 5000
-  };
-
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private titleService: Title,
-    public dialog: MatDialog,
-    private messageService: MessageService,
   ) { }
 
-  openNewRecordDialog(): void {
-    const dialogRef = this.dialog.open(this.addComponent, {
-      width: '500px'
-    });
-    dialogRef.afterClosed().subscribe(result => this.messageService.sendMessage(result));
-  }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
     this.router.events
@@ -110,7 +93,6 @@ export class AppComponent {
         const title: string = event['title'] + ' - Süleyman Demirel Üniversitesi Uluborlu Selahattin Karasoy Meslek YüksekOkulu';
         this.titleService.setTitle(title);
         this.Title = event['title'];
-        this.addComponent = event['addComponent'];
       });
   }
 }

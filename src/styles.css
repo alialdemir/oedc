@@ -19,21 +19,9 @@
   }
   .mat-warn{
     background-color: #f44336;
-    color:#fff;
+    color:#ffffff;
   }
 
-  /* Structure */
-.example-container {
-  display: flex;
-  flex-direction: column;
-  min-width: 300px;
-  margin: 10px;
-}
-
-.example-header {
-  min-height: 64px;
-  padding: 0px 24px 0;
-}
 
 .mat-form-field {
   font-size: 14px;
@@ -42,4 +30,9 @@
 
 .mat-table {
   overflow: auto;
+}
+
+.mat-toolbar{
+  background: #00a39f;
+  color:#fff;
 }

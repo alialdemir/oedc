@@ -1,3 +1,4 @@
+/*
 .example-container {
     display: flex;
     flex-direction: column;
@@ -11,7 +12,6 @@
   
   .example-is-mobile .example-toolbar {
     position: fixed;
-    /* Make sure the toolbar will stay on top of the content as it scrolls past. */
     z-index: 2;
   }
   
@@ -20,14 +20,10 @@
   }
   
   .example-sidenav-container {
-    /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
-       causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
     flex: 1;
   }
   
   .example-is-mobile .example-sidenav-container {
-    /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
-       `<body>` to be our scrolling element for mobile layouts. */
     flex: 1 0 auto;
   }
   .mat-toolbar.mat-primary {
@@ -71,6 +67,57 @@
 
 }
 
+
+*/
 .active, .active:hover{
-  background: url('../../../assets/images/header-menu-bg.png');
+  font-weight: bold;
+}
+.nav-list {
+  padding-top:0;
+}
+.admin-links, .admin-links:hover {
+  background: #00a39f url('../../../assets/images/headerbg.png') 0 0 repeat fixed;
+  height: 64px!important;
+  color: #fff;
+}
+
+.mat-toolbar {   
+   background: #00a39f url('../../../assets/images/headerbg.png') 0 0 repeat fixed;
+}
+
+.toolbar-title{
+  margin-left: 5px;
+}
+
+
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-top: 0px;
+  margin-right: 0px;
+}
+
+.example-sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  background: rgba(255, 0, 0, 0.5);
+}
+
+.example-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.example-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

@@ -16,7 +16,6 @@ import { CurriculumUpdateComponent } from '../curriculum/update/curriculum.updat
 import { ApiService } from '../../shared/services/api.service';
 import { JwtService } from '../../shared/services/jwt.service';
 import { CurriculumService } from '../../shared/services/curriculum.service';
-import { MessageService } from '../../shared/services/message.service';
 
 // Material
 import { CdkTableModule } from '@angular/cdk/table';
@@ -80,7 +79,7 @@ import {
         path: 'Yonetim/Bolumler',
         component: CurriculumListComponent,
         data: {
-          title: 'Bölümler', addComponent: CurriculumAddComponent
+          title: 'Bölümler'
         }
       },
       {
@@ -164,9 +163,11 @@ import {
     CurriculumService,
     HttpClientModule,
     { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() },
-    MessageService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [CurriculumUpdateComponent]
+  entryComponents: [
+    CurriculumAddComponent,
+    CurriculumUpdateComponent,
+  ]
 })
 export class AppModule { }

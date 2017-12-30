@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { merge } from 'rxjs/observable/merge';
 import { of as observableOf } from 'rxjs/observable/of';
@@ -8,16 +8,15 @@ import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
 
 // Services
-import { MessageService } from '../../../shared/services/message.service';
 import { CurriculumService } from '../../../shared/services/curriculum.service';
 
-import { Subscription } from 'rxjs/Subscription';
 import { Curriculum } from '../../../shared/models/curriculum.model';
 import { MatSnackBar } from '@angular/material';
 import { retry } from 'rxjs/operators/retry';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { CurriculumUpdateComponent } from '../update/curriculum.update.component';
+import { CurriculumAddComponent } from '../add/curriculum.add.component';
 // Animation
 import { TableRowAnimation } from '../../../shared/animations/tablerow.animation';
 @Component({
@@ -33,26 +32,11 @@ export class CurriculumListComponent implements AfterViewInit {
   resultsLength = 0;
   isFilterShow = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  subscription: Subscription;
 
   constructor(
-    private messageService: MessageService,
     private curriculumService: CurriculumService,
     public snackBar: MatSnackBar,
     private dialog: MatDialog) {
-    this.NewRecordSubscription();
-  }
-  // App.component kısmında Yeni kayıt eklendiğinde oluşan event
-  NewRecordSubscription() {
-    this.subscription = this.messageService
-      .getMessage()
-      .subscribe(curriculum => {
-        if (curriculum.text) {
-          this.dataSource.data.unshift({ ...curriculum.text, state: 'active' });
-          this.dataSource.data = [...this.dataSource.data];
-          this.resultsLength = this.dataSource.data.length;
-        }
-      });
   }
 
   // Delete curriculum by curriculum id
@@ -78,17 +62,27 @@ export class CurriculumListComponent implements AfterViewInit {
       data: row
     });
     dialogRef.afterClosed().subscribe(curriculum => {
-      const index = this.dataSource.data.findIndex(p => p._id === row._id);
-      this.dataSource.data.splice(index, 1, curriculum);
-      this.dataSource.data = [...this.dataSource.data];
+      if (curriculum) {
+        const index = this.dataSource.data.findIndex(p => p._id === row._id);
+        this.dataSource.data.splice(index, 1, curriculum);
+        this.dataSource.data = [...this.dataSource.data];
+      }
     });
   }
-
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+  // Delete curriculum by curriculum id
+  onCreate(row: Curriculum) {
+    const dialogRef = this.dialog.open(CurriculumAddComponent, {
+      width: '400px',
+      data: row
+    });
+    dialogRef.afterClosed().subscribe(curriculum => {
+      if (curriculum) {
+        this.dataSource.data.unshift({ ...curriculum, state: 'active' });
+        this.dataSource.data = [...this.dataSource.data];
+        this.resultsLength = this.dataSource.data.length;
+      }
+    });
   }
-
   // Search event
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
