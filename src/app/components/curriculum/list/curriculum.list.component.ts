@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { merge } from 'rxjs/observable/merge';
 import { of as observableOf } from 'rxjs/observable/of';

@@ -3,7 +3,7 @@
         <mat-toolbar-row>
             <mat-form-field *ngIf="isFilterShow">
                 <input matInput (keyup)="applyFilter($event.target.value)" style="width:95%;" placeholder="Arama Yap">
-                <mat-icon class="example-icon" (click)="isFilterShow = false">close</mat-icon>
+                <mat-icon class="example-icon" (click)="isFilterShow = false;dataSource.filter = ''">close</mat-icon>
             </mat-form-field>
             <span class="example-spacer"></span>
             <mat-icon class="example-icon" *ngIf="!isFilterShow" (click)="onReflesh()">refresh</mat-icon>

@@ -61,6 +61,7 @@
   background: url('../../../assets/images/header-menu-bg.png');  
   min-height: 52px !important;
   color: #fff;
+  margin-left: 8px;
 }
 .custom-toolbar .mat-toolbar-row{
   height: 52px !important;
@@ -68,4 +69,8 @@
 .admin-delete-link{
   color:#fff;
 
+}
+
+.active, .active:hover{
+  background: url('../../../assets/images/header-menu-bg.png');
 }

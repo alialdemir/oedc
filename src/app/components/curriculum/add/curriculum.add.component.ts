@@ -2,8 +2,7 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CurriculumService } from '../../../shared/services/curriculum.service';
 import { Curriculum } from '../../../shared/models/curriculum.model';
-import { MatDialogRef } from '@angular/material';
-import { MatSnackBar } from '@angular/material';
+import { MatDialogRef, MatSnackBar } from '@angular/material';
 
 @Component({
     styleUrls: ['curriculum.add.component.css'],
