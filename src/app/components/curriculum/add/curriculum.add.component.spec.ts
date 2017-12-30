@@ -33,7 +33,7 @@ describe('CurriculumAddComponent', () => {
     }));
 
     it('should create the app', async(() => {
-        const fixture = TestBed.createComponent(CurriculumAddComponent);
+        const fixture = createComponent();
         const app = fixture.debugElement.componentInstance;
         expect(app).toBeTruthy();
     }));
@@ -59,9 +59,13 @@ describe('CurriculumAddComponent', () => {
     }));
 
     function element(selectorName) {
-        const fixture = TestBed.createComponent(CurriculumAddComponent);
+        const fixture = createComponent();
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
         return compiled.querySelector(selectorName);
+    }
+
+    function createComponent() {
+        return TestBed.createComponent(CurriculumAddComponent);
     }
 });
