@@ -1,0 +1,91 @@
+<div class="example-container mat-elevation-z8">
+    <mat-toolbar color="secondr">
+        <mat-toolbar-row>
+            <span>Dersler</span>
+            <span class="example-spacer"></span>
+            <mat-form-field *ngIf="isFilterShow" class="search-input">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Arama Yap">
+            </mat-form-field>
+            <span class="example-spacer"></span>
+            <button mat-icon-button>
+                <mat-icon aria-label="Example icon-button with a heart icon" (click)="isFilterShow = !isFilterShow;dataSource.filter = ''">{{isFilterShow ? 'close' : 'search' }}</mat-icon>
+            </button>
+            <button mat-icon-button>
+                <mat-icon aria-label="Example icon-button with a heart icon" (click)="onReflesh()">refresh</mat-icon>
+            </button>
+            <button mat-icon-button>
+                <mat-icon aria-label="Example icon-button with a heart icon" (click)="onCreate()">add</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear matSortDirection="asc">
+        <ng-container matColumnDef="#" [@anim]="row.name">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass'"></mat-header-cell>
+            <mat-cell *matCellDef="let row" [ngClass]="'customWidthClass'">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="onUpdate(row)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Güncelle</span>
+                    </button>
+                    <button mat-menu-item (click)="onDelete(row)">
+                        <mat-icon>delete_forever</mat-icon>
+                        <span>Sil</span>
+                    </button>
+                </mat-menu>
+            </mat-cell>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="lesson">
+            <mat-header-cell *matHeaderCellDef>Ders Adı</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="curriculum">
+            <mat-header-cell *matHeaderCellDef>Bölüm Adı</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.department.curriculum.name }}</mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef="department">
+            <mat-header-cell *matHeaderCellDef>Program Adı</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.department.name }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="code">
+            <mat-header-cell *matHeaderCellDef>Ders Kodu</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.code }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="branch">
+            <mat-header-cell *matHeaderCellDef>Şube</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.branch }}</mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="period">
+            <mat-header-cell *matHeaderCellDef>Dönem</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.period }}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef>Durum</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <mat-chip-list>
+                    <mat-chip [color]=" row.isActive ? 'primary' : 'warn'" selected="true">{{ row.isActive ? 'Aktif' : 'Pasif'}}</mat-chip>
+                </mat-chip-list>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" class="aside" [@TableRowAnimation]="row.state"></mat-row>
+    </mat-table>
+    <mat-list *ngIf="resultsLength == 0">
+        <mat-list-item class="text-center"> Eklenen hiç ders yok. </mat-list-item>
+    </mat-list>
+    <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

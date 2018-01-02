@@ -18,6 +18,10 @@ import { DepartmentListComponent } from '../department/list/department.list.comp
 import { DepartmentAddComponent } from '../department/add/department.add.component';
 import { DepartmentUpdateComponent } from '../department/update/department.update.component';
 
+import { LessonListComponent } from '../lesson/list/lesson.list.component';
+import { LessonAddComponent } from '../lesson/add/lesson.add.component';
+import { LessonUpdateComponent } from '../lesson/update/lesson.update.component';
+
 import { AlertDialogComponent } from '../../shared/alert.component';
 
 // Services
@@ -27,6 +31,12 @@ import { CurriculumService } from '../../shared/services/curriculum.service';
 import { DepartmentService } from '../../shared/services/department.service';
 import { LessonService } from '../../shared/services/lesson.service';
 
+// Select components
+import { CurriculumSelectComponent } from '../../shared/selects/curriculum.select.component';
+import { DepartmentSelectComponent } from '../../shared/selects/department.select.component';
+import { BranchSelectComponent } from '../../shared/selects/branch.select.component';
+import { PeriodSelectComponent } from '../../shared/selects/period.select.component';
+import { ActiveSelectComponent } from '../../shared/selects/active.select.component';
 // Material
 import { CdkTableModule } from '@angular/cdk/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -74,7 +84,15 @@ import {
     DepartmentListComponent,
     DepartmentAddComponent,
     DepartmentUpdateComponent,
+    LessonListComponent,
+    LessonAddComponent,
+    LessonUpdateComponent,
     AlertDialogComponent,
+    CurriculumSelectComponent,
+    DepartmentSelectComponent,
+    BranchSelectComponent,
+    PeriodSelectComponent,
+    ActiveSelectComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,6 +119,13 @@ import {
         component: DepartmentListComponent,
         data: {
           title: 'Programlar'
+        }
+      },
+      {
+        path: 'Yonetim/Dersler',
+        component: LessonListComponent,
+        data: {
+          title: 'Dersler'
         }
       },
       {
@@ -193,6 +218,9 @@ import {
     CurriculumUpdateComponent,
     DepartmentAddComponent,
     DepartmentUpdateComponent,
+    LessonListComponent,
+    LessonAddComponent,
+    LessonUpdateComponent,
     AlertDialogComponent,
   ]
 })

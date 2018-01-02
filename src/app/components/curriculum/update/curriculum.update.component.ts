@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material';
 export class CurriculumUpdateComponent {
     public form = new FormGroup({
         name: new FormControl('', Validators.required),
-        status: new FormControl('', Validators.required)
+        isActive: new FormControl(Boolean, Validators.required)
     });
 
     constructor(
@@ -21,21 +21,21 @@ export class CurriculumUpdateComponent {
         public snackBar: MatSnackBar,
         @Inject(MAT_DIALOG_DATA) public params: any) {
         this.form.controls.name.setValue(params.name);
-        this.form.controls.status.setValue(params.isActive ? '1' : '0');
+        this.form.controls.isActive.setValue(params.isActive);
     }
 
     onSubmit(event: any) {
         if (!this.form.valid) {
             return false;
         }
-        const curriculum = new Curriculum(this.form.controls.name.value, this.form.controls.status.value === '1', this.params._id);
+
         this.curriculumService
-            .Update(curriculum)
+            .Update(new Curriculum(this.form.controls.name.value, this.form.controls.isActive.value, this.params._id))
             .subscribe(isSuccess => {
                 this.snackBar.open(isSuccess.message, '', {
                     duration: 3000,
                 });
-                this.dialogRef.close(curriculum);
+                this.dialogRef.close(isSuccess.model);
             });
     }
 }

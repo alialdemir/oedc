@@ -19,7 +19,7 @@ export class LessonService {
 
     // Tüm ders listesi döndürür
     GetAll(pageSize: number, pageNumber: number, fields: string = '', query: any = {}): Observable<ServiceModel<Lesson>> {
-        const q =  JSON.stringify(query);
+        const q = JSON.stringify(query);
         return this.apiService.get<Lesson>(`/Lesson?PageSize=${pageSize}&PageNumber=${pageNumber}&Fields=${fields}&Query=${q}`);
     }
 

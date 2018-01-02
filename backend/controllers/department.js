@@ -11,7 +11,7 @@ function GetAll(req, res) {
     if (req.query.Fields !== undefined || req.query.Fields !== '') fields = req.query.Fields
     if (pageSize === NaN) pageSize = 10;
     if (pageNumber === NaN || pageNumber <= 0) pageNumber = 1;
-    
+
     Model.paginate(query, { populate: { path: 'curriculum', select: 'name' }, select: fields, sort: { _id: -1 }, offset: pageSize * (pageNumber - 1), limit: pageSize })
         .then(function (result) {
             res.status(200)
@@ -27,20 +27,28 @@ function GetAll(req, res) {
         });
 }
 
+function findById(id, res, message) {
+    Model.findById(id, function (err, model) {
+        res.status(200).send({ message: message, model: model })
+    })
+        .populate({ path: 'curriculum', select: 'name' })
+        .select('_id name isActive')
+}
+
 function Insert(req, res) {
-    curriculumModel.findById(req.body.curriculum._id, function (err, curriculum) {
+    curriculumModel.findById(req.body.curriculum, function (err, curriculum) {
         if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
         if (!curriculum) return res.status(500).send({ message: `Bölüm mevcut değil` })
 
         let model = new Model()
         model.name = req.body.name
         model.isActive = req.body.isActive
-        model.curriculum = req.body.curriculum._id
+        model.curriculum = req.body.curriculum
 
         model.save((err, newModel) => {
             if (err) res.status(500).send({ message: `Veritabanında kaydedilirken hata oluştu: ${err}` })
-
-            res.status(200).send({ message: model.name + ' isimli program eklendi.', _id: newModel._id })
+            
+            findById(newModel._id, res, newModel.name + ' isimli program eklendi.')
         })
     })
 }
@@ -51,13 +59,13 @@ function Update(req, res) {
         if (!model) return res.status(404).send({ message: `Program mevcut değil.` })
 
         model.name = req.body.name || model.name
-        model.curriculum = req.body.curriculum._id || model.curriculum
+        model.curriculum = req.body.curriculum[0] || model.curriculum
         if (req.body.isActive !== undefined) model.isActive = req.body.isActive
 
         model.save((err) => {
             if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
 
-            res.status(200).send({ message: model.name + ' isimli program güncellendi.' });
+            findById(model._id, res, model.name + ' isimli program güncellendi.')
         });
     });
 }

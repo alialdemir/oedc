@@ -8,15 +8,12 @@ const ModelSchema = Schema({
     name: String,
     code: String,
     department: { type: Schema.Types.ObjectId, ref: 'Department' },
-    period: Periods,
+    period: { type: String, enum: ['Güz', 'Bahar'] },
+    branch: [{ type: String, enum: ['A', 'B'] }],
     isActive: Boolean,
 })
 
 ModelSchema.plugin(mongoosePaginate);
 
-const Periods = {
-    Autumn = 1,
-    Spring = 2
-}
 
 module.exports = mongoose.model('Lesson', ModelSchema)

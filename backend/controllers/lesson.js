@@ -12,7 +12,13 @@ function GetAll(req, res) {
     if (pageSize === NaN) pageSize = 10;
     if (pageNumber === NaN || pageNumber <= 0) pageNumber = 1;
 
-    Model.paginate(query, { populate: { path: 'department', select: 'name' }, select: fields, sort: { _id: -1 }, offset: pageSize * (pageNumber - 1), limit: pageSize })
+    Model.paginate(query, {
+        populate: {
+            path: 'department',
+            select: 'name',
+            populate: { path: 'curriculum', select: 'name' }
+        }, select: fields, sort: { _id: -1 }, offset: pageSize * (pageNumber - 1), limit: pageSize
+    })
         .then(function (result) {
             res.status(200)
                 .send({
@@ -27,22 +33,36 @@ function GetAll(req, res) {
         });
 }
 
+function findById(id, res, message) {
+    Model.findById(id, function (err, model) {
+        res.status(200).send({ message: message, model: model })
+    })
+        .populate({
+            path: 'department',
+            select: 'name',
+            populate: { path: 'curriculum', select: 'name' }
+        })
+        .select('_id name isActive code period branch')
+}
+
 function Insert(req, res) {
-    departmentModel.findById(req.body.department._id, function (err, department) {
+    departmentModel.findById(req.body.department, function (err, department) {
         if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
         if (!department) return res.status(500).send({ message: `Program mevcut değil` })
+
 
         let model = new Model()
         model.name = req.body.name
         model.code = req.body.code
-        model.periods = req.body.periods
+        model.period = req.body.period
+        model.branch = req.body.branch
         model.isActive = req.body.isActive
-        model.department = req.body.department._id
+        model.department = req.body.department
 
         model.save((err, newModel) => {
             if (err) res.status(500).send({ message: `Veritabanında kaydedilirken hata oluştu: ${err}` })
 
-            res.status(200).send({ message: model.name + ' isimli ders eklendi.', _id: newModel._id })
+            findById(newModel._id, res, newModel.name + ' isimli ders eklendi.')
         })
     })
 }
@@ -54,14 +74,15 @@ function Update(req, res) {
 
         model.name = req.body.name || model.name
         model.code = req.body.code || model.code
-        model.periods = req.body.periods || model.periods
-        model.department = req.body.department._id || model.department
+        model.period = req.body.period || model.period
+        model.branch = req.body.branch || model.branch
+        model.department = req.body.department || model.department
         if (req.body.isActive !== undefined) model.isActive = req.body.isActive
 
         model.save((err) => {
             if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
 
-            res.status(200).send({ message: model.name + ' isimli ders güncellendi.' });
+            findById(model._id, res, model.name + ' isimli ders güncellendi.')
         });
     });
 }

@@ -26,6 +26,12 @@ function GetAll(req, res) {
     });
 }
 
+function findById(id, res, message) {
+  Model.findById(id, function (err, model) {
+    res.status(200).send({ message: message, model: model })
+  }).select('_id name isActive')
+}
+
 function Insert(req, res) {
   let model = new Model()
   model.name = req.body.name
@@ -34,7 +40,7 @@ function Insert(req, res) {
   model.save((err, newModel) => {
     if (err) res.status(500).send({ message: `Veritabanında kaydedilirken hata oluştu: ${err} ` })
 
-    res.status(200).send({ message: model.name + ' isimli bölüm eklendi.', _id: newModel._id })
+    findById(newModel._id, res, newModel.name + ' isimli bölüm eklendi.')
   })
 }
 
@@ -49,7 +55,7 @@ function Update(req, res) {
     model.save((err) => {
       if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
 
-      res.status(200).send({ message: model.name + ' isimli bölüm güncellendi.' });
+      findById(model._id, res, model.name + ' isimli bölüm güncellendi.')
     });
   });
 }
