@@ -9,6 +9,11 @@ const ModelSchema = Schema({
   isActive: Boolean,
   curriculum: { type: Schema.Types.ObjectId, ref: 'Curriculum' }
 })
+
+ModelSchema.pre('remove', function (next) {
+  this.model('Lesson').remove({ department: this._id }, next);
+});
+
 ModelSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Department', ModelSchema)
