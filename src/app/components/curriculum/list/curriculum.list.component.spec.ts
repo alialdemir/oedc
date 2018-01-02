@@ -1,16 +1,20 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { CurriculumListComponent } from './curriculum.list.component';
 import { CurriculumService } from '../../../shared/services/curriculum.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MessageService } from '../../../shared/services/message.service';
 import {
-    MatDialogRef,
-    MatSnackBar,
     MatIconModule,
     MatInputModule,
-    MatSelectModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatChipsModule,
+    MatListModule,
 } from '@angular/material';
+
 describe('CurriculumListComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -18,18 +22,20 @@ describe('CurriculumListComponent', () => {
                 CurriculumListComponent
             ],
             imports: [
-                ReactiveFormsModule,
-                FormsModule,
                 MatIconModule,
                 MatInputModule,
-                MatSelectModule,
-                BrowserAnimationsModule,
+                MatToolbarModule,
+                MatTableModule,
+                MatDialogModule,
+                MatSnackBarModule,
+                MatPaginatorModule,
+                MatButtonModule,
+                MatMenuModule,
+                MatChipsModule,
+                MatListModule,
             ],
             providers: [
                 { provide: CurriculumService, useValue: {} },
-                { provide: MatDialogRef, useValue: {} },
-                { provide: MatSnackBar, useValue: {} },
-                { provide: MessageService, useValue: {} }
             ]
         }).compileComponents();
     }));
@@ -40,11 +46,10 @@ describe('CurriculumListComponent', () => {
         expect(app).toBeTruthy();
     }));
 
-    function element(selectorName) {
+    function GetNativeElement() {
         const fixture = createComponent();
         fixture.detectChanges();
-        const compiled = fixture.debugElement.nativeElement;
-        return compiled.querySelector(selectorName);
+        return fixture.debugElement.nativeElement;
     }
 
     function createComponent(): ComponentFixture<CurriculumListComponent> {

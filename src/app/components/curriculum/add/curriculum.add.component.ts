@@ -5,7 +5,7 @@ import { Curriculum } from '../../../shared/models/curriculum.model';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 
 @Component({
-    styleUrls: ['curriculum.add.component.css'],
+    styleUrls: ['./curriculum.add.component.css'],
     templateUrl: './curriculum.add.component.html'
 })
 export class CurriculumAddComponent {
@@ -23,13 +23,16 @@ export class CurriculumAddComponent {
         if (!this.form.valid) {
             return false;
         }
+        const curriculum = new Curriculum(this.form.controls.name.value, this.form.controls.status.value === '1');
+
         this.curriculumService
-            .addCurriculum(new Curriculum(this.form.controls.name.value, this.form.controls.status.value === '1'))
+            .Insert(curriculum)
             .subscribe(isSuccess => {
                 this.snackBar.open(isSuccess.message, '', {
                     duration: 3000,
                 });
-                this.dialogRef.close(isSuccess.curriculum);
+                curriculum._id = isSuccess._id;
+                this.dialogRef.close(curriculum);
             });
     }
 }

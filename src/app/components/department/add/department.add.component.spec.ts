@@ -1,21 +1,21 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { CurriculumUpdateComponent } from './curriculum.update.component';
+import { TestBed, async } from '@angular/core/testing';
+import { DepartmentAddComponent } from './department.add.component';
+import { DepartmentService } from '../../../shared/services/department.service';
 import { CurriculumService } from '../../../shared/services/curriculum.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
     MatDialogRef,
-    MAT_DIALOG_DATA,
     MatSnackBar,
     MatIconModule,
     MatInputModule,
     MatSelectModule,
 } from '@angular/material';
-describe('CurriculumUpdateComponent', () => {
+describe('DepartmentAddComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                CurriculumUpdateComponent
+                DepartmentAddComponent
             ],
             imports: [
                 ReactiveFormsModule,
@@ -23,13 +23,13 @@ describe('CurriculumUpdateComponent', () => {
                 MatIconModule,
                 MatInputModule,
                 MatSelectModule,
-                BrowserAnimationsModule,
+                BrowserAnimationsModule
             ],
             providers: [
+                { provide: DepartmentService, useValue: {} },
                 { provide: CurriculumService, useValue: {} },
                 { provide: MatDialogRef, useValue: {} },
-                { provide: MatSnackBar, useValue: {} },
-                { provide: MAT_DIALOG_DATA, useValue: {} }
+                { provide: MatSnackBar, useValue: {} }
             ]
         }).compileComponents();
     }));
@@ -41,32 +41,34 @@ describe('CurriculumUpdateComponent', () => {
     }));
 
     it('should render title in a h2 tag', async(() => {
-        expect(GetNativeElement().querySelector('h2').textContent).toContain('Bölüm Güncelle');
+        expect(GetNativeElement().querySelector('h2').textContent).toContain('Program Ekle');
     }));
 
     it('should render curriculum name in a input placeholder tag', async(() => {
-        expect(GetNativeElement().querySelector('input').getAttribute('placeholder')).toBe('Bölüm adı');
+        expect(GetNativeElement().querySelector('input').getAttribute('placeholder')).toBe('Program adı');
+    }));
+
+    it('should render curriculum in a select placeholder tag', async(() => {
+        expect(GetNativeElement().querySelectorAll('mat-select')[0].getAttribute('placeholder')).toBe('Bölüm seçiniz');
     }));
 
     it('should render status in a select placeholder tag', async(() => {
-        expect(GetNativeElement().querySelector('mat-select').getAttribute('placeholder')).toBe('Durum seçiniz');
+        expect(GetNativeElement().querySelectorAll('mat-select')[1].getAttribute('placeholder')).toBe('Durum seçiniz');
     }));
 
     it('should render save in a button text tag', async(() => {
-        expect(GetNativeElement().querySelector('button').textContent).toEqual('Güncelle');
+        expect(GetNativeElement().querySelector('button').textContent).toEqual('Kaydet');
     }));
 
     it('should render max length in a mat-form-field hintlabel tag', async(() => {
         expect(GetNativeElement().querySelector('mat-form-field').getAttribute('hintlabel')).toBe('Maksimum 100 karakter');
     }));
-
     function GetNativeElement() {
         const fixture = createComponent();
         fixture.detectChanges();
         return fixture.debugElement.nativeElement;
     }
-
-    function createComponent(): ComponentFixture<CurriculumUpdateComponent> {
-        return TestBed.createComponent(CurriculumUpdateComponent);
+    function createComponent() {
+        return TestBed.createComponent(DepartmentAddComponent);
     }
 });

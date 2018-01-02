@@ -1,7 +1,7 @@
 <div class="example-container mat-elevation-z8">
     <mat-toolbar color="secondr">
         <mat-toolbar-row>
-            <span>Bölümler</span>
+            <span>Programlar</span>
             <span class="example-spacer"></span>
             <mat-form-field *ngIf="isFilterShow" class="search-input">
                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Arama Yap">
@@ -38,9 +38,16 @@
             </mat-cell>
         </ng-container>
 
+
+
+        <ng-container matColumnDef="department">
+            <mat-header-cell *matHeaderCellDef>Program Adı</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="curriculum">
             <mat-header-cell *matHeaderCellDef>Bölüm Adı</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+            <mat-cell *matCellDef="let row">{{ row.curriculum.name }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="status">

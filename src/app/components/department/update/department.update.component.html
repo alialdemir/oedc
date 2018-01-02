@@ -1,0 +1,22 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+    <h2 mat-dialog-title>
+      Program Güncelle
+      <mat-icon class="popup-close-button" (click)="dialogRef.close()">close</mat-icon>
+    </h2>
+    <mat-form-field hintLabel="Maksimum 100 karakter">
+      <input matInput formControlName="name" #input maxlength="100" minlength="3" placeholder="Program adı" required>
+      <mat-hint align="end">{{input.value?.length || 0}}/100</mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select formControlName="curriculumId" placeholder="Bölüm seçiniz" required>
+        <mat-option *ngFor="let curriculum of curriculums" value="{{ curriculum._id }}">{{curriculum.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select formControlName="status" placeholder="Durum seçiniz" required>
+        <mat-option value="1">Aktif</mat-option>
+        <mat-option value="0">Pasif</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Güncelle</button>
+  </form>

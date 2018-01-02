@@ -13,9 +13,18 @@ import { getDutchPaginatorIntl } from '../../shared/directives/dutch-paginator-i
 import { CurriculumListComponent } from '../curriculum/list/curriculum.list.component';
 import { CurriculumAddComponent } from '../curriculum/add/curriculum.add.component';
 import { CurriculumUpdateComponent } from '../curriculum/update/curriculum.update.component';
+
+import { DepartmentListComponent } from '../department/list/department.list.component';
+import { DepartmentAddComponent } from '../department/add/department.add.component';
+import { DepartmentUpdateComponent } from '../department/update/department.update.component';
+
+import { AlertDialogComponent } from '../../shared/alert.component';
+
+// Services
 import { ApiService } from '../../shared/services/api.service';
 import { JwtService } from '../../shared/services/jwt.service';
 import { CurriculumService } from '../../shared/services/curriculum.service';
+import { DepartmentService } from '../../shared/services/department.service';
 
 // Material
 import { CdkTableModule } from '@angular/cdk/table';
@@ -60,7 +69,11 @@ import {
     AppComponent,
     CurriculumListComponent,
     CurriculumAddComponent,
-    CurriculumUpdateComponent
+    CurriculumUpdateComponent,
+    DepartmentListComponent,
+    DepartmentAddComponent,
+    DepartmentUpdateComponent,
+    AlertDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +93,13 @@ import {
         component: CurriculumListComponent,
         data: {
           title: 'Bölümler'
+        }
+      },
+      {
+        path: 'Yonetim/Programlar',
+        component: DepartmentListComponent,
+        data: {
+          title: 'Programlar'
         }
       },
       {
@@ -161,6 +181,7 @@ import {
     ApiService,
     JwtService,
     CurriculumService,
+    DepartmentService,
     HttpClientModule,
     { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() },
   ],
@@ -168,6 +189,9 @@ import {
   entryComponents: [
     CurriculumAddComponent,
     CurriculumUpdateComponent,
+    DepartmentAddComponent,
+    DepartmentUpdateComponent,
+    AlertDialogComponent,
   ]
 })
 export class AppModule { }

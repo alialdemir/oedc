@@ -30,7 +30,7 @@ app.use(function (req, res, next) {
 
 app.use('/api', api)
 app.get('/', (req, res) => {
-  res.send('product')
+  res.send('API REST')
 })
 
 module.exports = app
