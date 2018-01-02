@@ -22,7 +22,7 @@ import { LessonListComponent } from '../lesson/list/lesson.list.component';
 import { LessonAddComponent } from '../lesson/add/lesson.add.component';
 import { LessonUpdateComponent } from '../lesson/update/lesson.update.component';
 
-import { AlertDialogComponent } from '../../shared/alert.component';
+import { AlertDialogComponent } from '../../shared/helper-components/alert.component';
 
 // Services
 import { ApiService } from '../../shared/services/api.service';
@@ -32,11 +32,11 @@ import { DepartmentService } from '../../shared/services/department.service';
 import { LessonService } from '../../shared/services/lesson.service';
 
 // Select components
-import { CurriculumSelectComponent } from '../../shared/selects/curriculum.select.component';
-import { DepartmentSelectComponent } from '../../shared/selects/department.select.component';
-import { BranchSelectComponent } from '../../shared/selects/branch.select.component';
-import { PeriodSelectComponent } from '../../shared/selects/period.select.component';
-import { ActiveSelectComponent } from '../../shared/selects/active.select.component';
+import { CurriculumSelectComponent } from '../../shared/helper-components/curriculum.select.component';
+import { DepartmentSelectComponent } from '../../shared/helper-components/department.select.component';
+import { BranchSelectComponent } from '../../shared/helper-components/branch.select.component';
+import { PeriodSelectComponent } from '../../shared/helper-components/period.select.component';
+import { ActiveSelectComponent } from '../../shared/helper-components/active.select.component';
 // Material
 import { CdkTableModule } from '@angular/cdk/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

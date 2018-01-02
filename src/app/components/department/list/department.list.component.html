@@ -8,13 +8,13 @@
             </mat-form-field>
             <span class="example-spacer"></span>
             <button mat-icon-button>
-                <mat-icon aria-label="Example icon-button with a heart icon" (click)="isFilterShow = !isFilterShow;dataSource.filter = ''">{{isFilterShow ? 'close' : 'search' }}</mat-icon>
+                <mat-icon matTooltip="Arama Yap" aria-label="Example icon-button with a heart icon" (click)="isFilterShow = !isFilterShow;dataSource.filter = ''">{{isFilterShow ? 'close' : 'search' }}</mat-icon>
             </button>
             <button mat-icon-button>
-                <mat-icon aria-label="Example icon-button with a heart icon" (click)="onReflesh()">refresh</mat-icon>
+                <mat-icon matTooltip="Yenile" aria-label="Example icon-button with a heart icon" (click)="onReflesh()">refresh</mat-icon>
             </button>
             <button mat-icon-button>
-                <mat-icon aria-label="Example icon-button with a heart icon" (click)="onCreate()">add</mat-icon>
+                <mat-icon matTooltip="Yeni Kayıt Ekle" aria-label="Example icon-button with a heart icon" (click)="onCreate()">add</mat-icon>
             </button>
         </mat-toolbar-row>
     </mat-toolbar>
@@ -22,7 +22,7 @@
         <ng-container matColumnDef="#" [@anim]="row.name">
             <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass'"></mat-header-cell>
             <mat-cell *matCellDef="let row" [ngClass]="'customWidthClass'">
-                <button mat-icon-button [matMenuTriggerFor]="menu">
+                <button matTooltip="Seçenekler" mat-icon-button [matMenuTriggerFor]="menu">
                     <mat-icon>arrow_drop_down</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">

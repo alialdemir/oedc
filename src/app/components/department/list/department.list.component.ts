@@ -18,7 +18,7 @@ import { MatDialog } from '@angular/material';
 import { DepartmentUpdateComponent } from '../update/department.update.component';
 import { DepartmentAddComponent } from '../add/department.add.component';
 
-import { AlertDialogComponent } from '../../../shared/alert.component';
+import { AlertDialogComponent } from '../../../shared/helper-components/alert.component';
 
 // Animation
 import { TableRowAnimation } from '../../../shared/animations/tablerow.animation';
