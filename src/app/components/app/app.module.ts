@@ -25,6 +25,7 @@ import { ApiService } from '../../shared/services/api.service';
 import { JwtService } from '../../shared/services/jwt.service';
 import { CurriculumService } from '../../shared/services/curriculum.service';
 import { DepartmentService } from '../../shared/services/department.service';
+import { LessonService } from '../../shared/services/lesson.service';
 
 // Material
 import { CdkTableModule } from '@angular/cdk/table';
@@ -182,6 +183,7 @@ import {
     JwtService,
     CurriculumService,
     DepartmentService,
+    LessonService,
     HttpClientModule,
     { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() },
   ],
