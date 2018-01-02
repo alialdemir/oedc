@@ -37,6 +37,7 @@ import { DepartmentSelectComponent } from '../../shared/helper-components/depart
 import { BranchSelectComponent } from '../../shared/helper-components/branch.select.component';
 import { PeriodSelectComponent } from '../../shared/helper-components/period.select.component';
 import { ActiveSelectComponent } from '../../shared/helper-components/active.select.component';
+import { DialogTitleComponent } from '../../shared/helper-components/dialog.title.component';
 // Material
 import { CdkTableModule } from '@angular/cdk/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -93,6 +94,7 @@ import {
     BranchSelectComponent,
     PeriodSelectComponent,
     ActiveSelectComponent,
+    DialogTitleComponent,
   ],
   imports: [
     BrowserModule,

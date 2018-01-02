@@ -1,8 +1,5 @@
 <form [formGroup]="form" (submit)="onSubmit()">
-  <h2 mat-dialog-title>
-    Program Güncelle
-    <mat-icon class="popup-close-button" (click)="dialogRef.close()">close</mat-icon>
-  </h2>
+  <DialogTitleComponent title="Program Güncelle"></DialogTitleComponent>
   <mat-form-field hintLabel="Maksimum 100 karakter">
     <input matInput formControlName="name" #input maxlength="100" minlength="3" placeholder="Program adı" required>
     <mat-hint align="end">{{input.value?.length || 0}}/100</mat-hint>

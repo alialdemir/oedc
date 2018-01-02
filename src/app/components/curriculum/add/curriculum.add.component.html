@@ -1,8 +1,5 @@
 <form [formGroup]="form" (submit)="onSubmit()">
-  <h2 mat-dialog-title>
-    Bölüm Ekle
-    <mat-icon class="popup-close-button" (click)="dialogRef.close()">close</mat-icon>
-  </h2>
+  <DialogTitleComponent title="Bölüm Ekle"></DialogTitleComponent>
   <mat-form-field hintLabel="Maksimum 100 karakter">
     <input matInput formControlName="name" #input maxlength="100" minlength="3" placeholder="Bölüm adı" required>
     <mat-hint align="end">{{input.value?.length || 0}}/100</mat-hint>
