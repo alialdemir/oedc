@@ -3,6 +3,7 @@
 const Model = require('../models/curriculum')
 
 function GetAll(req, res) {
+  let query = JSON.parse(req.query.Query) || {}
   let pageSize = Number.parseInt(req.query.PageSize)
   let pageNumber = Number.parseInt(req.query.PageNumber)
   let fields = {}
@@ -10,7 +11,7 @@ function GetAll(req, res) {
   if (pageSize === NaN) pageSize = 10;
   if (pageNumber === NaN || pageNumber <= 0) pageNumber = 1;
 
-  Model.paginate({}, { select: fields, sort: { _id: -1 }, offset: pageSize * (pageNumber - 1), limit: pageSize })
+  Model.paginate(query, { select: fields, sort: { _id: -1 }, offset: pageSize * (pageNumber - 1), limit: pageSize })
     .then(function (result) {
       res.status(200)
         .send({
@@ -57,7 +58,7 @@ function Delete(req, res) {
   Model.findByIdAndRemove(req.query.curriculumId, (err, model) => {
     if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
     if (!model) return res.status(404).send({ message: `Bölüm mevcut değil.` })
-
+    model.remove();
     res.status(200).send({ message: model.name + ' isimli bölüm silindi.' });
   });
 }

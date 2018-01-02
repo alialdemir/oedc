@@ -4,14 +4,15 @@ const Model = require('../models/department')
 const curriculumModel = require('../models/curriculum')
 
 function GetAll(req, res) {
+    let query = JSON.parse(req.query.Query) || {}
     let pageSize = Number.parseInt(req.query.PageSize)
     let pageNumber = Number.parseInt(req.query.PageNumber)
     let fields = {}
     if (req.query.Fields !== undefined || req.query.Fields !== '') fields = req.query.Fields
     if (pageSize === NaN) pageSize = 10;
     if (pageNumber === NaN || pageNumber <= 0) pageNumber = 1;
-
-    Model.paginate({}, { populate: { path: 'curriculum', select: 'name' }, select: fields, sort: { _id: -1 }, offset: pageSize * (pageNumber - 1), limit: pageSize })
+    
+    Model.paginate(query, { populate: { path: 'curriculum', select: 'name' }, select: fields, sort: { _id: -1 }, offset: pageSize * (pageNumber - 1), limit: pageSize })
         .then(function (result) {
             res.status(200)
                 .send({

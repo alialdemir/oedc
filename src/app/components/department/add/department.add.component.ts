@@ -27,9 +27,9 @@ export class DepartmentAddComponent {
         this.GetCurriculumData();
     }
 
-     GetCurriculumData() {
+    GetCurriculumData() {
         this.curriculumService
-            .GetAll(9999, 1, '_id name')
+            .GetAll(9999, 1, '_id name', { isActive: true })
             .subscribe(model => this.curriculums = model.items);
     }
 

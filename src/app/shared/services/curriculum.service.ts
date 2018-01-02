@@ -18,8 +18,9 @@ export class CurriculumService {
     }
 
     // Tüm bölüm listesi döndürür
-    GetAll(pageSize: number, pageNumber: number, fields: string = ''): Observable<ServiceModel<Curriculum>> {
-        return this.apiService.get<Curriculum>(`/Curriculum?PageSize=${pageSize}&PageNumber=${pageNumber}&Fields=${fields}`);
+    GetAll(pageSize: number, pageNumber: number, fields: string = '', query: any = {}): Observable<ServiceModel<Curriculum>> {
+        const q =  JSON.stringify(query);
+        return this.apiService.get<Curriculum>(`/Curriculum?PageSize=${pageSize}&PageNumber=${pageNumber}&Fields=${fields}&Query=${q}`);
     }
 
     // Bölüm sil

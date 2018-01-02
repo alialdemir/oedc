@@ -28,7 +28,7 @@ export class DepartmentUpdateComponent {
     // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit() {
         this.curriculumService
-            .GetAll(9999, 1, '_id name')
+            .GetAll(9999, 1, '_id name', { isActive: true })
             .subscribe(model => {
                 this.curriculums = model.items;
                 this.form.controls.name.setValue(this.params.name);
