@@ -7,7 +7,6 @@ import { MatSnackBar } from '@angular/material';
 import { Curriculum } from '../../../shared/models/curriculum.model';
 
 @Component({
-    styleUrls: ['./department.update.component.css'],
     templateUrl: './department.update.component.html'
 })
 export class DepartmentUpdateComponent {

@@ -5,7 +5,6 @@ import { Lesson } from '../../../shared/models/lesson.model';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 
 @Component({
-    styleUrls: ['./lesson.add.component.css'],
     templateUrl: './lesson.add.component.html'
 })
 export class LessonAddComponent {

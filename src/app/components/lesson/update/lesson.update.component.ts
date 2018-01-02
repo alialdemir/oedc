@@ -6,7 +6,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
-    styleUrls: ['./lesson.update.component.css'],
     templateUrl: './lesson.update.component.html'
 })
 export class LessonUpdateComponent {

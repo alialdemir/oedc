@@ -23,7 +23,7 @@ import { AlertDialogComponent } from '../../../shared/alert.component';
 // Animation
 import { TableRowAnimation } from '../../../shared/animations/tablerow.animation';
 @Component({
-  styleUrls: ['./department.list.component.css'],
+  styleUrls: ['../../../../assets/css/list.component.css'],
   templateUrl: './department.list.component.html',
   animations: [TableRowAnimation],
 })
