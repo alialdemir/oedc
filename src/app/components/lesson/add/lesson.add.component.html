@@ -1,9 +1,6 @@
 <form [formGroup]="form" (submit)="onSubmit()">
   <DialogTitleComponent title="Ders Ekle"></DialogTitleComponent>
-  <mat-form-field hintLabel="Maksimum 100 karakter">
-    <input matInput formControlName="name" #input maxlength="100" minlength="3" placeholder="Ders adı" required>
-    <mat-hint align="end">{{input.value?.length || 0}}/100</mat-hint>
-  </mat-form-field>
+  <NameInputComponent [form]="form" placeholder="Ders Adı"></NameInputComponent>
   <mat-form-field>
     <input matInput formControlName="code" #input maxlength="10" minlength="3" placeholder="Ders kodu" required>
   </mat-form-field>

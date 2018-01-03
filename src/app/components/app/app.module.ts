@@ -31,13 +31,14 @@ import { CurriculumService } from '../../shared/services/curriculum.service';
 import { DepartmentService } from '../../shared/services/department.service';
 import { LessonService } from '../../shared/services/lesson.service';
 
-// Select components
+// components
 import { CurriculumSelectComponent } from '../../shared/helper-components/curriculum.select.component';
 import { DepartmentSelectComponent } from '../../shared/helper-components/department.select.component';
 import { BranchSelectComponent } from '../../shared/helper-components/branch.select.component';
 import { PeriodSelectComponent } from '../../shared/helper-components/period.select.component';
 import { ActiveSelectComponent } from '../../shared/helper-components/active.select.component';
 import { DialogTitleComponent } from '../../shared/helper-components/dialog.title.component';
+import { NameInputComponent} from '../../shared/helper-components/name.input.component';
 // Material
 import { CdkTableModule } from '@angular/cdk/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -95,6 +96,7 @@ import {
     PeriodSelectComponent,
     ActiveSelectComponent,
     DialogTitleComponent,
+    NameInputComponent,
   ],
   imports: [
     BrowserModule,
