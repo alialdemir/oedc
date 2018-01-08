@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
     selector: 'DepartmentSelectComponent',
     template: `
     <mat-form-field [formGroup]="form">
-    <mat-select formControlName="departmentId" placeholder="Program seçiniz"  required>
+    <mat-select formControlName="departmentId" placeholder="Program seçiniz" multiple required>
       <mat-option *ngFor="let  department of departmentList" [value]="department._id">
       {{department.name}}
       </mat-option>
@@ -22,6 +22,7 @@ export class DepartmentSelectComponent {
 
     constructor(private departmentService: DepartmentService) { }
 
+    // Once the component is in, take the data from the service.
     // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit() {
         // Formdaki curriculumId'nin değeri değişirse  bölümleri çeker

@@ -14,6 +14,7 @@ export class DepartmentAddComponent {
         isActive: new FormControl(Boolean, Validators.required),
         curriculumId: new FormControl([], Validators.required)
     });
+
     constructor(
         private departmentService: DepartmentService,
         public dialogRef: MatDialogRef<DepartmentAddComponent>,

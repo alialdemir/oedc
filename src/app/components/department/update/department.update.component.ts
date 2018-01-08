@@ -1,4 +1,4 @@
-﻿import { Component, Inject, AfterViewInit } from '@angular/core';
+﻿import { Component, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DepartmentService } from '../../../shared/services/department.service';
 import { Department } from '../../../shared/models/department.model';
@@ -15,6 +15,7 @@ export class DepartmentUpdateComponent {
         isActive: new FormControl(Boolean, Validators.required),
         curriculumId: new FormControl([], Validators.required)
     });
+
     constructor(
         private departmentService: DepartmentService,
         public dialogRef: MatDialogRef<DepartmentUpdateComponent>,
@@ -24,13 +25,12 @@ export class DepartmentUpdateComponent {
         this.form.controls.isActive.setValue(this.params.isActive);
         this.form.controls.curriculumId.setValue(this.params.curriculum._id);
     }
-    // tslint:disable-next-line:use-life-cycle-interface
-    ngAfterViewInit() {
-    }
+
     onSubmit(event: any) {
         if (!this.form.valid) {
             return false;
         }
+
         this.departmentService
             .Update(new Department(
                 this.form.controls.name.value,

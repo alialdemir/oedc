@@ -22,6 +22,10 @@ import { LessonListComponent } from '../lesson/list/lesson.list.component';
 import { LessonAddComponent } from '../lesson/add/lesson.add.component';
 import { LessonUpdateComponent } from '../lesson/update/lesson.update.component';
 
+import { InstructorListComponent } from '../instructor/list/instructor.list.component';
+import { InstructorAddComponent } from '../instructor/add/instructor.add.component';
+import { InstructorUpdateComponent } from '../instructor/update/instructor.update.component';
+
 import { AlertDialogComponent } from '../../shared/helper-components/alert.component';
 
 // Services
@@ -30,6 +34,7 @@ import { JwtService } from '../../shared/services/jwt.service';
 import { CurriculumService } from '../../shared/services/curriculum.service';
 import { DepartmentService } from '../../shared/services/department.service';
 import { LessonService } from '../../shared/services/lesson.service';
+import { InstructorService } from '../../shared/services/instructor.service';
 
 // components
 import { CurriculumSelectComponent } from '../../shared/helper-components/curriculum.select.component';
@@ -39,6 +44,7 @@ import { PeriodSelectComponent } from '../../shared/helper-components/period.sel
 import { ActiveSelectComponent } from '../../shared/helper-components/active.select.component';
 import { DialogTitleComponent } from '../../shared/helper-components/dialog.title.component';
 import { NameInputComponent} from '../../shared/helper-components/name.input.component';
+import { LessonSelectComponent} from '../../shared/helper-components/lesson.select.component';
 // Material
 import { CdkTableModule } from '@angular/cdk/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -89,6 +95,9 @@ import {
     LessonListComponent,
     LessonAddComponent,
     LessonUpdateComponent,
+    InstructorListComponent,
+    InstructorAddComponent,
+    InstructorUpdateComponent,
     AlertDialogComponent,
     CurriculumSelectComponent,
     DepartmentSelectComponent,
@@ -97,6 +106,7 @@ import {
     ActiveSelectComponent,
     DialogTitleComponent,
     NameInputComponent,
+    LessonSelectComponent,
   ],
   imports: [
     BrowserModule,
@@ -130,6 +140,13 @@ import {
         component: LessonListComponent,
         data: {
           title: 'Dersler'
+        }
+      },
+      {
+        path: 'Yonetim/OgretimElemanlari',
+        component: InstructorListComponent,
+        data: {
+          title: 'Öğretim Elemanları'
         }
       },
       {
@@ -213,6 +230,7 @@ import {
     CurriculumService,
     DepartmentService,
     LessonService,
+    InstructorService,
     HttpClientModule,
     { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() },
   ],
@@ -222,9 +240,10 @@ import {
     CurriculumUpdateComponent,
     DepartmentAddComponent,
     DepartmentUpdateComponent,
-    LessonListComponent,
     LessonAddComponent,
     LessonUpdateComponent,
+    InstructorAddComponent,
+    InstructorUpdateComponent,
     AlertDialogComponent,
   ]
 })

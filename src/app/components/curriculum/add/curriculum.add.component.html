@@ -1,4 +1,4 @@
-<form [formGroup]="form" (submit)="onSubmit()">
+<form [formGroup]="form" (submit)="onSubmit($event)">
   <DialogTitleComponent title="Bölüm Ekle"></DialogTitleComponent>
   <NameInputComponent [form]="form" placeholder="Bölüm Adı"></NameInputComponent>
   <ActiveSelectComponent [form]="form"></ActiveSelectComponent>

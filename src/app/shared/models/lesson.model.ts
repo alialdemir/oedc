@@ -8,11 +8,11 @@ export class Lesson {
         this.branch = branch;
         this.isActive = isActive;
     }
-    _id: String;
-    name: String;
-    code: String;
-    department: String;
-    period: String;
-    branch: String[];
-    isActive: Boolean;
+    _id: string;
+    name: string;
+    code: string;
+    department: string;
+    period: string;
+    branch: string[];
+    isActive: boolean;
 }

@@ -1,6 +1,8 @@
 'use strict'
 
 const Model = require('../models/instructor')
+var ObjectId = require('mongodb').ObjectID;
+
 function GetAll(req, res) {
     let query = JSON.parse(req.query.Query) || {}
     let pageSize = Number.parseInt(req.query.PageSize)
@@ -71,9 +73,65 @@ function Delete(req, res) {
     });
 }
 
-module.exports = {
+function GetInstructorLessonInfo(req, res) {
+    Model.aggregate([
+        { $match: { _id: ObjectId(req.query._id) } },
+        {
+            $lookup: {
+                from: "lessons",
+                localField: "lessons",
+                foreignField: "_id",
+                as: "lessons"
+            }
+        },
+        { $unwind: "$lessons" },
+        {
+            $lookup: {
+                from: "departments",
+                localField: "lessons.department",
+                foreignField: "_id",
+                as: "lessons.department"
+            }
+        },
+        {
+            $group: {
+                _id: {
+                    curriculumId: '$lessons.department.curriculum',
+                },
+                departmentId: { $first: '$lessons.department._id' },
+                lessonId: { $push: '$lessons._id' },
+            }
+        },
+        /* {
+             $project: {
+                 lessonId: '$lessons._id',
+                 departmentId: '$lessons.department._id',
+                 curriculumId: '$lessons.department.curriculum',
+             }
+         },*/
+    ], function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        var departments = [];
+        var curriculums = [];
+        var lessons = [];
+
+        for (let i = 0; i < result.length; i++) {
+            const element = result[i];
+
+            curriculumId.push(element.curriculumId);
+        }
+
+        res.status(200).send(curriculumId);
+    });
+}
+
+module.exports = { 
     GetAll,
     Insert,
     Update,
-    Delete
+    Delete,
+    GetInstructorLessonInfo
 }

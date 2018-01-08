@@ -14,12 +14,12 @@
                 <mat-icon matTooltip="Yenile" aria-label="Example icon-button with a heart icon" (click)="onReflesh()">refresh</mat-icon>
             </button>
             <button mat-icon-button>
-                <mat-icon matTooltip="Yeni Kayıt Ekle" aria-label="Example icon-button with a heart icon" (click)="onCreate()">add</mat-icon>
+                <mat-icon matTooltip="Yeni Kayıt Ekle" aria-label="Example icon-button with a heart icon" (click)="onCreate($event)">add</mat-icon>
             </button>
         </mat-toolbar-row>
     </mat-toolbar>
     <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear matSortDirection="asc">
-        <ng-container matColumnDef="#" [@anim]="row.name">
+        <ng-container matColumnDef="#" [@anim]="">
             <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass'"></mat-header-cell>
             <mat-cell *matCellDef="let row" [ngClass]="'customWidthClass'">
                 <button matTooltip="Seçenekler" mat-icon-button [matMenuTriggerFor]="menu">

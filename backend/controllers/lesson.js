@@ -18,16 +18,15 @@ function GetAll(req, res) {
             select: 'name',
             populate: { path: 'curriculum', select: 'name' }
         }, select: fields, sort: { _id: -1 }, offset: pageSize * (pageNumber - 1), limit: pageSize
+    }).then(function (result) {
+        res.status(200)
+            .send({
+                total_count: result.total,
+                pageSize: result.limit,
+                pageNumber: result.pages,
+                items: result.docs
+            })
     })
-        .then(function (result) {
-            res.status(200)
-                .send({
-                    total_count: result.total,
-                    pageSize: result.limit,
-                    pageNumber: result.pages,
-                    items: result.docs
-                })
-        })
         .catch(function (err) {
             if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
         });
@@ -88,7 +87,7 @@ function Update(req, res) {
 }
 
 function Delete(req, res) {
-    Model.findByIdAndRemove(req.query.lessonId, (err, model) => {
+    Model.findByIdAndRemove(req.query._id, (err, model) => {
         if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
         if (!model) return res.status(404).send({ message: `Ders mevcut değil.` })
 

@@ -24,9 +24,9 @@ export class LessonService {
     }
 
     // Ders sil
-    Delete(curriculumId: String) {
+    Delete(_id: String) {
         return this.apiService
-            .delete('/Lesson?lessonId=' + curriculumId)
+            .delete('/Lesson?_id=' + _id)
             .map(data => data);
     }
 

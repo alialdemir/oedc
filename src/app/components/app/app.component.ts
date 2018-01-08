@@ -33,7 +33,7 @@ export class AppComponent {
     },
     {
       Text: 'Öğretim Elemanları',
-      Link: 'Yonetim/OgretimElemanları',
+      Link: 'Yonetim/OgretimElemanlari',
       Icon: 'school',
       Role: []
     },

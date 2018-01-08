@@ -1,0 +1,9 @@
+<form [formGroup]="form" (submit)="onSubmit($event)">
+  <DialogTitleComponent title="Öğretim Elemanı Güncelle"></DialogTitleComponent>
+  <NameInputComponent [form]="form" placeholder="Ad Soyad"></NameInputComponent>
+  <CurriculumSelectComponent [form]="form"></CurriculumSelectComponent>
+  <DepartmentSelectComponent [form]="form"></DepartmentSelectComponent>
+  <LessonSelectComponent [form]="form"></LessonSelectComponent>
+  <ActiveSelectComponent [form]="form"></ActiveSelectComponent>
+  <button mat-raised-button color="primary" type="submit">Güncelle</button>
+</form>

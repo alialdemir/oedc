@@ -39,11 +39,10 @@ export class LessonListComponent implements AfterViewInit {
   constructor(
     private lessonService: LessonService,
     public snackBar: MatSnackBar,
-    private dialog: MatDialog) {
-  }
+    private dialog: MatDialog) { }
 
   // Delete dialog
-  onDelete(row: any) {
+  onDelete(row: Lesson) {
     const dialogRef = this.dialog.open(AlertDialogComponent, {
       width: '400px',
       data: { title: 'Ders sil?', message: row.name + ' isimli dersi silmek istediğinize emin misiniz?' }
@@ -55,23 +54,23 @@ export class LessonListComponent implements AfterViewInit {
     });
   }
 
-  // Delete department by department id
-  private DeleteItem(departmentId) {
+  // Delete lesson by lesson id
+  private DeleteItem(_id: string) {
     this.lessonService
-      .Delete(departmentId)
+      .Delete(_id)
       .subscribe(isSuccess => {
         this.snackBar.open(isSuccess.message, '', {
           duration: 3000,
         });
 
         this.dataSource.data = this.dataSource.data.filter(p => {
-          return p._id !== departmentId;
+          return p._id !== _id;
         });
         this.resultsLength = this.dataSource.data.length;
       });
   }
 
-  // Delete Department by Department id
+  // Update lesson
   onUpdate(row: Lesson) {
     const dialogRef = this.dialog.open(LessonUpdateComponent, {
       width: '400px',
@@ -86,7 +85,7 @@ export class LessonListComponent implements AfterViewInit {
     });
   }
 
-  // Delete Department by Department id
+  // Create lesson
   onCreate(row: Lesson) {
     const dialogRef = this.dialog.open(LessonAddComponent, {
       width: '400px',

@@ -23,8 +23,8 @@ export class LessonUpdateComponent {
         private lessonService: LessonService,
         public dialogRef: MatDialogRef<LessonUpdateComponent>,
         public snackBar: MatSnackBar,
-        @Inject(MAT_DIALOG_DATA) public params: any) {
-    }
+        @Inject(MAT_DIALOG_DATA) public params: any) { }
+
     // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit() {
         setTimeout(() => {
@@ -37,6 +37,7 @@ export class LessonUpdateComponent {
             this.form.controls.departmentId.setValue(this.params.department._id);
         }, 100);
     }
+
     onSubmit(event: any) {
         if (!this.form.valid) {
             return false;
@@ -56,6 +57,7 @@ export class LessonUpdateComponent {
                 this.dialogRef.close(isSuccess.model);
             }, err => this.ShowSnackBar(err.error.message));
     }
+
     ShowSnackBar(message: string) {
         this.snackBar.open(message, '', {
             duration: 3000,

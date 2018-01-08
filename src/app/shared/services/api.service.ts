@@ -51,6 +51,13 @@ export class ApiService {
         });
     }
 
+    Get(path: String, params?: any) {
+        return this.http.get(`${environment.api_url}${path}`, {
+            headers: this.setHeaders(),
+            params: this.setParams(params)
+        });
+    }
+
     put(path: String, body: Object = {}): Observable<any> {
         return this.http.put(
             `${environment.api_url}${path}`,

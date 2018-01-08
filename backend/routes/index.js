@@ -25,6 +25,7 @@ api.put('/lesson', auth, lessonCtrl.Update)
 api.delete('/lesson', auth, lessonCtrl.Delete)
 
 api.get('/instructor', auth, instructorCtrl.GetAll)
+api.get('/instructor/lesson', auth, instructorCtrl.GetInstructorLessonInfo)
 api.post('/instructor', auth, instructorCtrl.Insert)
 api.put('/instructor', auth, instructorCtrl.Update)
 api.delete('/instructor', auth, instructorCtrl.Delete)

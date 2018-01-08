@@ -25,9 +25,9 @@ export class DepartmentService {
     }
 
     // Program sil
-    Delete(departmentId: String) {
+    Delete(_id: String) {
         return this.apiService
-            .delete('/Department?departmentId=' + departmentId)
+            .delete('/Department?_id=' + _id)
             .map(data => data);
     }
 

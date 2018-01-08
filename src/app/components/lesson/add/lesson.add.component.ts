@@ -41,6 +41,7 @@ export class LessonAddComponent {
                 this.dialogRef.close(isSuccess.model);
             }, err => this.ShowSnackBar(err.error.message));
     }
+
     ShowSnackBar(message: string) {
         this.snackBar.open(message, '', {
             duration: 3000,

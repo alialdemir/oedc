@@ -8,15 +8,15 @@ import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
 
 // Services
-import { CurriculumService } from '../../../shared/services/curriculum.service';
+import { InstructorService } from '../../../shared/services/instructor.service';
 
-import { Curriculum } from '../../../shared/models/curriculum.model';
+import { Instructor } from '../../../shared/models/instructor.model';
 import { MatSnackBar } from '@angular/material';
 import { retry } from 'rxjs/operators/retry';
 import { MatDialog } from '@angular/material';
 
-import { CurriculumUpdateComponent } from '../update/curriculum.update.component';
-import { CurriculumAddComponent } from '../add/curriculum.add.component';
+import { InstructorUpdateComponent } from '../update/instructor.update.component';
+import { InstructorAddComponent } from '../add/instructor.add.component';
 
 import { AlertDialogComponent } from '../../../shared/helper-components/alert.component';
 
@@ -24,29 +24,28 @@ import { AlertDialogComponent } from '../../../shared/helper-components/alert.co
 import { TableRowAnimation } from '../../../shared/animations/tablerow.animation';
 @Component({
   styleUrls: ['../../../../assets/css/list.component.css'],
-  templateUrl: './curriculum.list.component.html',
+  templateUrl: './instructor.list.component.html',
   animations: [TableRowAnimation],
 })
 
-export class CurriculumListComponent implements AfterViewInit {
-  displayedColumns = ['#', 'curriculum', 'status'];
-  dataSource = new MatTableDataSource<Curriculum>();
+export class InstructorListComponent implements AfterViewInit {
+  displayedColumns = ['#', 'fullname',  'status'];
+  dataSource = new MatTableDataSource<Instructor>();
 
   resultsLength = 0;
   isFilterShow = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private curriculumService: CurriculumService,
-    private snackBar: MatSnackBar,
-    private dialog: MatDialog) {
-  }
+    private instructorService: InstructorService,
+    public snackBar: MatSnackBar,
+    private dialog: MatDialog) { }
 
   // Delete dialog
-  onDelete(row: Curriculum) {
+  onDelete(row: Instructor) {
     const dialogRef = this.dialog.open(AlertDialogComponent, {
       width: '400px',
-      data: { title: 'Bölümü sil?', message: row.name + ' isimli bölümü silmek istediğinize emin misiniz?' }
+      data: { title: 'Öğretim elemanı sil?', message: row.fullname + ' isimli öğretim elemanını silmek istediğinize emin misiniz?' }
     });
     dialogRef.afterClosed().subscribe(curriculum => {
       if (curriculum) {
@@ -55,9 +54,9 @@ export class CurriculumListComponent implements AfterViewInit {
     });
   }
 
-  // Delete curriculum by curriculum id
+  // Delete instructor by instructor id
   private DeleteItem(_id: string) {
-    this.curriculumService
+    this.instructorService
       .Delete(_id)
       .subscribe(isSuccess => {
         this.snackBar.open(isSuccess.message, '', {
@@ -71,30 +70,30 @@ export class CurriculumListComponent implements AfterViewInit {
       });
   }
 
-  // Update curriculum
-  onUpdate(row: Curriculum) {
-    const dialogRef = this.dialog.open(CurriculumUpdateComponent, {
+  // Update instructor
+  onUpdate(row: Instructor) {
+    const dialogRef = this.dialog.open(InstructorUpdateComponent, {
       width: '400px',
       data: row
     });
-    dialogRef.afterClosed().subscribe(curriculum => {
-      if (curriculum) {
+    dialogRef.afterClosed().subscribe(instructor => {
+      if (instructor) {
         const index = this.dataSource.data.findIndex(p => p._id === row._id);
-        this.dataSource.data.splice(index, 1, curriculum);
+        this.dataSource.data.splice(index, 1, instructor);
         this.dataSource.data = [...this.dataSource.data];
       }
     });
   }
 
-  // Create curriculum
-  onCreate(row: Curriculum) {
-    const dialogRef = this.dialog.open(CurriculumAddComponent, {
+  // Create instructor
+  onCreate(row: Instructor) {
+    const dialogRef = this.dialog.open(InstructorAddComponent, {
       width: '400px',
       data: row
     });
-    dialogRef.afterClosed().subscribe(curriculum => {
-      if (curriculum) {
-        this.dataSource.data.unshift({ ...curriculum, state: 'active' });
+    dialogRef.afterClosed().subscribe(instructor => {
+      if (instructor) {
+        this.dataSource.data.unshift({ ...instructor, state: 'active' });
         this.dataSource.data = [...this.dataSource.data];
         this.resultsLength = this.dataSource.data.length;
       }
@@ -124,7 +123,7 @@ export class CurriculumListComponent implements AfterViewInit {
       .pipe(
       startWith({}),
       switchMap(() => {
-        return this.curriculumService.GetAll(this.paginator.pageSize, this.paginator.pageIndex + 1);
+        return this.instructorService.GetAll(this.paginator.pageSize, this.paginator.pageIndex + 1, '_id fullname isActive');
       }),
       map(data => {
         this.resultsLength = data.total_count;

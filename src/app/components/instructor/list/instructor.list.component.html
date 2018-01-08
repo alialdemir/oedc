@@ -1,7 +1,7 @@
 <div class="example-container mat-elevation-z8">
     <mat-toolbar color="secondr">
         <mat-toolbar-row>
-            <span>Dersler</span>
+            <span>Öğretim Elemanları</span>
             <span class="example-spacer"></span>
             <mat-form-field *ngIf="isFilterShow" class="search-input">
                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Arama Yap">
@@ -40,37 +40,11 @@
 
 
 
-        <ng-container matColumnDef="lesson">
-            <mat-header-cell *matHeaderCellDef>Ders Adı</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+        <ng-container matColumnDef="fullname">
+            <mat-header-cell *matHeaderCellDef>Ad Soyad</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.fullname }}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="curriculum">
-            <mat-header-cell *matHeaderCellDef>Bölüm Adı</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.department.curriculum.name }}</mat-cell>
-        </ng-container>
-        
-        <ng-container matColumnDef="department">
-            <mat-header-cell *matHeaderCellDef>Program Adı</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.department.name }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="code">
-            <mat-header-cell *matHeaderCellDef>Ders Kodu</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.code }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="branch">
-            <mat-header-cell *matHeaderCellDef>Şube</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.branch }}</mat-cell>
-        </ng-container>
-
-
-        <ng-container matColumnDef="period">
-            <mat-header-cell *matHeaderCellDef>Dönem</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.period }}</mat-cell>
-        </ng-container>
-  
         <ng-container matColumnDef="status">
             <mat-header-cell *matHeaderCellDef>Durum</mat-header-cell>
             <mat-cell *matCellDef="let row">

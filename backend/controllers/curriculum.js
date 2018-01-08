@@ -61,7 +61,7 @@ function Update(req, res) {
 }
 
 function Delete(req, res) {
-  Model.findByIdAndRemove(req.query.curriculumId, (err, model) => {
+  Model.findByIdAndRemove(req.query._id, (err, model) => {
     if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
     if (!model) return res.status(404).send({ message: `Bölüm mevcut değil.` })
     model.remove();

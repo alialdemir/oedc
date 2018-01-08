@@ -24,9 +24,9 @@ export class CurriculumService {
     }
 
     // Bölüm sil
-    Delete(curriculumId: String) {
+    Delete(_id: String) {
         return this.apiService
-            .delete('/Curriculum?curriculumId=' + curriculumId)
+            .delete('/Curriculum?_id=' + _id)
             .map(data => data);
     }
 

@@ -39,11 +39,10 @@ export class DepartmentListComponent implements AfterViewInit {
   constructor(
     private departmentService: DepartmentService,
     public snackBar: MatSnackBar,
-    private dialog: MatDialog) {
-  }
+    private dialog: MatDialog) { }
 
   // Delete dialog
-  onDelete(row: any) {
+  onDelete(row: Department) {
     const dialogRef = this.dialog.open(AlertDialogComponent, {
       width: '400px',
       data: { title: 'Program sil?', message: row.name + ' isimli programı silmek istediğinize emin misiniz?' }
@@ -56,22 +55,22 @@ export class DepartmentListComponent implements AfterViewInit {
   }
 
   // Delete department by department id
-  private DeleteItem(departmentId) {
+  private DeleteItem(_id: string) {
     this.departmentService
-      .Delete(departmentId)
+      .Delete(_id)
       .subscribe(isSuccess => {
         this.snackBar.open(isSuccess.message, '', {
           duration: 3000,
         });
 
         this.dataSource.data = this.dataSource.data.filter(p => {
-          return p._id !== departmentId;
+          return p._id !== _id;
         });
         this.resultsLength = this.dataSource.data.length;
       });
   }
 
-  // Delete Department by Department id
+  // Delete department
   onUpdate(row: Department) {
     const dialogRef = this.dialog.open(DepartmentUpdateComponent, {
       width: '400px',
@@ -86,7 +85,7 @@ export class DepartmentListComponent implements AfterViewInit {
     });
   }
 
-  // Delete Department by Department id
+  // Create department
   onCreate(row: Department) {
     const dialogRef = this.dialog.open(DepartmentAddComponent, {
       width: '400px',
