@@ -32,9 +32,9 @@ export class InstructorUpdateComponent {
                 this.form.controls.isActive.setValue(this.params.isActive);
 
                 const infos = data;
-                this.form.controls.curriculumId.setValue(infos.curriculumId);
-                this.form.controls.departmentId.setValue(infos.departmentId);
-                this.form.controls.lessonId.setValue(infos.lessonId);
+                this.form.controls.curriculumId.setValue(infos.curriculums);
+                this.form.controls.departmentId.setValue(infos.departments);
+                this.form.controls.lessonId.setValue(infos.lessons);
             });
     }
 

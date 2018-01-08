@@ -121,10 +121,16 @@ function GetInstructorLessonInfo(req, res) {
         for (let i = 0; i < result.length; i++) {
             const element = result[i];
 
-            curriculumId.push(element.curriculumId);
+            curriculums.push(...element._id.curriculumId);
+            departments.push(...element.departmentId);
+            lessons.push(...element.lessonId);
         }
 
-        res.status(200).send(curriculumId);
+        res.status(200).send({
+            curriculums,
+            departments,
+            lessons
+        });
     });
 }
 
