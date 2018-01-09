@@ -41,7 +41,7 @@ function Insert(req, res) {
   model.save((err, newModel) => {
     if (err) res.status(500).send({ message: `Veritabanında kaydedilirken hata oluştu: ${err} ` })
 
-    findById(newModel._id, res, newModel.name + ' isimli soru eklendi.')
+    findById(newModel._id, res, 'Soru eklendi.')
   })
 }
 
@@ -57,7 +57,7 @@ function Update(req, res) {
     model.save((err) => {
       if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
 
-      findById(model._id, res, model.name + ' isimli soru güncellendi.')
+      findById(model._id, res, 'Soru güncellendi.')
     });
   });
 }
@@ -67,7 +67,7 @@ function Delete(req, res) {
     if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
     if (!model) return res.status(404).send({ message: `Soru mevcut değil.` })
     model.remove();
-    res.status(200).send({ message: model.name + ' isimli soru silindi.' });
+    res.status(200).send({ message:  'Soru silindi.' });
   });
 }
 
