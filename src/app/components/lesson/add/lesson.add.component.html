@@ -1,6 +1,6 @@
 <form [formGroup]="form" (submit)="onSubmit($event)">
   <DialogTitleComponent title="Ders Ekle"></DialogTitleComponent>
-  <NameInputComponent [form]="form" placeholder="Ders Adı"></NameInputComponent>
+  <InputComponent [form]="form" formControlName="name" placeholder="Ders Adı"></InputComponent>
   <mat-form-field>
     <input matInput formControlName="code" #input maxlength="10" minlength="3" placeholder="Ders kodu" required>
   </mat-form-field>

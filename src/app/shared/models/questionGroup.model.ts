@@ -1,7 +1,6 @@
 export class QuestionGroup {
 
-    constructor(name: String, title: String, description: String, stylishType: String, isRequired: Boolean, order: Number, _id: String) {
-        this.name = name;
+    constructor(title: string, description: string, stylishType: string, isRequired: Boolean, order = 1, _id?: string) {
         this.title = title;
         this.description = description;
         this.stylishType = stylishType;
@@ -9,12 +8,11 @@ export class QuestionGroup {
         this.order = order;
         this._id = _id;
     }
-    _id: String;
-    name: String;
-    title: String;
-    description: String;
-    stylishType: String;
+    _id: string;
+    title: string;
+    description: string;
+    stylishType: string;
     isRequired: Boolean;
-    order: Number;
+    order: number;
 
 }

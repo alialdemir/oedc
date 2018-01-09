@@ -26,6 +26,11 @@ import { InstructorListComponent } from '../instructor/list/instructor.list.comp
 import { InstructorAddComponent } from '../instructor/add/instructor.add.component';
 import { InstructorUpdateComponent } from '../instructor/update/instructor.update.component';
 
+
+import { QuestionGroupListComponent } from '../questionGroup/list/questionGroup.list.component';
+import { QuestionGroupAddComponent } from '../questionGroup/add/questionGroup.add.component';
+import { QuestionGroupUpdateComponent } from '../questionGroup/update/questionGroup.update.component';
+
 import { AlertDialogComponent } from '../../shared/helper-components/alert.component';
 
 // Services
@@ -44,8 +49,13 @@ import { BranchSelectComponent } from '../../shared/helper-components/branch.sel
 import { PeriodSelectComponent } from '../../shared/helper-components/period.select.component';
 import { ActiveSelectComponent } from '../../shared/helper-components/active.select.component';
 import { DialogTitleComponent } from '../../shared/helper-components/dialog.title.component';
-import { NameInputComponent} from '../../shared/helper-components/name.input.component';
-import { LessonSelectComponent} from '../../shared/helper-components/lesson.select.component';
+import { InputComponent } from '../../shared/helper-components/input.component';
+import { LessonSelectComponent } from '../../shared/helper-components/lesson.select.component';
+import { TextAreaComponent } from '../../shared/helper-components/textarea.component';
+import { StylishSelectComponent } from '../../shared/helper-components/stylish.select.component';
+import { RequiredSelectComponent } from '../../shared/helper-components/required.select.component';
+
+
 // Material
 import { CdkTableModule } from '@angular/cdk/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -99,6 +109,9 @@ import {
     InstructorListComponent,
     InstructorAddComponent,
     InstructorUpdateComponent,
+    QuestionGroupListComponent,
+    QuestionGroupAddComponent,
+    QuestionGroupUpdateComponent,
     AlertDialogComponent,
     CurriculumSelectComponent,
     DepartmentSelectComponent,
@@ -106,8 +119,11 @@ import {
     PeriodSelectComponent,
     ActiveSelectComponent,
     DialogTitleComponent,
-    NameInputComponent,
+    InputComponent,
     LessonSelectComponent,
+    TextAreaComponent,
+    StylishSelectComponent,
+    RequiredSelectComponent,
   ],
   imports: [
     BrowserModule,
@@ -148,6 +164,13 @@ import {
         component: InstructorListComponent,
         data: {
           title: 'Öğretim Elemanları'
+        }
+      },
+      {
+        path: 'Yonetim/SoruGruplari',
+        component: QuestionGroupListComponent,
+        data: {
+          title: 'Soru Grupları'
         }
       },
       {
@@ -246,6 +269,8 @@ import {
     LessonUpdateComponent,
     InstructorAddComponent,
     InstructorUpdateComponent,
+    QuestionGroupAddComponent,
+    QuestionGroupUpdateComponent,
     AlertDialogComponent,
   ]
 })

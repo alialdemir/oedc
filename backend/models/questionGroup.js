@@ -5,10 +5,9 @@ var mongoosePaginate = require('mongoose-paginate');
 const Schema = mongoose.Schema
 
 const ModelSchema = Schema({
-    name: String,
     title: String,
     description: String,
-    stylishType: { type: String, enum: ['Şıklı', 'Yüzdelik', 'Yorum'] },
+    stylishType: { type: String, enum: ['Derecelendirme', 'Yüzdesel', 'Açık Uçlu'] },
     isRequired: Boolean,
     order: Number,
 })

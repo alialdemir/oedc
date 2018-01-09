@@ -1,6 +1,6 @@
 <form [formGroup]="form" (submit)="onSubmit($event)">
   <DialogTitleComponent title="Bölüm Güncelle"></DialogTitleComponent>
-  <NameInputComponent [form]="form" placeholder="Bölüm Adı"></NameInputComponent>
+  <InputComponent [form]="form" formControlName="name" placeholder="Bölüm Adı"></InputComponent>
   <ActiveSelectComponent [form]="form"></ActiveSelectComponent>
   <button mat-raised-button color="primary" type="submit">Güncelle</button>
 </form>

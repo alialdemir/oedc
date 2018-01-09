@@ -38,8 +38,8 @@ export class AppComponent {
       Role: []
     },
     {
-      Text: 'Sorular',
-      Link: 'Yonetim/Sorular',
+      Text: 'Soru Grupları',
+      Link: 'Yonetim/SoruGruplari',
       Icon: 'help',
       Role: []
     },

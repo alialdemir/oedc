@@ -1,0 +1,106 @@
+<div class="example-container mat-elevation-z8">
+    <mat-toolbar color="secondr">
+        <mat-toolbar-row>
+            <span>Soru Grupları</span>
+            <span class="example-spacer"></span>
+            <mat-form-field *ngIf="isFilterShow" class="search-input">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Arama Yap">
+            </mat-form-field>
+            <span class="example-spacer"></span>
+            <button mat-icon-button>
+                <mat-icon matTooltip="Arama Yap" aria-label="Example icon-button with a heart icon" (click)="isFilterShow = !isFilterShow;dataSource.filter = ''">{{isFilterShow ? 'close' : 'search' }}</mat-icon>
+            </button>
+            <button mat-icon-button>
+                <mat-icon matTooltip="Yenile" aria-label="Example icon-button with a heart icon" (click)="onReflesh()">refresh</mat-icon>
+            </button>
+            <button mat-icon-button>
+                <mat-icon matTooltip="Yeni Kayıt Ekle" aria-label="Example icon-button with a heart icon" (click)="onCreate($event)">add</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear matSortDirection="asc">
+        <ng-container matColumnDef="#" [@anim]="">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass'"></mat-header-cell>
+            <mat-cell *matCellDef="let row; let i = index" [ngClass]="'customWidthClass'">
+                <button matTooltip="Seçenekler" mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="onUpdate(row)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Güncelle</span>
+                    </button>
+                    <button mat-menu-item (click)="onUpdate(row)">
+                        <mat-icon>help</mat-icon>
+                        <span>Sorular</span>
+                    </button>
+                    <button mat-menu-item [matMenuTriggerFor]="subMenu">
+                        <mat-icon>open_with</mat-icon>
+                        <span>Taşı</span>
+                    </button>
+                    <button mat-menu-item (click)="onDelete(row)">
+                        <mat-icon>delete_forever</mat-icon>
+                        <span>Sil</span>
+                    </button>
+                </mat-menu>
+                <mat-menu #subMenu="matMenu">
+                    <button mat-menu-item (click)="onUpMove($event, i)" [disabled]="i === 0">
+                        <mat-icon>arrow_upward</mat-icon>
+                        <span>Yukarı Kaydır</span>
+                    </button>
+                    <button mat-menu-item (click)="onDownMove($event, i)" [disabled]="i === (resultsLength -1)">
+                        <mat-icon>arrow_downward</mat-icon>
+                        <span>Aşağı Kaydır</span>
+                    </button>
+                </mat-menu>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="order">
+            <mat-header-cell *matHeaderCellDef>Sıra</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.order }}.</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef>Başlık</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.title }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef>Açıklama</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.description }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="questioncount">
+            <mat-header-cell *matHeaderCellDef>Soru Sayısı</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.questioncount }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="stylishType">
+            <mat-header-cell *matHeaderCellDef>Şık Tipi</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <mat-chip-list>
+                    <mat-chip [color]=" row.stylishType === 'Açık Uçlu' ? 'primary' : row.stylishType === 'Derecelendirme' ?  'secondery'  : 'warn'"
+                        selected="true">{{ row.stylishType}}</mat-chip>
+                </mat-chip-list>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="isRequired">
+            <mat-header-cell *matHeaderCellDef>Zorunluluk</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <mat-chip-list>
+                    <mat-chip [color]=" row.isRequired ? 'primary' : 'warn'" selected="true">{{ row.isRequired ? 'Zorunlu Alan' : 'İsteğe Bağlı'}}</mat-chip>
+                </mat-chip-list>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" class="aside" [@TableRowAnimation]="row.state"></mat-row>
+    </mat-table>
+    <mat-list *ngIf="resultsLength == 0">
+        <mat-list-item class="text-center"> Eklenen hiç soru grubu yok. </mat-list-item>
+    </mat-list>
+    <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
