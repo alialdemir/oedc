@@ -40,7 +40,8 @@ import { CurriculumService } from '../../shared/services/curriculum.service';
 import { DepartmentService } from '../../shared/services/department.service';
 import { LessonService } from '../../shared/services/lesson.service';
 import { InstructorService } from '../../shared/services/instructor.service';
-import { QuestionGroupService } from '../../shared/services/questionGroup.sefvice';
+import { QuestionGroupService } from '../../shared/services/questionGroup.service';
+import { QuestionService } from '../../shared/services/question.service';
 
 // components
 import { CurriculumSelectComponent } from '../../shared/helper-components/curriculum.select.component';
@@ -256,6 +257,7 @@ import {
     LessonService,
     InstructorService,
     QuestionGroupService,
+    QuestionService,
     HttpClientModule,
     { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() },
   ],

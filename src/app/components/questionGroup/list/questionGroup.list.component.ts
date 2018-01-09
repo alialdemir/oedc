@@ -8,7 +8,7 @@ import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
 
 // Services
-import { QuestionGroupService } from '../../../shared/services/questionGroup.sefvice';
+import { QuestionGroupService } from '../../../shared/services/questionGroup.service';
 
 import { QuestionGroup } from '../../../shared/models/questionGroup.model';
 import { MatSnackBar } from '@angular/material';
