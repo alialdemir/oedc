@@ -1,6 +1,6 @@
 'use strict'
 
-const Model = require('../models/questionGroup')
+const Model = require('../models/question')
 
 function GetAll(req, res) {
   let query = JSON.parse(req.query.Query) || {}
@@ -11,7 +11,7 @@ function GetAll(req, res) {
   if (pageSize === NaN) pageSize = 10;
   if (pageNumber === NaN || pageNumber <= 0) pageNumber = 1;
 
-  Model.paginate(query, { select: fields, sort: { order: 1 }, offset: pageSize * (pageNumber - 1), limit: pageSize })
+  Model.paginate(query, { select: fields, sort: { _id: -1 }, offset: pageSize * (pageNumber - 1), limit: pageSize })
     .then(function (result) {
       res.status(200)
         .send({
@@ -29,41 +29,35 @@ function GetAll(req, res) {
 function findById(id, res, message) {
   Model.findById(id, function (err, model) {
     res.status(200).send({ message: message, model: model })
-  }).select('_id order title description stylishType isRequired')
+  }).select('_id question')
 }
 
 function Insert(req, res) {
-  Model.findOne({}, {}, { sort: { order: -1 } }, function (err, post) {
+  let model = new Model()
+  model.question = req.body.question
+  model.questionGroup = req.body.questionGroup
+  model.lessons = req.body.lessons
 
-    let model = new Model()
-    model.title = req.body.title
-    model.description = req.body.description
-    model.stylishType = req.body.stylishType
-    model.isRequired = req.body.isRequired
-    model.order = post.order + 1
+  model.save((err, newModel) => {
+    if (err) res.status(500).send({ message: `Veritabanında kaydedilirken hata oluştu: ${err} ` })
 
-    model.save((err, newModel) => {
-      if (err) res.status(500).send({ message: `Veritabanında kaydedilirken hata oluştu: ${err} ` })
-
-      findById(newModel._id, res, newModel.title + ' isimli soru grubu eklendi.')
-    })
-  });
+    findById(newModel._id, res, newModel.name + ' isimli soru eklendi.')
+  })
 }
 
 function Update(req, res) {
   Model.findById(req.body._id, (err, model) => {
     if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
-    if (!model) return res.status(404).send({ message: `Soru grubu mevcut değil.` })
-    model.title = req.body.title || model.title
-    model.description = req.body.description || model.description
-    model.stylishType = req.body.stylishType || model.stylishType
-    if (req.body.isRequired !== undefined) model.isRequired = req.body.isRequired
-    model.order = req.body.order || model.order
+    if (!model) return res.status(404).send({ message: `Soru mevcut değil.` })
+
+    model.question = req.body.question || model.question
+    model.questionGroup = req.body.questionGroup || model.questionGroup
+    model.lessons = req.body.lessons || model.lessons
 
     model.save((err) => {
       if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
 
-      findById(model._id, res, model.title + ' isimli soru grubu güncellendi.')
+      findById(model._id, res, model.name + ' isimli soru güncellendi.')
     });
   });
 }
@@ -71,9 +65,9 @@ function Update(req, res) {
 function Delete(req, res) {
   Model.findByIdAndRemove(req.query._id, (err, model) => {
     if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
-    if (!model) return res.status(404).send({ message: `Soru grubu mevcut değil.` })
+    if (!model) return res.status(404).send({ message: `Soru mevcut değil.` })
     model.remove();
-    res.status(200).send({ message: model.title + ' isimli soru grubu silindi.' });
+    res.status(200).send({ message: model.name + ' isimli soru silindi.' });
   });
 }
 

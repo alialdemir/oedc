@@ -134,7 +134,7 @@ export class QuestionGroupListComponent implements AfterViewInit {
     });
     dialogRef.afterClosed().subscribe(questionGroup => {
       if (questionGroup) {
-        this.dataSource.data.unshift({ ...questionGroup, state: 'active' });
+        this.dataSource.data.push({ ...questionGroup, state: 'active' });
         this.dataSource.data = [...this.dataSource.data];
         this.resultsLength = this.dataSource.data.length;
       }
