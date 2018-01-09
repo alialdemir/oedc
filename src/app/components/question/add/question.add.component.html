@@ -1,0 +1,6 @@
+<form [formGroup]="form" (submit)="onSubmit($event)">
+  <DialogTitleComponent title="Bölüm Ekle"></DialogTitleComponent>
+  <InputComponent [form]="form" formControlName="name" placeholder="Bölüm Adı"></InputComponent>
+  <ActiveSelectComponent [form]="form"></ActiveSelectComponent>
+  <button mat-raised-button color="primary" type="submit">Kaydet</button>
+</form>
