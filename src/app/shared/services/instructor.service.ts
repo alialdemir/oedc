@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Instructor } from '../models/instructor.model';
 import { ServiceModel } from '../models/service.model';
+import { IServiceBase } from '../models/IServiceBase.interface';
 import { Observable } from 'rxjs/Observable';
 import { Promise } from 'q';
 
 @Injectable()
-export class InstructorService {
+export class InstructorService implements IServiceBase {
     constructor(
         private apiService: ApiService
     ) { }

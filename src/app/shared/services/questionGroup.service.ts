@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { QuestionGroup } from '../models/questionGroup.model';
 import { ServiceModel } from '../models/service.model';
+import { IServiceBase } from '../models/IServiceBase.interface';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class QuestionGroupService {
+export class QuestionGroupService implements IServiceBase {
     constructor(
         private apiService: ApiService
     ) { }

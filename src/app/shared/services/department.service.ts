@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Department } from '../models/department.model';
 import { ServiceModel } from '../models/service.model';
+import { IServiceBase } from '../models/IServiceBase.interface';
 import { Observable } from 'rxjs/Observable';
 import { Jsonp } from '@angular/http/src/http';
 
 @Injectable()
-export class DepartmentService {
+export class DepartmentService implements IServiceBase {
     constructor(
         private apiService: ApiService
     ) { }
