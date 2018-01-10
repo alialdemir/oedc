@@ -145,7 +145,11 @@ export class QuestionListComponent implements AfterViewInit {
       .pipe(
       startWith({}),
       switchMap(() => {
-        return this.questionService.GetAll(this.paginator.pageSize, this.paginator.pageIndex + 1);
+        return this.questionService.GetAll(
+          this.paginator.pageSize,
+          this.paginator.pageIndex + 1,
+          '',
+          { questionGroup: this.questionGroupId });
       }),
       map(data => {
         this.resultsLength = data.total_count;
