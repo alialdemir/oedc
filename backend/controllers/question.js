@@ -2,6 +2,7 @@
 
 const Model = require('../models/question')
 const QuestionGroup = require('../models/questionGroup')
+var ObjectId = require('mongodb').ObjectID;
 
 function GetAll(req, res) {
   let query = JSON.parse(req.query.Query) || {}
@@ -96,9 +97,70 @@ function Delete(req, res) {
   });
 }
 
+
+function GetQuestionLessonInfo(req, res) {
+  Model.aggregate([
+    { $match: { _id: ObjectId(req.query._id) } },
+    {
+      $lookup: {
+        from: "lessons",
+        localField: "lessons",
+        foreignField: "_id",
+        as: "lessons"
+      }
+    },
+    { $unwind: "$lessons" },
+    {
+      $lookup: {
+        from: "departments",
+        localField: "lessons.department",
+        foreignField: "_id",
+        as: "lessons.department"
+      }
+    },
+    {
+      $group: {
+        _id: {
+          curriculumId: '$lessons.department.curriculum',
+        },
+        departmentId: { $push: '$lessons.department._id' },
+        lessonId: { $push: '$lessons._id' },
+      }
+    },
+  ], function (err, result) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    var departments = [];
+    var curriculums = [];
+    var lessons = [];
+
+    for (let i = 0; i < result.length; i++) {
+      const element = result[i];
+
+      curriculums.push(...element._id.curriculumId);
+      lessons.push(...element.lessonId);
+
+      for (let j = 0; j < element.departmentId.length; j++) {
+        const elementDepartment = element.departmentId[j][0] + '';
+        if (departments.findIndex(p => p === elementDepartment) === -1) {
+          departments.push(elementDepartment);
+        }
+      }
+    }
+    res.status(200).send({
+      curriculums,
+      departments,
+      lessons
+    });
+  });
+}
+
 module.exports = {
   GetAll,
   Insert,
   Update,
-  Delete
+  Delete,
+  GetQuestionLessonInfo
 }

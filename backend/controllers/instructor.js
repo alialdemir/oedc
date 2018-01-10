@@ -102,13 +102,6 @@ function GetInstructorLessonInfo(req, res) {
                 lessonId: { $push: '$lessons._id' },
             }
         },
-        /* {
-             $project: {
-                 lessonId: '$lessons._id',
-                 departmentId: '$lessons.department._id',
-                 curriculumId: '$lessons.department.curriculum',
-             }
-         },*/
     ], function (err, result) {
         if (err) {
             console.log(err);

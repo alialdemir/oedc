@@ -38,6 +38,7 @@ api.put('/questiongroup', auth, questionGroupCtrl.Update)
 api.delete('/questiongroup', auth, questionGroupCtrl.Delete)
 
 api.get('/question', auth, questionCtrl.GetAll)
+api.get('/question/lesson', auth, questionCtrl.GetQuestionLessonInfo)
 api.post('/question', auth, questionCtrl.Insert)
 api.put('/question', auth, questionCtrl.Update)
 api.delete('/question', auth, questionCtrl.Delete)

@@ -36,4 +36,11 @@ export class QuestionService {
             .put('/Question', question)
             .map(data => data);
     }
+
+     // Sorunun ders, bölüm ve program id'lerini döndürür
+     GetQuestionLessonInfo(_id: String): any {
+        return this.apiService
+            .Get(`/Question/Lesson?_id=${_id}`)
+            .map(data => data);
+    }
 }

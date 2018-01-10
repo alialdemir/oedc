@@ -1,7 +1,7 @@
-﻿import { Component, Inject } from '@angular/core';
+﻿import { Component, Inject, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CurriculumService } from '../../../shared/services/curriculum.service';
-import { Curriculum } from '../../../shared/models/curriculum.model';
+import { QuestionService } from '../../../shared/services/question.service';
+import { Question } from '../../../shared/models/question.model';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 
@@ -10,17 +10,33 @@ import { MatSnackBar } from '@angular/material';
 })
 export class QuestionUpdateComponent {
     public form = new FormGroup({
-        name: new FormControl('', Validators.required),
-        isActive: new FormControl(Boolean, Validators.required)
+        questionGroup: new FormControl('', Validators.required),
+        lessonId: new FormControl([]),
+        curriculumId: new FormControl([]),
+        departmentId: new FormControl([]),
+        question: new FormControl('', Validators.required),
     });
 
     constructor(
-        private curriculumService: CurriculumService,
+        private questionService: QuestionService,
         public dialogRef: MatDialogRef<QuestionUpdateComponent>,
         public snackBar: MatSnackBar,
         @Inject(MAT_DIALOG_DATA) public params: any) {
-        this.form.controls.name.setValue(params.name);
-        this.form.controls.isActive.setValue(params.isActive);
+        this.form.controls.question.setValue(this.params.question);
+        this.form.controls.questionGroup.setValue(this.params.questionGroup);
+    }
+
+    // tslint:disable-next-line:use-life-cycle-interface
+    ngAfterViewInit() {
+        if (this.params.lessons.length > 0) {
+            this.questionService
+                .GetQuestionLessonInfo(this.params._id)
+                .subscribe(data => {
+                    this.form.controls.curriculumId.setValue(data.curriculums);
+                    this.form.controls.departmentId.setValue(data.departments);
+                    this.form.controls.lessonId.setValue(data.lessons);
+                });
+        }
     }
 
     onSubmit(event: any) {
@@ -28,8 +44,12 @@ export class QuestionUpdateComponent {
             return false;
         }
 
-        this.curriculumService
-            .Update(new Curriculum(this.form.controls.name.value, this.form.controls.isActive.value, this.params._id))
+        this.questionService
+            .Update(new Question(
+                this.form.controls.question.value,
+                this.form.controls.questionGroup.value,
+                this.form.controls.lessonId.value,
+                this.params._id))
             .subscribe(isSuccess => {
                 this.snackBar.open(isSuccess.message, '', {
                     duration: 3000,

@@ -93,7 +93,7 @@ export class QuestionListComponent implements AfterViewInit {
   onUpdate(row: Question) {
     const dialogRef = this.dialog.open(QuestionUpdateComponent, {
       width: '400px',
-      data: { questionGroupId: this.questionGroupId, row: row }
+      data: row
     });
     dialogRef.afterClosed().subscribe(question => {
       if (question) {
