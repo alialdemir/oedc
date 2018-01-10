@@ -1,11 +1,11 @@
 <form [formGroup]="form" (submit)="onSubmit($event)">
   <DialogTitleComponent title="Ders Güncelle"></DialogTitleComponent>
-  <InputComponent [form]="form" formControlName="name" placeholder="Ders Adı"></InputComponent>
+  <InputComponent [form]="form" controlName="name" placeholder="Ders Adı"></InputComponent>
   <mat-form-field>
-    <input matInput formControlName="code" #input maxlength="10" minlength="3" placeholder="Ders kodu" required>
+    <input matInput controlName="code" #input maxlength="10" minlength="3" placeholder="Ders kodu" required>
   </mat-form-field>
-  <CurriculumSelectComponent [form]="form"></CurriculumSelectComponent>
-  <DepartmentSelectComponent [form]="form"></DepartmentSelectComponent>
+  <CurriculumSelectComponent [form]="form" [multiple]="false"></CurriculumSelectComponent>
+  <DepartmentSelectComponent [form]="form" [multiple]="false"></DepartmentSelectComponent>
   <BranchSelectComponent [form]="form"></BranchSelectComponent>
   <PeriodSelectComponent [form]="form"></PeriodSelectComponent>
   <ActiveSelectComponent [form]="form"></ActiveSelectComponent>

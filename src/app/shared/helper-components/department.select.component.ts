@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
     selector: 'DepartmentSelectComponent',
     template: `
     <mat-form-field [formGroup]="form">
-    <mat-select formControlName="departmentId" placeholder="Program seçiniz" multiple [required]="required">
+    <mat-select formControlName="departmentId" placeholder="Program seçiniz" [multiple]="multiple" [required]="required">
       <mat-option *ngFor="let  department of departmentList" [value]="department._id">
       {{department.name}}
       </mat-option>
@@ -22,6 +22,9 @@ export class DepartmentSelectComponent {
 
     @Input()
     required = true;
+
+    @Input()
+    multiple = true;
 
     constructor(private departmentService: DepartmentService) { }
 
