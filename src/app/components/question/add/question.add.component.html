@@ -1,6 +1,12 @@
 <form [formGroup]="form" (submit)="onSubmit($event)">
-  <DialogTitleComponent title="Bölüm Ekle"></DialogTitleComponent>
-  <InputComponent [form]="form" formControlName="name" placeholder="Bölüm Adı"></InputComponent>
-  <ActiveSelectComponent [form]="form"></ActiveSelectComponent>
+  <DialogTitleComponent title="Soru Ekle"></DialogTitleComponent>
+  <CurriculumSelectComponent [form]="form" required="false"></CurriculumSelectComponent>
+  <DepartmentSelectComponent [form]="form" required="false"></DepartmentSelectComponent>
+  <LessonSelectComponent [form]="form" placeholder="Ders İle İlişkilendir" required="false"></LessonSelectComponent>
+  <div formArrayName="items">
+    <TextAreaComponent *ngFor="let item of items.controls; let i = index;" [form]="form.controls.items.controls[i]" controlName="question"
+      [placeholder]="'Çıktı ' + (i + 1) "></TextAreaComponent>
+  </div>
   <button mat-raised-button color="primary" type="submit">Kaydet</button>
+  <button mat-raised-button color="accent" type="button" (click)="addItem($event)">Çıktı Ekle</button>
 </form>

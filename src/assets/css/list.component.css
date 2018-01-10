@@ -2,9 +2,24 @@
 /* List css*/
 
 .customWidthClass{
-    flex: 0 0 45px;
+  flex: 0 0 45px;
+} 
+.customWidthClass-question-count{
+    flex: 0 0 75px;
   } 
   
+.customWidthClass-stylish{
+  flex: 0 0 120px;
+} 
+.customWidthClass-title{
+  flex: 0 0 148px;
+} 
+.customWidthClass-lessonCount{
+  flex: 0 0 105px;
+}
+.margin-8{
+  margin:8px;
+}
   .example-spacer {
   flex: 1 1 auto;
   }

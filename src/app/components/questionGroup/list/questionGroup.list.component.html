@@ -30,7 +30,7 @@
                         <mat-icon>edit</mat-icon>
                         <span>Güncelle</span>
                     </button>
-                    <button mat-menu-item (click)="onUpdate(row)">
+                    <button mat-menu-item [routerLink]="['/Yonetim/Sorular',  row._id]">
                         <mat-icon>help</mat-icon>
                         <span>Sorular</span>
                     </button>
@@ -57,41 +57,37 @@
         </ng-container>
 
         <ng-container matColumnDef="order">
-            <mat-header-cell *matHeaderCellDef>Sıra</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.order }}.</mat-cell>
+            <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass'">Sıra</mat-header-cell>
+            <mat-cell *matCellDef="let row" [ngClass]="'customWidthClass'">{{ row.order }}.</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="title">
-            <mat-header-cell *matHeaderCellDef>Başlık</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.title }}</mat-cell>
+            <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass-title'">Başlık</mat-header-cell>
+            <mat-cell *matCellDef="let row" [ngClass]="'customWidthClass-title'">{{ row.title }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="description">
             <mat-header-cell *matHeaderCellDef>Açıklama</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.description }}</mat-cell>
+            <mat-cell *matCellDef="let row" [ngClass]="'margin-8'">{{ row.description }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="questioncount">
-            <mat-header-cell *matHeaderCellDef>Soru Sayısı</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.questioncount }}</mat-cell>
+            <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass-question-count'">Soru Sayısı</mat-header-cell>
+            <mat-cell *matCellDef="let row" [ngClass]="'customWidthClass-question-count'">{{ row.questions.length }} Adet</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="stylishType">
-            <mat-header-cell *matHeaderCellDef>Şık Tipi</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-                <mat-chip-list>
-                    <mat-chip [color]=" row.stylishType === 'Açık Uçlu' ? 'primary' : row.stylishType === 'Derecelendirme' ?  'secondery'  : 'warn'"
-                        selected="true">{{ row.stylishType}}</mat-chip>
-                </mat-chip-list>
+            <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass-stylish'">Şık Tipi</mat-header-cell>
+            <mat-cell *matCellDef="let row" [ngClass]="'customWidthClass-stylish'"
+            [style.color]=" row.stylishType === 'Açık Uçlu' ? 'blue' : row.stylishType === 'Derecelendirme' ?  'navy'  : 'purple'">
+                {{ row.stylishType}}
             </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="isRequired">
-            <mat-header-cell *matHeaderCellDef>Zorunluluk</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-                <mat-chip-list>
-                    <mat-chip [color]=" row.isRequired ? 'primary' : 'warn'" selected="true">{{ row.isRequired ? 'Zorunlu Alan' : 'İsteğe Bağlı'}}</mat-chip>
-                </mat-chip-list>
+            <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass-stylish'">Zorunluluk</mat-header-cell>
+            <mat-cell *matCellDef="let row" [ngClass]="'customWidthClass-stylish'" [style.color]="row.isRequired ? 'red' : 'lime'">
+                {{ row.isRequired ? 'Zorunlu Alan' : 'İsteğe Bağlı'}}
             </mat-cell>
         </ng-container>
 

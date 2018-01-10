@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { merge } from 'rxjs/observable/merge';
 import { of as observableOf } from 'rxjs/observable/of';
@@ -8,56 +8,74 @@ import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
 
 // Services
-import { CurriculumService } from '../../../shared/services/curriculum.service';
+import { QuestionService } from '../../../shared/services/question.service';
 
-import { Curriculum } from '../../../shared/models/curriculum.model';
+import { Question } from '../../../shared/models/question.model';
 import { MatSnackBar } from '@angular/material';
 import { retry } from 'rxjs/operators/retry';
 import { MatDialog } from '@angular/material';
 
-import { CurriculumUpdateComponent } from '../update/curriculum.update.component';
-import { CurriculumAddComponent } from '../add/curriculum.add.component';
+import { QuestionUpdateComponent } from '../update/question.update.component';
+import { QuestionAddComponent } from '../add/question.add.component';
 
 import { AlertDialogComponent } from '../../../shared/helper-components/alert.component';
 
 // Animation
 import { TableRowAnimation } from '../../../shared/animations/tablerow.animation';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   styleUrls: ['../../../../assets/css/list.component.css'],
-  templateUrl: './curriculum.list.component.html',
+  templateUrl: './question.list.component.html',
   animations: [TableRowAnimation],
 })
 
-export class CurriculumListComponent implements AfterViewInit {
-  displayedColumns = ['#', 'curriculum', 'status'];
-  dataSource = new MatTableDataSource<Curriculum>();
+export class QuestionListComponent implements AfterViewInit {
+  displayedColumns = ['#', 'question', 'lessonCount'];
+  dataSource = new MatTableDataSource<Question>();
 
   resultsLength = 0;
   isFilterShow = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  private sub: any;
+  questionGroupId: string;
+
   constructor(
-    private curriculumService: CurriculumService,
+    private questionService: QuestionService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private route: ActivatedRoute) {
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      this.questionGroupId = params['id']; // (+) converts string 'id' to a number
+
+      // In a real app: dispatch action to load the details here.
+    });
+  }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
   // Delete dialog
-  onDelete(row: Curriculum) {
+  onDelete(row: Question) {
     const dialogRef = this.dialog.open(AlertDialogComponent, {
       width: '400px',
-      data: { title: 'Bölümü sil?', message: row.name + ' isimli bölümü silmek istediğinize emin misiniz?' }
+      data: { title: 'Soru sil?', message: row.question + ' isimli soruyu silmek istediğinize emin misiniz?' }
     });
-    dialogRef.afterClosed().subscribe(curriculum => {
-      if (curriculum) {
+    dialogRef.afterClosed().subscribe(question => {
+      if (question) {
         this.DeleteItem(row._id);
       }
     });
   }
 
-  // Delete curriculum by curriculum id
+  // Delete question by question id
   private DeleteItem(_id: string) {
-    this.curriculumService
+    this.questionService
       .Delete(_id)
       .subscribe(isSuccess => {
         this.snackBar.open(isSuccess.message, '', {
@@ -71,30 +89,33 @@ export class CurriculumListComponent implements AfterViewInit {
       });
   }
 
-  // Update curriculum
-  onUpdate(row: Curriculum) {
-    const dialogRef = this.dialog.open(CurriculumUpdateComponent, {
+  // Update question
+  onUpdate(row: Question) {
+    const dialogRef = this.dialog.open(QuestionUpdateComponent, {
       width: '400px',
-      data: row
+      data: { questionGroupId: this.questionGroupId, row: row }
     });
-    dialogRef.afterClosed().subscribe(curriculum => {
-      if (curriculum) {
+    dialogRef.afterClosed().subscribe(question => {
+      if (question) {
         const index = this.dataSource.data.findIndex(p => p._id === row._id);
-        this.dataSource.data.splice(index, 1, curriculum);
+        this.dataSource.data.splice(index, 1, question);
         this.dataSource.data = [...this.dataSource.data];
       }
     });
   }
 
-  // Create curriculum
-  onCreate(row: Curriculum) {
-    const dialogRef = this.dialog.open(CurriculumAddComponent, {
+  // Create question
+  onCreate(row: Question) {
+    const dialogRef = this.dialog.open(QuestionAddComponent, {
       width: '400px',
-      data: row
+      data: { questionGroupId: this.questionGroupId }
     });
-    dialogRef.afterClosed().subscribe(curriculum => {
-      if (curriculum) {
-        this.dataSource.data.unshift({ ...curriculum, state: 'active' });
+    dialogRef.afterClosed().subscribe(question => {
+      if (question) {
+        for (let i = 0; i < question.length; i++) {
+          const element = question[i];
+          this.dataSource.data.unshift({ ...element, state: 'active' });
+        }
         this.dataSource.data = [...this.dataSource.data];
         this.resultsLength = this.dataSource.data.length;
       }
@@ -124,7 +145,7 @@ export class CurriculumListComponent implements AfterViewInit {
       .pipe(
       startWith({}),
       switchMap(() => {
-        return this.curriculumService.GetAll(this.paginator.pageSize, this.paginator.pageIndex + 1);
+        return this.questionService.GetAll(this.paginator.pageSize, this.paginator.pageIndex + 1);
       }),
       map(data => {
         this.resultsLength = data.total_count;

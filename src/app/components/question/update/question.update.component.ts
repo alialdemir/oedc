@@ -6,9 +6,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
-    templateUrl: './curriculum.update.component.html'
+    templateUrl: './question.update.component.html'
 })
-export class CurriculumUpdateComponent {
+export class QuestionUpdateComponent {
     public form = new FormGroup({
         name: new FormControl('', Validators.required),
         isActive: new FormControl(Boolean, Validators.required)
@@ -16,7 +16,7 @@ export class CurriculumUpdateComponent {
 
     constructor(
         private curriculumService: CurriculumService,
-        public dialogRef: MatDialogRef<CurriculumUpdateComponent>,
+        public dialogRef: MatDialogRef<QuestionUpdateComponent>,
         public snackBar: MatSnackBar,
         @Inject(MAT_DIALOG_DATA) public params: any) {
         this.form.controls.name.setValue(params.name);

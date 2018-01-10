@@ -12,5 +12,4 @@ const ModelSchema = Schema({
 
 ModelSchema.plugin(mongoosePaginate);
 
-
 module.exports = mongoose.model('Question', ModelSchema)

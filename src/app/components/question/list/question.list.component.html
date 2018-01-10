@@ -1,7 +1,7 @@
 <div class="example-container mat-elevation-z8">
     <mat-toolbar color="secondr">
         <mat-toolbar-row>
-            <span>Bölümler</span>
+            <span>Sorular</span>
             <span class="example-spacer"></span>
             <mat-form-field *ngIf="isFilterShow" class="search-input">
                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Arama Yap">
@@ -38,18 +38,14 @@
             </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="curriculum">
-            <mat-header-cell *matHeaderCellDef>Bölüm Adı</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+        <ng-container matColumnDef="question">
+            <mat-header-cell *matHeaderCellDef>Soru</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.question }}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="status">
-            <mat-header-cell *matHeaderCellDef>Durum</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-                <mat-chip-list>
-                    <mat-chip [color]=" row.isActive ? 'primary' : 'warn'" selected="true">{{ row.isActive ? 'Aktif' : 'Pasif'}}</mat-chip>
-                </mat-chip-list>
-            </mat-cell>
+        <ng-container matColumnDef="lessonCount">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass-lessonCount'">İlişkili Ders Sayısı</mat-header-cell>
+            <mat-cell *matCellDef="let row" [ngClass]="'customWidthClass-lessonCount'">{{ row.lessons.length === 0 ? 'İlişkili ders Yok' : row.lessons.length + ' ders ile ilişkili' }}</mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

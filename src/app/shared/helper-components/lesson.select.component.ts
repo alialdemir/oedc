@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
     selector: 'LessonSelectComponent',
     template: `
     <mat-form-field [formGroup]="form">
-    <mat-select formControlName="lessonId" placeholder="Ders Ekle/Çıkart" multiple  required>
+    <mat-select formControlName="lessonId" [placeholder]="placeholder" multiple  [required]="required">
       <mat-option *ngFor="let  lesson of lessonList" [value]="lesson._id">
       {{lesson.name}}
       </mat-option>
@@ -19,6 +19,12 @@ export class LessonSelectComponent {
 
     @Input()
     form: FormGroup;
+
+    @Input()
+    placeholder: String = 'Ders Ekle/Çıkart';
+
+    @Input()
+    required = true;
 
     constructor(private lessonService: LessonService) { }
 

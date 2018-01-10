@@ -10,7 +10,8 @@ const ModelSchema = Schema({
     stylishType: { type: String, enum: ['Derecelendirme', 'Yüzdesel', 'Açık Uçlu'] },
     isRequired: Boolean,
     order: Number,
-})
+    questions: [{ type: Schema.Types.ObjectId, ref: 'Question' }]
+}, { usePushEach: true })
 
 ModelSchema.plugin(mongoosePaginate);
 

@@ -26,10 +26,13 @@ import { InstructorListComponent } from '../instructor/list/instructor.list.comp
 import { InstructorAddComponent } from '../instructor/add/instructor.add.component';
 import { InstructorUpdateComponent } from '../instructor/update/instructor.update.component';
 
-
 import { QuestionGroupListComponent } from '../questionGroup/list/questionGroup.list.component';
 import { QuestionGroupAddComponent } from '../questionGroup/add/questionGroup.add.component';
 import { QuestionGroupUpdateComponent } from '../questionGroup/update/questionGroup.update.component';
+
+import { QuestionListComponent } from '../question/list/question.list.component';
+import { QuestionAddComponent } from '../question/add/question.add.component';
+import { QuestionUpdateComponent } from '../question/update/question.update.component';
 
 import { AlertDialogComponent } from '../../shared/helper-components/alert.component';
 
@@ -113,6 +116,9 @@ import {
     QuestionGroupListComponent,
     QuestionGroupAddComponent,
     QuestionGroupUpdateComponent,
+    QuestionListComponent,
+    QuestionAddComponent,
+    QuestionUpdateComponent,
     AlertDialogComponent,
     CurriculumSelectComponent,
     DepartmentSelectComponent,
@@ -172,6 +178,13 @@ import {
         component: QuestionGroupListComponent,
         data: {
           title: 'Soru Grupları'
+        }
+      },
+      {
+        path: 'Yonetim/Sorular/:id',
+        component: QuestionListComponent,
+        data: {
+          title: 'Sorular'
         }
       },
       {
@@ -273,6 +286,8 @@ import {
     InstructorUpdateComponent,
     QuestionGroupAddComponent,
     QuestionGroupUpdateComponent,
+    QuestionAddComponent,
+    QuestionUpdateComponent,
     AlertDialogComponent,
   ]
 })

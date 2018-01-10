@@ -1,6 +1,8 @@
 'use strict'
 
 const Model = require('../models/questionGroup')
+const Question = require('../models/question')
+var ObjectId = require('mongodb').ObjectID;
 
 function GetAll(req, res) {
   let query = JSON.parse(req.query.Query) || {}
@@ -29,7 +31,7 @@ function GetAll(req, res) {
 function findById(id, res, message) {
   Model.findById(id, function (err, model) {
     res.status(200).send({ message: message, model: model })
-  }).select('_id order title description stylishType isRequired')
+  }).select('_id order title description stylishType isRequired questions')
 }
 
 function Insert(req, res) {
@@ -40,7 +42,8 @@ function Insert(req, res) {
     model.description = req.body.description
     model.stylishType = req.body.stylishType
     model.isRequired = req.body.isRequired
-    model.order = post.order + 1
+    if (post) model.order = post.order + 1
+    else model.order = 1
 
     model.save((err, newModel) => {
       if (err) res.status(500).send({ message: `Veritabanında kaydedilirken hata oluştu: ${err} ` })
