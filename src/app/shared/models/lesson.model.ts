@@ -1,4 +1,5 @@
-export class Lesson {
+import { ModelBase } from './modelbase.model';
+export class Lesson implements ModelBase {
     constructor(name: string, code: string, department: string, period: string, branch: string[], isActive: boolean, _id?: string) {
         this._id = _id;
         this.name = name;

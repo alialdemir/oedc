@@ -1,4 +1,5 @@
-export class Question {
+import { ModelBase } from './modelbase.model';
+export class Question implements ModelBase {
     constructor(question: string, questionGroup: string[], lessons: string[], _id?: string) {
         this._id = _id;
         this.question = question;

@@ -1,4 +1,5 @@
-export class QuestionGroup {
+import { ModelBase } from './modelbase.model';
+export class QuestionGroup implements ModelBase {
 
     constructor(title: string, description: string, stylishType: string, isRequired: Boolean, order = 1, _id?: string) {
         this.title = title;
