@@ -1,3 +1,7 @@
 export class ModelBase {
-    constructor() { }
+    constructor(_id?: string) {
+        this._id = _id;
+    }
+
+    _id: string;
 }

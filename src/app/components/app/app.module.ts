@@ -46,6 +46,9 @@ import { InstructorService } from '../../shared/services/instructor.service';
 import { QuestionGroupService } from '../../shared/services/questionGroup.service';
 import { QuestionService } from '../../shared/services/question.service';
 
+// Sub service
+import { SubscribeService } from '../../shared/services/subscribe.service';
+
 // components
 import { CurriculumSelectComponent } from '../../shared/helper-components/curriculum.select.component';
 import { DepartmentSelectComponent } from '../../shared/helper-components/department.select.component';
@@ -58,6 +61,10 @@ import { LessonSelectComponent } from '../../shared/helper-components/lesson.sel
 import { TextAreaComponent } from '../../shared/helper-components/textarea.component';
 import { StylishSelectComponent } from '../../shared/helper-components/stylish.select.component';
 import { RequiredSelectComponent } from '../../shared/helper-components/required.select.component';
+import { TableComponent } from '../../shared/helper-components/table.component';
+import { TableMenuComponent } from '../../shared/helper-components/table.menu.component';
+import { StatusChipComponent } from '../../shared/helper-components/status.chip.component';
+import { ToolbarComponent } from '../../shared/helper-components/toolbar.component';
 
 
 // Material
@@ -131,6 +138,10 @@ import {
     TextAreaComponent,
     StylishSelectComponent,
     RequiredSelectComponent,
+    TableComponent,
+    TableMenuComponent,
+    StatusChipComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -271,6 +282,7 @@ import {
     InstructorService,
     QuestionGroupService,
     QuestionService,
+    SubscribeService,
     HttpClientModule,
     { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() },
   ],

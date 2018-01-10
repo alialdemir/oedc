@@ -20,9 +20,7 @@
 .margin-8{
   margin:8px;
 }
-  .example-spacer {
-  flex: 1 1 auto;
-  }
+ 
   
   /* Structure */
   .example-container {
@@ -89,11 +87,4 @@
   margin-left:10px;
   margin-right:10px;
   }
-  .mat-chip.mat-chip-selected.mat-primary{
-    background-color: #5cb85c;
-    color: #fff;
-  }
-  .mat-chip.mat-chip-selected.mat-warn {
-    background-color: #d9534f;
-    color: #fff;
-}
+
