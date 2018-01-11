@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { ModelBase, IColumn } from '../models/index';
+import { ModelBase, IColumn, IMenuItem } from '../models/index';
 import { IServiceBase } from '../models/IServiceBase.interface';
 
 
@@ -26,10 +26,11 @@ import { Subscription } from 'rxjs';
 
     <ng-container *ngFor="let column of Columns;let i = index;" [matColumnDef]="column.columnDef">
 
-    <mat-header-cell *matHeaderCellDef class="customWidthClass">{{ column.header }}</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef [ngClass]="column.class ? column.class : 'customWidthClass'">{{ column.header }}</mat-header-cell>
 
-    <mat-cell *matCellDef="let row" class="customWidthClass">
-    <TableMenuComponent [row]="row" *ngIf="i === 0" [UpdateComponent]="UpdateComponent" [ServiceBase]="ServiceBase"></TableMenuComponent>
+    <mat-cell *matCellDef="let row" [ngClass]="column.class ? column.class : 'customWidthClass'">
+    <TableMenuComponent [row]="row" [MenuItems]="MenuItems" *ngIf="i === 0" [UpdateComponent]="UpdateComponent" [ServiceBase]="ServiceBase">
+    </TableMenuComponent>
 
     <span *ngIf="column.type === 'column' && i > 0">
     {{ column.cell(row) }}
@@ -72,6 +73,9 @@ export class TableComponent implements AfterViewInit {
 
     subscription: Subscription[] = [];
 
+    // Menu items edit, remove etc..
+    @Input()
+    MenuItems: IMenuItem[] = [];
     constructor(private subscribeService: SubscribeService) { }
 
     // Once the component is in, take the data from the service.
@@ -105,7 +109,7 @@ export class TableComponent implements AfterViewInit {
                 this.dataSource.filter = filter;
             });
 
-        this.subscription[3] = this.subscribeService// update item  subscribe
+        this.subscription[3] = this.subscribeService// update item subscribe
             .Subscribe('dataupdate', updatedModel => {
                 if (updatedModel) {
                     const index = this.dataSource.data.findIndex(p => p._id === updatedModel._id);
@@ -114,7 +118,7 @@ export class TableComponent implements AfterViewInit {
                 }
             });
 
-        this.subscription[4] = this.subscribeService// delete item  subscribe
+        this.subscription[4] = this.subscribeService// delete item subscribe
             .Subscribe('datadelete', _id => {
                 if (_id) {
                     this.dataSource.data = this.dataSource.data.filter(p => {
@@ -122,6 +126,35 @@ export class TableComponent implements AfterViewInit {
                     });
                     this.resultsLength = this.dataSource.data.length;
                 }
+            });
+
+        this.subscription[4] = this.subscribeService// question group move row subscribe
+            .Subscribe('datarowmove', data => {
+                if (!data || data.toIndex < 0 || data.toIndex >= this.dataSource.data.length) {
+                    return;
+                }
+
+                const fromElement: any = this.dataSource.data[data.fromIndex];
+                const toElement: any = this.dataSource.data[data.toIndex];
+
+                if (!fromElement || !toElement) {
+                    return;
+                }
+
+                fromElement.order = data.toIndex + 1;
+                toElement.order = data.fromIndex + 1;
+
+                this.ServiceBase
+                    .Update(fromElement)
+                    .subscribe(res => { });
+                this.ServiceBase
+                    .Update(toElement)
+                    .subscribe(res => { });
+
+                this.dataSource.data.splice(data.fromIndex, 1, toElement);
+                this.dataSource.data.splice(data.toIndex, 1, fromElement);
+
+                this.dataSource.data = [...this.dataSource.data];
             });
 
     }

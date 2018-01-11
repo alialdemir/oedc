@@ -1,76 +1,8 @@
-/*
-.example-container {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 0;
-  }
-  
-  .example-is-mobile .example-toolbar {
-    position: fixed;
-    z-index: 2;
-  }
-  
-  h1.example-app-name {
-    margin-left: 8px;
-  }
-  
-  .example-sidenav-container {
-    flex: 1;
-  }
-  
-  .example-is-mobile .example-sidenav-container {
-    flex: 1 0 auto;
-  }
-  .mat-toolbar.mat-primary {
-    background: url('../../../assets/images/bg.png') repeat-x;
+.mat-sidenav-content-margin{
+  margin-left: 193px !important;
 }
-
-.admin-links, .admin-links:hover {
-  background: url('../../../assets/images/header-menu-bg.png');
-  color:#fff;
-}
-
-.mat-nav-list{
-  padding-top: 0;
-}
-.admin-delete-link{
-  float: right;
- text-decoration: none;
- color: rgba(0,0,0,.87);
-}
-
-
-.example-icon {
-  padding: 0 14px;
-}
-
-.example-spacer {
-  flex: 1 1 auto;
-}
-
-.custom-toolbar{
-  background: url('../../../assets/images/header-menu-bg.png');  
-  min-height: 52px !important;
-  color: #fff;
-  margin-left: 8px;
-}
-.custom-toolbar .mat-toolbar-row{
-  height: 52px !important;
-}
-.admin-delete-link{
-  color:#fff;
-
-}
-
-
-*/
 .active, .active:hover{
-  font-weight: bold;
+  color:#00a39f;
 }
 .nav-list {
   padding-top:0;

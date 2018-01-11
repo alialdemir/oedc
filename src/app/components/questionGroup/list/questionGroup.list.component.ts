@@ -1,80 +1,112 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { merge } from 'rxjs/observable/merge';
-import { of as observableOf } from 'rxjs/observable/of';
-import { catchError } from 'rxjs/operators/catchError';
-import { map } from 'rxjs/operators/map';
-import { startWith } from 'rxjs/operators/startWith';
-import { switchMap } from 'rxjs/operators/switchMap';
-
-// Services
+import { Component } from '@angular/core';
 import { QuestionGroupService } from '../../../shared/services/questionGroup.service';
-
-import { QuestionGroup } from '../../../shared/models/questionGroup.model';
-import { MatSnackBar } from '@angular/material';
-import { retry } from 'rxjs/operators/retry';
-import { MatDialog } from '@angular/material';
-
 import { QuestionGroupUpdateComponent } from '../update/questionGroup.update.component';
 import { QuestionGroupAddComponent } from '../add/questionGroup.add.component';
+import { IColumn, IMenuItem, ModelBase } from '../../../shared/models/index';
+import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
+import { SubscribeService } from '../../../shared/services/subscribe.service';
 
-import { AlertDialogComponent } from '../../../shared/helper-components/alert.component';
-
-// Animation
-import { TableRowAnimation } from '../../../shared/animations/tablerow.animation';
 @Component({
   styleUrls: ['../../../../assets/css/list.component.css'],
-  templateUrl: './questionGroup.list.component.html',
-  animations: [TableRowAnimation],
+  templateUrl: './questionGroup.list.component.html'
 })
 
-export class QuestionGroupListComponent implements AfterViewInit {
-  displayedColumns = ['#', 'order', 'title', 'description', 'questioncount', 'stylishType', 'isRequired'];
-  dataSource = new MatTableDataSource<QuestionGroup>();
+export class QuestionGroupListComponent {
 
-  resultsLength = 0;
-  isFilterShow = false;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  title = 'Soru Grupları';
+
+  AddComponent = QuestionGroupAddComponent;
+
+  UpdateComponent = QuestionGroupUpdateComponent;
+
+  columns: IColumn[] = [
+    {
+      columnDef: 'order',
+      header: 'Sıra',
+      type: 'column',
+      class: 'customWidthClass-order',
+      cell: (element: any) => `${element.order}`
+    },
+    {
+      columnDef: 'title',
+      header: 'Başlık',
+      type: 'column',
+      class: 'customWidthClass-title',
+      cell: (element: any) => `${element.title}`
+    },
+    {
+      columnDef: 'description',
+      header: 'Açıklama',
+      type: 'column',
+      class: 'margin-8',
+      cell: (element: any) => `${element.description}`
+    },
+    {
+      columnDef: 'questions',
+      header: 'Soru Sayısı',
+      type: 'column',
+      class: 'customWidthClass-question-count',
+      cell: (element: any) => `${element.questions.length} Adet`
+    },
+    {
+      columnDef: 'stylishType',
+      header: 'Şık Tipi',
+      type: 'column',
+      class: 'customWidthClass-stylish',
+      cell: (element: any) => `${element.stylishType}`
+    },
+    {
+      columnDef: 'isRequired',
+      header: 'Zorunluluk',
+      type: 'column',
+      class: 'customWidthClass-stylish',
+      cell: (element: any) => `${element.isRequired ? 'Zorunlu Alan' : 'İsteğe Bağlı'}`
+    },
+  ];
+
+  MenuItems: IMenuItem[] = [
+    { icon: 'help', text: 'Sorular', onClick: (e, element: ModelBase) => this.router.navigate(['/Yonetim/Sorular', element._id]) },
+    {
+      icon: 'open_with',
+      text: 'Taşı',
+      onClick: (e, element: ModelBase) => console.log(''),
+      subMenuItems: [
+        {
+          icon: 'arrow_upward',
+          text: 'Yukarı Kaydır',
+          onClick: (e, element: ModelBase) => this.onUpMove(element),
+        },
+        {
+          icon: 'arrow_downward',
+          text: 'Aşağı Kaydır',
+          onClick: (e, element: ModelBase) => this.onDownMove(element),
+        }
+      ]
+    }
+  ];
 
   constructor(
     private questionGroupService: QuestionGroupService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog) {
-  }
+    private subscribeService: SubscribeService,
+    private router: Router) { }
+
 
   // Related entity are moved up.
-  onUpMove(e, index) {
-    this.QuestionGroupMove(index, index - 1);
+  onUpMove(row) {
+    this.QuestionGroupMove(row, row.order - 1, row.order - 2);
   }
 
   // Related entity are moved down.
-  onDownMove(e, index) {
-    this.QuestionGroupMove(index, index + 1);
+  onDownMove(row) {
+    this.QuestionGroupMove(row, row.order - 1, row.order);
   }
 
   // Change the locations of the entity.
-  private QuestionGroupMove(fromIndex, toIndex) {
-    if (toIndex < 0 || toIndex >= this.dataSource.data.length) {
-      return;
-    }
-
-    const fromElement = this.dataSource.data[fromIndex];
-    const toElement = this.dataSource.data[toIndex];
-
-    fromElement.order = toIndex + 1;
-    toElement.order = fromIndex + 1;
-
-    this.questionGroupService
-      .Update(fromElement)
-      .subscribe(data => this.SnackBarMessage(fromElement.title + ' başlıklı soru grubu ' + fromElement.order + '. sıraya getirildi.'));
-    this.questionGroupService
-      .Update(toElement)
-      .subscribe(data => { });
-
-    this.dataSource.data.splice(fromIndex, 1, toElement);
-    this.dataSource.data.splice(toIndex, 1, fromElement);
-
-    this.dataSource.data = [...this.dataSource.data];
+  private QuestionGroupMove(row, fromIndex, toIndex) {
+    this.subscribeService.Publish('datarowmove', { fromIndex, toIndex });
+    this.SnackBarMessage(row.title + ' başlıklı soru grubu ' + row.order + '. sıraya getirildi.');
   }
 
   // Show message
@@ -82,99 +114,5 @@ export class QuestionGroupListComponent implements AfterViewInit {
     this.snackBar.open(message, '', {
       duration: 3000,
     });
-  }
-
-  // Delete dialog
-  onDelete(row: QuestionGroup) {
-    const dialogRef = this.dialog.open(AlertDialogComponent, {
-      width: '400px',
-      data: { title: 'Soru grubu sil?', message: row.title + ' isimli soru grubunu silmek istediğinize emin misiniz?' }
-    });
-    dialogRef.afterClosed().subscribe(questionGroup => {
-      if (questionGroup) {
-        this.DeleteItem(row._id);
-      }
-    });
-  }
-
-  // Delete question group by curriculum id
-  private DeleteItem(_id: string) {
-    this.questionGroupService
-      .Delete(_id)
-      .subscribe(isSuccess => {
-        this.SnackBarMessage(isSuccess.message);
-
-        this.dataSource.data = this.dataSource.data.filter(p => {
-          return p._id !== _id;
-        });
-        this.resultsLength = this.dataSource.data.length;
-      });
-  }
-
-  // Update question group
-  onUpdate(row: QuestionGroup) {
-    const dialogRef = this.dialog.open(QuestionGroupUpdateComponent, {
-      width: '400px',
-      data: row
-    });
-    dialogRef.afterClosed().subscribe(questionGroup => {
-      if (questionGroup) {
-        const index = this.dataSource.data.findIndex(p => p._id === row._id);
-        this.dataSource.data.splice(index, 1, questionGroup);
-        this.dataSource.data = [...this.dataSource.data];
-      }
-    });
-  }
-
-  // Create question group
-  onCreate(row: QuestionGroup) {
-    const dialogRef = this.dialog.open(QuestionGroupAddComponent, {
-      width: '400px',
-      data: row
-    });
-    dialogRef.afterClosed().subscribe(questionGroup => {
-      if (questionGroup) {
-        this.dataSource.data.push({ ...questionGroup, state: 'active' });
-        this.dataSource.data = [...this.dataSource.data];
-        this.resultsLength = this.dataSource.data.length;
-      }
-    });
-  }
-
-  // Search event
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-  }
-
-  // Once the component is in, take the data from the service.
-  ngAfterViewInit() {
-    this.GetData();
-  }
-
-  // Reflesh
-  onReflesh() {
-    this.paginator.pageIndex = 0;
-    this.GetData();
-  }
-
-  GetData() {
-    merge(this.paginator.page)
-      .pipe(
-      startWith({}),
-      switchMap(() => {
-        return this.questionGroupService.GetAll(this.paginator.pageSize, this.paginator.pageIndex + 1);
-      }),
-      map(data => {
-        this.resultsLength = data.total_count;
-        return data.items;
-      }),
-      catchError(() => {
-        return observableOf([]);
-      })
-      ).subscribe(data => {
-        this.dataSource.data = [...data];
-      });
   }
 }

@@ -1,4 +1,20 @@
 <div class="example-container mat-elevation-z8">
+    <ToolbarComponent [Title]="title" [AddComponent]="AddComponent"></ToolbarComponent>
+    <TableComponent [ServiceBase]="questionGroupService" [MenuItems]="MenuItems" [UpdateComponent]="UpdateComponent" [Columns]="columns"></TableComponent>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--
+
+<div class="example-container mat-elevation-z8">
     <mat-toolbar color="secondr">
         <mat-toolbar-row>
             <span>Soru Grupları</span>
@@ -100,3 +116,4 @@
     </mat-list>
     <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
+-->

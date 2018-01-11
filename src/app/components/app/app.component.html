@@ -2,12 +2,20 @@
     <mat-sidenav-container class="example-container">
         <mat-sidenav #snav opened="opened" mode="side" fixedTopGap="0" [fixedInViewport]="true">
             <mat-nav-list class="nav-list">
-                <a mat-list-item class="list-group-item admin-links">Menü</a>
-                <a mat-list-item *ngFor="let menu of Menus" [routerLink]="[menu.Link]" [routerLinkActive]="['active']">
-                    <mat-icon>{{menu.Icon}}</mat-icon> {{menu.Text}}</a>
+                <mat-toolbar color="primary">
+                    <mat-toolbar-row>
+                        Menü
+                    </mat-toolbar-row>
+                </mat-toolbar>
+                <div *ngFor="let menu of Menus">
+                    <a mat-list-item [routerLink]="[menu.Link]" [routerLinkActive]="['active']">
+                        <mat-icon>{{menu.Icon}}</mat-icon> {{menu.Text}}
+                    </a>
+                    <mat-divider></mat-divider>
+                </div>
             </mat-nav-list>
         </mat-sidenav>
-        <mat-sidenav-content>
+        <mat-sidenav-content class="mat-sidenav-content-margin">
             <mat-toolbar color="primary">
                 <mat-toolbar-row>
                     <img src="../../../assets/images/logo.png" width="60" class="header-logo docs-angular-logo" />
