@@ -16,7 +16,7 @@ export class DepartmentListComponent {
   columns: IColumn[] = [
     { columnDef: 'name', header: 'Program Adı', type: 'column', cell: (element: any) => `${element.name}` },
     { columnDef: 'curriculumName', header: 'Bölüm Adı', type: 'column', cell: (element: any) => `${element.curriculum.name}` },
-    { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => `${element.isActive}` },
+    { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => element.isActive },
   ];
 
   AddComponent = DepartmentAddComponent;

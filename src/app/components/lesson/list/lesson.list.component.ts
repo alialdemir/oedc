@@ -20,7 +20,7 @@ export class LessonListComponent {
     { columnDef: 'lessonCode', header: 'Ders Kodu', type: 'column', cell: (element: any) => `${element.code}` },
     { columnDef: 'branch', header: 'Şube', type: 'column', cell: (element: any) => `${element.branch}` },
     { columnDef: 'period', header: 'Dönem', type: 'column', cell: (element: any) => `${element.period}` },
-    { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => `${element.isActive}` },
+    { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => element.isActive },
   ];
 
   AddComponent = LessonAddComponent;

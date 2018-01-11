@@ -15,7 +15,7 @@ export class InstructorListComponent {
 
   columns: IColumn[] = [
     { columnDef: 'fullname', header: 'Ad Soyad', type: 'column', cell: (element: any) => `${element.fullname}` },
-    { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => `${element.isActive}` },
+    { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => element.isActive },
   ];
 
   AddComponent = InstructorAddComponent;

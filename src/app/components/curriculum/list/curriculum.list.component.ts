@@ -15,7 +15,7 @@ export class CurriculumListComponent {
 
   columns: IColumn[] = [
     { columnDef: 'name', header: 'Bölüm Adı', type: 'column', cell: (element: any) => `${element.name}` },
-    { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => `${element.isActive}` },
+    { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => element.isActive },
   ];
 
   AddComponent = CurriculumAddComponent;
