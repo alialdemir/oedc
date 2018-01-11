@@ -13,15 +13,15 @@ export class DepartmentListComponent {
 
   title = 'Programlar';
 
+  AddComponent = DepartmentAddComponent;
+
+  UpdateComponent = DepartmentUpdateComponent;
+
   columns: IColumn[] = [
     { columnDef: 'name', header: 'Program Adı', type: 'column', cell: (element: any) => `${element.name}` },
     { columnDef: 'curriculumName', header: 'Bölüm Adı', type: 'column', cell: (element: any) => `${element.curriculum.name}` },
     { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => element.isActive },
   ];
-
-  AddComponent = DepartmentAddComponent;
-
-  UpdateComponent = DepartmentUpdateComponent;
 
   constructor(private departmentService: DepartmentService) { }
 }

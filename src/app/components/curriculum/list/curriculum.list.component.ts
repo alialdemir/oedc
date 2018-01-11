@@ -13,14 +13,14 @@ export class CurriculumListComponent {
 
   title = 'Bölümler';
 
+  AddComponent = CurriculumAddComponent;
+
+  UpdateComponent = CurriculumUpdateComponent;
+
   columns: IColumn[] = [
     { columnDef: 'name', header: 'Bölüm Adı', type: 'column', cell: (element: any) => `${element.name}` },
     { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => element.isActive },
   ];
-
-  AddComponent = CurriculumAddComponent;
-
-  UpdateComponent = CurriculumUpdateComponent;
 
   constructor(private curriculumService: CurriculumService) { }
 }

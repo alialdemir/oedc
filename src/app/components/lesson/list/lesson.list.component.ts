@@ -13,6 +13,10 @@ export class LessonListComponent {
 
   title = 'Dersler';
 
+  AddComponent = LessonAddComponent;
+
+  UpdateComponent = LessonUpdateComponent;
+
   columns: IColumn[] = [
     { columnDef: 'lesson', header: 'Ders Adı', type: 'column', cell: (element: any) => `${element.name}` },
     { columnDef: 'curriculum', header: 'Bölüm Adı', type: 'column', cell: (element: any) => `${element.department.curriculum.name}` },
@@ -22,10 +26,6 @@ export class LessonListComponent {
     { columnDef: 'period', header: 'Dönem', type: 'column', cell: (element: any) => `${element.period}` },
     { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => element.isActive },
   ];
-
-  AddComponent = LessonAddComponent;
-
-  UpdateComponent = LessonUpdateComponent;
 
   constructor(private lessonService: LessonService) { }
 }
