@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { ModelBase, IColumn, IMenuItem } from '../models/index';
 import { IServiceBase } from '../models/IServiceBase.interface';
 
@@ -22,18 +22,20 @@ import { Subscription } from 'rxjs';
     styleUrls: ['../../../assets/css/list.component.css'],
     animations: [TableRowAnimation],
     template: `
-    <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear matSortDirection="asc"  *ngIf="displayedColumns">
+    <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear matSortDirection="asc" *ngIf="displayedColumns" matSort>
 
     <ng-container *ngFor="let column of Columns;let i = index;" [matColumnDef]="column.columnDef">
 
-    <mat-header-cell *matHeaderCellDef [ngClass]="column.class ? column.class : 'customWidthClass'">{{ column.header }}</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="column.class ? column.class : 'customWidthClass'">
+     {{ column.header }}
+    </mat-header-cell>
 
     <mat-cell *matCellDef="let row" [ngClass]="column.class ? column.class : 'customWidthClass'">
     <TableMenuComponent [row]="row" [MenuItems]="MenuItems" *ngIf="i === 0" [UpdateComponent]="UpdateComponent" [ServiceBase]="ServiceBase">
     </TableMenuComponent>
 
     <span *ngIf="column.type === 'column' && i > 0">
-    {{ column.cell(row) }}
+     {{ column.cell(row) }}
     </span>
 
     <StatusChipComponent *ngIf="column.type === 'status' && i > 0" [IsActive]="column.cell(row)"></StatusChipComponent>
@@ -71,6 +73,8 @@ export class TableComponent implements AfterViewInit {
     resultsLength = 0;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
+    @ViewChild(MatSort) sort: MatSort;
+
     subscription: Subscription[] = [];
 
     // Menu items edit, remove etc..
@@ -84,6 +88,7 @@ export class TableComponent implements AfterViewInit {
             this.Columns.unshift({ columnDef: ' ', header: ' ', type: 'menu', cell: (element: any) => '' }); // menu column
             this.displayedColumns.push(...this.Columns.map(c => c.columnDef));
         });
+        this.dataSource.sort = this.sort;
         this.GetData();
         this.Subscribes();
     }
@@ -190,22 +195,3 @@ export class TableComponent implements AfterViewInit {
             });
     }
 }
-
-/*
-
- <ng-container *ngFor="let item of displayedColumns;let i = index;" [matColumnDef]="item"  [@anim]>
-        <mat-header-cell *matHeaderCellDef [ngClass]="rowNames[i].type === 'Menu' ? 'customWidthClass' : ''">
-        {{ item }}
-        </mat-header-cell>
-
-        <mat-cell *matCellDef="let row" [ngClass]="rowNames[i].type === 'Menu' ? 'customWidthClass' : ''">
-
-        <TableMenuComponent [row]="row" *ngIf="rowNames[i].type === 'Menu'" [UpdateComponent]="UpdateComponent" [ServiceBase]="ServiceBase">
-        </TableMenuComponent>
-
-        <StatusChipComponent [rowNames]="rowNames[i]" [row]="row"></StatusChipComponent>
-
-        <span *ngIf="rowNames[i].type === 'Column'">{{ rowNames[i].cell(row) }}</span>
-        </mat-cell>
-    </ng-container>
-    */
