@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { ModelBase } from '../models/modelbase.model';
+import { ModelBase, IColumn } from '../models/index';
 import { IServiceBase } from '../models/IServiceBase.interface';
 
 
@@ -22,28 +22,31 @@ import { Subscription } from 'rxjs';
     styleUrls: ['../../../assets/css/list.component.css'],
     animations: [TableRowAnimation],
     template: `
-    <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear matSortDirection="asc">
+    <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear matSortDirection="asc"  *ngIf="displayedColumns">
 
-    <ng-container *ngFor="let item of displayedColumns;let i = index;" [matColumnDef]="item"  [@anim]>
-        <mat-header-cell *matHeaderCellDef [ngClass]="rowNames[i].type === 'Menu' ? 'customWidthClass' : ''">
-        {{ item }}
-        </mat-header-cell>
+    <ng-container *ngFor="let column of Columns;let i = index;" [matColumnDef]="column.columnDef">
 
-        <mat-cell *matCellDef="let row" [ngClass]="rowNames[i].type === 'Menu' ? 'customWidthClass' : ''">
+    <mat-header-cell *matHeaderCellDef class="customWidthClass">{{ column.header }}</mat-header-cell>
 
-        <TableMenuComponent [row]="row" *ngIf="rowNames[i].type === 'Menu'" [UpdateComponent]="UpdateComponent" [ServiceBase]="ServiceBase">
-        </TableMenuComponent>
+    <mat-cell *matCellDef="let row" class="customWidthClass">
+    <TableMenuComponent [row]="row" *ngIf="i === 0" [UpdateComponent]="UpdateComponent" [ServiceBase]="ServiceBase"></TableMenuComponent>
 
-        <StatusChipComponent [rowNames]="rowNames[i]" [row]="row"></StatusChipComponent>
+    <span *ngIf="column.type === 'column' && i > 0">
+    {{ column.cell(row) }}
+    </span>
 
-        <span *ngIf="rowNames[i].type === 'Column'">{{ row[rowNames[i].rowName] }}</span>
-        </mat-cell>
-    </ng-container>
+    <StatusChipComponent *ngIf="column.type === 'status' && i > 0" [IsActive]="column.cell(row)"></StatusChipComponent>
+    </mat-cell>
+  </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" class="aside" [@TableRowAnimation]="row.state"></mat-row>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" class="aside" [@TableRowAnimation]="row.state"></mat-row>
 </mat-table>
 
+<mat-list *ngIf="resultsLength == 0">
+<mat-list-item class="text-center"> Eklenen hiç kayıt yok. </mat-list-item>
+</mat-list>
 <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   `,
 })
@@ -57,10 +60,9 @@ export class TableComponent implements AfterViewInit {
 
     // Datatable
     @Input()
-    displayedColumns = [];
+    Columns: IColumn[] = [];
 
-    @Input()
-    rowNames = [];
+    displayedColumns: string[] = [];
 
     dataSource = new MatTableDataSource<ModelBase>();
 
@@ -74,6 +76,10 @@ export class TableComponent implements AfterViewInit {
 
     // Once the component is in, take the data from the service.
     ngAfterViewInit() {
+        setTimeout(() => {
+            this.Columns.unshift({ columnDef: ' ', header: ' ', type: 'menu', cell: (element: any) => '' }); // menu column
+            this.displayedColumns.push(...this.Columns.map(c => c.columnDef));
+        });
         this.GetData();
         this.Subscribes();
     }
@@ -151,3 +157,22 @@ export class TableComponent implements AfterViewInit {
             });
     }
 }
+
+/*
+
+ <ng-container *ngFor="let item of displayedColumns;let i = index;" [matColumnDef]="item"  [@anim]>
+        <mat-header-cell *matHeaderCellDef [ngClass]="rowNames[i].type === 'Menu' ? 'customWidthClass' : ''">
+        {{ item }}
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let row" [ngClass]="rowNames[i].type === 'Menu' ? 'customWidthClass' : ''">
+
+        <TableMenuComponent [row]="row" *ngIf="rowNames[i].type === 'Menu'" [UpdateComponent]="UpdateComponent" [ServiceBase]="ServiceBase">
+        </TableMenuComponent>
+
+        <StatusChipComponent [rowNames]="rowNames[i]" [row]="row"></StatusChipComponent>
+
+        <span *ngIf="rowNames[i].type === 'Column'">{{ rowNames[i].cell(row) }}</span>
+        </mat-cell>
+    </ng-container>
+    */

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CurriculumService } from '../../../shared/services/curriculum.service';
 import { CurriculumUpdateComponent } from '../update/curriculum.update.component';
 import { CurriculumAddComponent } from '../add/curriculum.add.component';
+import { IColumn } from '../../../shared/models/index';
 
 @Component({
   styleUrls: ['../../../../assets/css/list.component.css'],
@@ -12,12 +13,9 @@ export class CurriculumListComponent {
 
   title = 'Bölümler';
 
-  displayedColumns = [' ', 'Bölüm Adı', 'Durum'];
-
-  rowNames = [
-    { rowName: '', type: 'Menu' },
-    { rowName: 'name', type: 'Column' },
-    { rowName: 'isActive', type: 'Status' }
+  columns: IColumn[] = [
+    { columnDef: 'name', header: 'Bölüm Adı', type: 'column', cell: (element: any) => `${element.name}` },
+    { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => `${element.isActive}` },
   ];
 
   AddComponent = CurriculumAddComponent;

@@ -8,17 +8,14 @@ import { Component, Input } from '@angular/core';
     // tslint:disable-next-line:component-selector
     selector: 'StatusChipComponent',
     template: `
-            <mat-chip-list *ngIf="rowNames.type === 'Status'">
-                <mat-chip [color]=" row[rowNames.rowName] ? 'primary' : 'warn'" selected="true">
-                    {{ row[rowNames.rowName] ? 'Aktif' : 'Pasif'}}
+            <mat-chip-list>
+                <mat-chip [color]="IsActive ? 'primary' : 'warn'" selected="true">
+                    {{ IsActive ? 'Aktif' : 'Pasif'}}
                 </mat-chip>
             </mat-chip-list>`,
 })
 export class StatusChipComponent {
 
     @Input()
-    rowNames: any;
-
-    @Input()
-    row: any;
+    IsActive: any;
 }
