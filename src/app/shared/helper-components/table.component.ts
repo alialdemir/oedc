@@ -39,6 +39,7 @@ import { Subscription } from 'rxjs';
     </span>
 
     <StatusChipComponent *ngIf="column.type === 'status' && i > 0" [IsActive]="column.cell(row)"></StatusChipComponent>
+    <DatetimeChipComponent *ngIf="column.type === 'datetime' && i > 0" [Text]="column.cell(row)"></DatetimeChipComponent>
     </mat-cell>
   </ng-container>
 

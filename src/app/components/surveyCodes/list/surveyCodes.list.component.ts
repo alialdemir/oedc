@@ -1,0 +1,21 @@
+import { Component } from '@angular/core';
+import { CurriculumService } from '../../../shared/services/index';
+import { IColumn } from '../../../shared/models/index';
+
+@Component({
+  styleUrls: ['../../../../assets/css/list.component.css'],
+  templateUrl: './surveyCodes.list.component.html',
+})
+
+export class SurveyCodesListComponent {
+
+  title = 'Anket Kodları';
+
+
+  columns: IColumn[] = [
+    { columnDef: 'name', header: 'Bölüm Adı', type: 'column', cell: (element: any) => `${element.name}` },
+    { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => element.isActive },
+  ];
+
+  constructor(private curriculumService: CurriculumService) { }
+}

@@ -1,6 +1,7 @@
 <form [formGroup]="form" (submit)="onSubmit($event)">
   <DialogTitleComponent title="Anket Ekle"></DialogTitleComponent>
- 
+  <DatePickerComponent [form]="form" controlName="startDate" placeholder="Başlaçgıç Tarihi"></DatePickerComponent>
+  <DatePickerComponent [form]="form" controlName="finishDate" placeholder="Bitiş Tarihi"></DatePickerComponent>
   <PeriodSelectComponent [form]="form"></PeriodSelectComponent>
   <button mat-raised-button color="primary" type="submit">Kaydet</button>
 </form>

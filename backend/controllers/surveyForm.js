@@ -11,7 +11,7 @@ function GetAll(req, res) {
   if (pageSize === NaN) pageSize = 10;
   if (pageNumber === NaN || pageNumber <= 0) pageNumber = 1;
 
-  Model.paginate(query, { select: fields, sort: { _id: -1 }, offset: pageSize * (pageNumber - 1), limit: pageSize })
+  Model.paginate(query, { select: fields, sort: { finishDate: -1 }, offset: pageSize * (pageNumber - 1), limit: pageSize })
     .then(function (result) {
       res.status(200)
         .send({
@@ -34,8 +34,9 @@ function findById(id, res, message) {
 
 function Insert(req, res) {
   let model = new Model()
-  model.name = req.body.name
-  model.isActive = req.body.isActive
+  model.startDate = req.body.startDate
+  model.finishDate = req.body.finishDate
+  model.period = req.body.period
 
   model.save((err, newModel) => {
     if (err) res.status(500).send({ message: `Veritabanında kaydedilirken hata oluştu: ${err} ` })
@@ -49,8 +50,9 @@ function Update(req, res) {
     if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
     if (!model) return res.status(404).send({ message: `Anket mevcut değil.` })
 
-    model.name = req.body.name || model.name
-    if (req.body.isActive !== undefined) model.isActive = req.body.isActive
+    model.startDate = req.body.startDate || model.startDate
+    model.finishDate = req.body.finishDate || model.finishDate
+    model.period = req.body.period || model.period
 
     model.save((err) => {
       if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })

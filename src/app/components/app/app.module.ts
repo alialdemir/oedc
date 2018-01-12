@@ -33,6 +33,8 @@ import {
   QuestionGroupListComponent,
   QuestionGroupUpdateComponent,
 
+  SurveyCodesListComponent,
+
   SurveyFormAddComponent,
   SurveyFormListComponent,
   SurveyFormUpdateComponent,
@@ -59,6 +61,8 @@ import {
   AlertDialogComponent,
   BranchSelectComponent,
   CurriculumSelectComponent,
+  DatePickerComponent,
+  DatetimeChipComponent,
   DepartmentSelectComponent,
   DialogTitleComponent,
   InputComponent,
@@ -135,12 +139,15 @@ import {
     QuestionListComponent,
     QuestionAddComponent,
     QuestionUpdateComponent,
+    SurveyCodesListComponent,
 
     SurveyFormAddComponent,
     SurveyFormListComponent,
     SurveyFormUpdateComponent,
     AlertDialogComponent,
     CurriculumSelectComponent,
+    DatePickerComponent,
+    DatetimeChipComponent,
     DepartmentSelectComponent,
     BranchSelectComponent,
     PeriodSelectComponent,
@@ -205,7 +212,7 @@ import {
         }
       },
       {
-        path: 'Yonetim/Sorular/:id',
+        path: 'Yonetim/SoruGruplari/Sorular/:id',
         component: QuestionListComponent,
         data: {
           title: 'Sorular'
@@ -216,6 +223,13 @@ import {
         component: SurveyFormListComponent,
         data: {
           title: 'Anketler'
+        }
+      },
+      {
+        path: 'Yonetim/Anketler/Kodlar/:id',
+        component: SurveyCodesListComponent,
+        data: {
+          title: 'Anket Kodları'
         }
       },
       {

@@ -65,7 +65,11 @@ export class QuestionGroupListComponent {
   ];
 
   MenuItems: IMenuItem[] = [
-    { icon: 'help', text: 'Sorular', onClick: (e, element: ModelBase) => this.router.navigate(['/Yonetim/Sorular', element._id]) },
+    {
+      icon: 'help',
+      text: 'Sorular',
+     onClick: (e, element: ModelBase) => this.router.navigate(['/Yonetim/SoruGruplari/Sorular', element._id])
+    },
     {
       icon: 'open_with',
       text: 'Taşı',

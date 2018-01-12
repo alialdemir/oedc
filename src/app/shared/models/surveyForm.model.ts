@@ -2,13 +2,13 @@ import { ModelBase } from './index';
 
 export class SurveyForm implements ModelBase {
     _id: string;
-    constructor(startDate: Date, finishDate: Date, periods: string, _id?: string) {
+    constructor(startDate: Date, finishDate: Date, period: string, _id?: string) {
         this._id = _id;
         this.startDate = startDate;
         this.finishDate = finishDate;
-        this.periods = periods;
+        this.period = period;
     }
     startDate: Date;
     finishDate: Date;
-    periods: string;
+    period: string;
 }

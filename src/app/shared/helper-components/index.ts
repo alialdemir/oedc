@@ -2,6 +2,8 @@ export * from './active.select.component';
 export * from './alert.component';
 export * from './branch.select.component';
 export * from './curriculum.select.component';
+export * from './datepicker.component';
+export * from './datetime-chip.component';
 export * from './department.select.component';
 export * from './dialog.title.component';
 export * from './input.component';

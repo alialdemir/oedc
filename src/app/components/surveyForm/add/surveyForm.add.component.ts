@@ -4,12 +4,14 @@ import { SurveyFormService } from '../../../shared/services/index';
 import { SurveyForm } from '../../../shared/models/index';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 
+
 @Component({
-    templateUrl: './surveyForm.add.component.html'
+    templateUrl: './surveyForm.add.component.html',
+
 })
 export class SurveyFormAddComponent {
     public form = new FormGroup({
-        starDate: new FormControl(Date, Validators.required),
+        startDate: new FormControl(Date, Validators.required),
         finishDate: new FormControl(Date, Validators.required),
         period: new FormControl(String, Validators.required)
     });
@@ -17,7 +19,14 @@ export class SurveyFormAddComponent {
     constructor(
         private surveyFormService: SurveyFormService,
         public dialogRef: MatDialogRef<SurveyFormAddComponent>,
-        public snackBar: MatSnackBar) { }
+        public snackBar: MatSnackBar) {
+        let now = new Date();
+        this.form.controls.startDate.setValue(now); // Started date now
+
+        now = new Date();
+        now.setDate(now.getDate() + 7); // Finish date in one week from now
+        this.form.controls.finishDate.setValue(now);
+    }
 
     onSubmit(event: any) {
         if (!this.form.valid) {
@@ -26,7 +35,7 @@ export class SurveyFormAddComponent {
 
         this.surveyFormService
             .Insert(new SurveyForm(
-                this.form.controls.starDate.value,
+                this.form.controls.startDate.value,
                 this.form.controls.finishDate.value,
                 this.form.controls.period.value))
             .subscribe(isSuccess => {

@@ -9,9 +9,9 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 })
 export class SurveyFormUpdateComponent {
     public form = new FormGroup({
-        starDate: new FormControl(Date, Validators.required),
-        finishDate: new FormControl(Date, Validators.required),
-        period: new FormControl(String, Validators.required)
+        startDate: new FormControl(this.params.startDate, Validators.required),
+        finishDate: new FormControl(this.params.finishDate, Validators.required),
+        period: new FormControl(this.params.period, Validators.required)
     });
 
     constructor(
@@ -27,7 +27,7 @@ export class SurveyFormUpdateComponent {
 
         this.surveyFormService
             .Update(new SurveyForm(
-                this.form.controls.starDate.value,
+                this.form.controls.startDate.value,
                 this.form.controls.finishDate.value,
                 this.form.controls.period.value,
                 this.params._id))
