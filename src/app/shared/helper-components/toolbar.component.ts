@@ -27,7 +27,7 @@ import { MatDialog } from '@angular/material';
             <button mat-icon-button>
                 <mat-icon matTooltip="Yenile" (click)="onReflesh($event)">refresh</mat-icon>
             </button>
-            <button mat-icon-button>
+            <button mat-icon-button *ngIf="AddComponent">
                 <mat-icon matTooltip="Yeni Kayıt Ekle" (click)="onCreate($event)">add</mat-icon>
             </button>
         </mat-toolbar-row>

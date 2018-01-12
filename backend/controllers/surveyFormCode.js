@@ -1,6 +1,6 @@
 'use strict'
 
-const Model = require('../models/surveyFormCodes')
+const Model = require('../models/surveyFormCode')
 
 function GetAll(req, res) {
     let query = JSON.parse(req.query.Query) || {}
@@ -28,8 +28,11 @@ function GetAll(req, res) {
 
 function Insert(req, res) {
     let model = new Model()
-    model.name = req.body.name
-    model.isActive = req.body.isActive
+    model.lessonId = req.body.lessonId
+    model.surveyFormId = req.body.surveyFormId
+    model.instructorId = req.body.instructorId
+    model.branch = req.body.branch
+    model.isShow = req.body.isShow
 
     model.save((err, newModel) => {
         if (err) res.status(500).send({ message: `Veritabanında kaydedilirken hata oluştu: ${err} ` })

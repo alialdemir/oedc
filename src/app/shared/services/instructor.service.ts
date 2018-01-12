@@ -48,7 +48,9 @@ export class InstructorService implements IServiceBase {
     }
 
     // Aktif olan hocaların aktif olan derslerinin parametreden gelen dönemdeki derslerinin bilgilerini getirir
-    ActiveLessons(period: String)/*: Observable<ActiveLesson>*/ {
-        return this.apiService.Get(`/Instructor/ActiveLessons?period=${period}`);
+    ActiveLessons(period: String): any/*: Observable<ActiveLesson> */{
+        return this.apiService
+            .Get(`/Instructor/ActiveLessons?period=${period}`)
+            .map(data => data);
     }
 }

@@ -1,11 +1,11 @@
 export class ActiveLesson {
-    constructor(instructorId: String, lessons: { _id: String, branch: String[], }) {
+    constructor(instructorId: string, lessons: { _id: string, branch: string[], }) {
         this.instructorId = instructorId;
         this.lessons = lessons;
     }
     lessons: {
-        _id: String,
-        branch: String[],
+        _id: string,
+        branch: string[],
     };
-    instructorId: String;
+    instructorId: string;
 }

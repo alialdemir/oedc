@@ -6,7 +6,7 @@ export class SurveyFormCode implements ModelBase {
     instructorId: string;
     branch: String;
     isShow: Boolean;
-    constructor(lessonId: string, surveyFormId: string, instructorId: string, branch: String, isShow: Boolean, _id?: string) {
+    constructor(lessonId: string, surveyFormId: string, instructorId: string, branch: String, isShow: Boolean = false, _id?: string) {
         this.lessonId = lessonId;
         this.surveyFormId = surveyFormId;
         this.instructorId = instructorId;

@@ -31,7 +31,12 @@ import { Subscription } from 'rxjs';
     </mat-header-cell>
 
     <mat-cell *matCellDef="let row" [ngClass]="column.class ? column.class : 'customWidthClass'">
-    <TableMenuComponent [row]="row" [MenuItems]="MenuItems" *ngIf="i === 0" [UpdateComponent]="UpdateComponent" [ServiceBase]="ServiceBase">
+    <TableMenuComponent
+    *ngIf="UpdateComponent && i === 0"
+    [row]="row"
+    [MenuItems]="MenuItems"
+    [UpdateComponent]="UpdateComponent"
+    [ServiceBase]="ServiceBase">
     </TableMenuComponent>
 
     <span *ngIf="column.type === 'column' && i > 0">

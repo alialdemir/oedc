@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CurriculumService } from '../../../shared/services/index';
+import { SurveyFormCodeService } from '../../../shared/services/index';
 import { IColumn } from '../../../shared/models/index';
 
 @Component({
@@ -17,5 +17,5 @@ export class SurveyFormCodeListComponent {
     { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => element.isActive },
   ];
 
-  constructor(private curriculumService: CurriculumService) { }
+  constructor(private surveyFormCodeService: SurveyFormCodeService) { }
 }

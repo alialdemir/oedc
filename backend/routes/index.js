@@ -8,6 +8,7 @@ const instructorCtrl = require('../controllers/instructor')
 const questionGroupCtrl = require('../controllers/questionGroup')
 const questionCtrl = require('../controllers/question')
 const surveyFormCtrl = require('../controllers/surveyForm')
+const surveyFormCodeCtrl = require('../controllers/surveyFormCode')
 const userCtrl = require('../controllers/user')
 const auth = require('../middlewares/auth')
 const api = express.Router()
@@ -49,6 +50,10 @@ api.get('/surveyform', auth, surveyFormCtrl.GetAll)
 api.post('/surveyform', auth, surveyFormCtrl.Insert)
 api.put('/surveyform', auth, surveyFormCtrl.Update)
 api.delete('/surveyform', auth, surveyFormCtrl.Delete)
+
+
+api.get('/surveyFormCode', auth, surveyFormCodeCtrl.GetAll)
+api.post('/surveyFormCode', auth, surveyFormCodeCtrl.Insert)
 
 api.post('/signup', userCtrl.signUp)
 api.post('/signin', userCtrl.signIn)

@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
-import { SurveyFormService } from '../../../shared/services/index';
+import { Component, AfterViewInit } from '@angular/core';
+import { SurveyFormService, SubscribeService, InstructorService, SurveyFormCodeService } from '../../../shared/services/index';
 import { SurveyFormUpdateComponent } from '../update/surveyForm.update.component';
 import { SurveyFormAddComponent } from '../add/surveyForm.add.component';
-import { IColumn, IMenuItem, ModelBase } from '../../../shared/models/index';
+import { IColumn, IMenuItem, ModelBase, SurveyForm, SurveyFormCode } from '../../../shared/models/index';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   styleUrls: ['../../../../assets/css/list.component.css'],
   templateUrl: './surveyForm.list.component.html',
 })
 
-export class SurveyFormListComponent {
+export class SurveyFormListComponent implements AfterViewInit {
 
   title = 'Anketler';
 
@@ -54,9 +56,74 @@ export class SurveyFormListComponent {
     },
   ];
 
+  subscription: Subscription;
+
   constructor(
     private surveyFormService: SurveyFormService,
-    private router: Router) { }
+    private instructorService: InstructorService,
+    private surveyFormCodeService: SurveyFormCodeService,
+    private subscribeService: SubscribeService,
+    private router: Router,
+    public snackBar: MatSnackBar) { }
+  // Show message
+  private SnackBarMessage(message: string) {
+    this.snackBar.open(message, '', {
+      duration: 3000,
+    });
+  }
+
+  private InserSurveyFormCode(surveyFormCode: SurveyFormCode) {
+    this.surveyFormCodeService
+      .Insert(surveyFormCode)
+      .subscribe(
+      data => { },
+      err => {
+        if (err.status === 200) {
+          return;
+        }
+        console.log(err);
+        this.SnackBarMessage('Anket kodları oluşturulurken hata oluştu!');
+      });
+  }
+
+  // Survey form code add operations
+  private DataAddedSubscribe(addedModel: SurveyForm) {
+    return new Promise((resolve, reject) => {
+      this.instructorService
+        // Aktif olan öğretim elemanlarının aktif olan derslerinin parametreden gelen dönemdeki derslerinin bilgilerini getirdik
+        .ActiveLessons(addedModel.period)
+        .subscribe(activeLessons => {
+          activeLessons.forEach(activeLesson => {// Öğretim elemanı ders bilgileri
+            activeLesson.lessons.forEach(lesson => {// Öğretim elemanı ders bilgileri
+              lesson.branch.forEach(branch => {// Derslerin şubeleri
+                this.InserSurveyFormCode(new SurveyFormCode(// Her dersin her şubesi için anket kodu oluşturuldu
+                  activeLesson.lessons._id,
+                  addedModel._id,
+                  activeLesson.instructorId,
+                  branch
+                ));
+              });
+            });
+          });
+        });
+    });
+  }
+
+  ngAfterViewInit() {
+    this.subscription = this.subscribeService// new entity added subscribe
+      .Subscribe('dataadded', addedModel => {
+        if (addedModel) {
+          this.DataAddedSubscribe(addedModel)
+            .then(success => this.SnackBarMessage('Anket kodları oluşturuldu!'));
+        }
+      });
+  }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
+  }
 
   getTotalDays(finishDate) {
     finishDate = new Date(finishDate);

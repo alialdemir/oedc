@@ -9,7 +9,7 @@ const ModelSchema = Schema({
     surveyFormId: { type: Schema.Types.ObjectId, ref: 'SurveyForm' },
     instructorId: { type: Schema.Types.ObjectId, ref: 'Instructor' },
     branch: String,
-    isShow: Boolean,
+    isShow: { type: Schema.Types.Boolean, default: false },
 })
 
 ModelSchema.plugin(mongoosePaginate);
