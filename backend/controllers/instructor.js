@@ -164,8 +164,6 @@ function ActiveLessons(req, res) {
                 instructorId: 1,
                 'lessons._id': 1,
                 'lessons.branch': 1,
-                'lessons.name': 1,
-                'lessons.isActive': 1,
             }
         },
     ], function (err, result) {

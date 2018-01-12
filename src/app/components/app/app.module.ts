@@ -52,6 +52,8 @@ import {
   QuestionService,
   SubscribeService,
   SurveyFormService,
+  SurveyFormCodeService,
+
 } from '../../shared/services/index';
 
 // Helper components
@@ -316,6 +318,7 @@ import {
     InstructorService,
     QuestionGroupService,
     SurveyFormService,
+    SurveyFormCodeService,
     QuestionService,
     SubscribeService,
     HttpClientModule,

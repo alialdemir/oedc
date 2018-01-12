@@ -5,6 +5,7 @@ import { ServiceModel } from '../models/service.model';
 import { IServiceBase } from '../models/IServiceBase.interface';
 import { Observable } from 'rxjs/Observable';
 import { Promise } from 'q';
+import { ActiveLesson } from '../models/index';
 
 @Injectable()
 export class InstructorService implements IServiceBase {
@@ -44,5 +45,10 @@ export class InstructorService implements IServiceBase {
         return this.apiService
             .Get(`/Instructor/Lesson?_id=${_id}`)
             .map(data => data);
+    }
+
+    // Aktif olan hocaların aktif olan derslerinin parametreden gelen dönemdeki derslerinin bilgilerini getirir
+    ActiveLessons(period: String)/*: Observable<ActiveLesson>*/ {
+        return this.apiService.Get(`/Instructor/ActiveLessons?period=${period}`);
     }
 }
