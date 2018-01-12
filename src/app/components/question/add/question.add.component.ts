@@ -26,7 +26,7 @@ export class QuestionAddComponent {
     // tslint:disable-next-line:use-life-cycle-interface
     ngOnInit() {
         this.form = this.formBuilder.group({
-            questionGroup: new FormControl(this.params.questionGroupId, Validators.required),
+            questionGroup: new FormControl(this.params.questionGroup, Validators.required),
             lessonId: new FormControl([]),
             curriculumId: new FormControl([]),
             departmentId: new FormControl([]),

@@ -2,7 +2,7 @@
 /* List css*/
 
 .customWidthClass:first-child,  .customWidthClass-order{
-  flex: 0 0 45px;
+  flex: 0 0 35px;
 } 
 .customWidthClass-question-count{
     flex: 0 0 75px;

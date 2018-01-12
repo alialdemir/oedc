@@ -69,6 +69,9 @@ export class TableComponent implements AfterViewInit {
 
     dataSource = new MatTableDataSource<ModelBase>();
 
+    @Input()
+    Query = {};
+
     // Paging
     resultsLength = 0;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -181,7 +184,7 @@ export class TableComponent implements AfterViewInit {
             .pipe(
             startWith({}),
             switchMap(() => {
-                return this.ServiceBase.GetAll(this.paginator.pageSize, this.paginator.pageIndex + 1, '', {});
+                return this.ServiceBase.GetAll(this.paginator.pageSize, this.paginator.pageIndex + 1, '', this.Query);
             }),
             map(data => {
                 this.resultsLength = data.total_count;

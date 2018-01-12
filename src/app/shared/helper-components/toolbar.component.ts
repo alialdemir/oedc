@@ -44,6 +44,9 @@ export class ToolbarComponent {
 
     isFilterShow = false;
 
+    @Input()
+    Query = {};
+
     constructor(
         private subscribeService: SubscribeService,
         private dialog: MatDialog
@@ -68,7 +71,7 @@ export class ToolbarComponent {
     }
 
     // Open new entity popup
-    onCreate(row: ModelBase) {
+    onCreate(e) {
         if (!this.AddComponent) {
             console.log('toolbar: AddComponent undefined');
             return;
@@ -76,13 +79,13 @@ export class ToolbarComponent {
 
         const dialogRef = this.dialog.open(this.AddComponent, {
             width: '400px',
-            data: row
+            data: this.Query
         });
         dialogRef
             .afterClosed()
             .subscribe(addedModel => {
                 if (addedModel) {
-                    this.subscribeService.Publish('dataadded', addedModel);
+                    this.subscribeService.Publish('dataadded', ...addedModel);
                 }
             });
     }
