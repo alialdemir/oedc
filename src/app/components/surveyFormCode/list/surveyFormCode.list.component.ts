@@ -13,8 +13,10 @@ export class SurveyFormCodeListComponent {
 
 
   columns: IColumn[] = [
-    { columnDef: 'name', header: 'Bölüm Adı', type: 'column', cell: (element: any) => `${element.name}` },
-    { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => element.isActive },
+    { columnDef: 'instructor', header: 'Öğretim Elemanı', type: 'column', cell: (element: any) => `${element.instructorId.fullname}` },
+    { columnDef: 'lesson', header: 'Ders', type: 'column', cell: (element: any) => `${element.lessonId.name}` },
+    { columnDef: 'branch', header: 'Şube', type: 'column', cell: (element: any) => `${element.branch}` },
+    { columnDef: 'department', header: 'Program', type: 'column', cell: (element: any) => `${element.lessonId.department.name}` },
   ];
 
   constructor(private surveyFormCodeService: SurveyFormCodeService) { }
