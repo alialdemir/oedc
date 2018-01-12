@@ -11,7 +11,16 @@ function GetAll(req, res) {
     if (pageSize === NaN) pageSize = 10;
     if (pageNumber === NaN || pageNumber <= 0) pageNumber = 1;
 
-    Model.paginate(query, { select: fields, sort: { _id: -1 }, offset: pageSize * (pageNumber - 1), limit: pageSize })
+    Model.paginate(query, {
+        populate: [
+            {
+                path: 'lessonId',
+                select: '-_id name',
+                populate: { path: 'department', select: '-_id name' }
+            },
+            { path: 'instructorId', select: '-_id fullname' }
+        ], select: fields, sort: { _id: -1 }, offset: pageSize * (pageNumber - 1), limit: pageSize
+    })
         .then(function (result) {
             res.status(200)
                 .send({

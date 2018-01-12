@@ -97,7 +97,7 @@ export class SurveyFormListComponent implements AfterViewInit {
             activeLesson.lessons.forEach(lesson => {// Öğretim elemanı ders bilgileri
               lesson.branch.forEach(branch => {// Derslerin şubeleri
                 this.InserSurveyFormCode(new SurveyFormCode(// Her dersin her şubesi için anket kodu oluşturuldu
-                  activeLesson.lessons._id,
+                  lesson._id,
                   addedModel._id,
                   activeLesson.instructorId,
                   branch
