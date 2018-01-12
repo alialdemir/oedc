@@ -33,7 +33,7 @@ import {
   QuestionGroupListComponent,
   QuestionGroupUpdateComponent,
 
-  SurveyCodesListComponent,
+  SurveyFormCodeListComponent,
 
   SurveyFormAddComponent,
   SurveyFormListComponent,
@@ -139,7 +139,7 @@ import {
     QuestionListComponent,
     QuestionAddComponent,
     QuestionUpdateComponent,
-    SurveyCodesListComponent,
+    SurveyFormCodeListComponent,
 
     SurveyFormAddComponent,
     SurveyFormListComponent,
@@ -227,7 +227,7 @@ import {
       },
       {
         path: 'Yonetim/Anketler/Kodlar/:id',
-        component: SurveyCodesListComponent,
+        component: SurveyFormCodeListComponent,
         data: {
           title: 'Anket Kodları'
         }

@@ -2,7 +2,7 @@
   <DialogTitleComponent title="Ders Güncelle"></DialogTitleComponent>
   <InputComponent [form]="form" controlName="name" placeholder="Ders Adı"></InputComponent>
   <mat-form-field>
-    <input matInput controlName="code" #input maxlength="10" minlength="3" placeholder="Ders kodu" required>
+    <input matInput formControlName="code" #input maxlength="10" minlength="3" placeholder="Ders kodu" required>
   </mat-form-field>
   <CurriculumSelectComponent [form]="form" [multiple]="false"></CurriculumSelectComponent>
   <DepartmentSelectComponent [form]="form" [multiple]="false"></DepartmentSelectComponent>

@@ -4,10 +4,10 @@ import { IColumn } from '../../../shared/models/index';
 
 @Component({
   styleUrls: ['../../../../assets/css/list.component.css'],
-  templateUrl: './surveyCodes.list.component.html',
+  templateUrl: './surveyFormCode.list.component.html',
 })
 
-export class SurveyCodesListComponent {
+export class SurveyFormCodeListComponent {
 
   title = 'Anket Kodları';
 

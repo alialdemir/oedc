@@ -127,10 +127,62 @@ function GetInstructorLessonInfo(req, res) {
     });
 }
 
-module.exports = { 
+// Aktif olan hocaların aktif olan derslerinin parametreden gelen dönemdeki derslerinin bilgilerini getirir
+function ActiveLessons(req, res) {
+    let period = req.query.period;
+
+    Model.aggregate([
+        { $match: { isActive: true } },
+        {
+            $lookup: {
+                from: "lessons",
+                localField: "lessons",
+                foreignField: "_id",
+                as: "lessons"
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                instructorId: '$_id',
+                "lessons": {
+                    "$filter": {
+                        "input": "$lessons",
+                        "as": "child",
+                        "cond": {
+                            '$and': [
+                                { "$eq": ["$$child.period", period], },
+                                { "$eq": ["$$child.isActive", true] }
+                            ]
+                        }
+                    }
+                },
+            }
+        },
+        {
+            $project: {
+                instructorId: 1,
+                'lessons._id': 1,
+                'lessons.branch': 1,
+                'lessons.name': 1,
+                'lessons.isActive': 1,
+            }
+        },
+    ], function (err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        res.status(200).send(result);
+    });
+}
+
+module.exports = {
     GetAll,
     Insert,
     Update,
     Delete,
-    GetInstructorLessonInfo
+    GetInstructorLessonInfo,
+    ActiveLessons,
 }
