@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DepartmentService } from '../../../shared/services/department.service';
+import { DepartmentService } from '../../../shared/services/index';
 import { DepartmentUpdateComponent } from '../update/department.update.component';
 import { DepartmentAddComponent } from '../add/department.add.component';
 import { IColumn } from '../../../shared/models/index';

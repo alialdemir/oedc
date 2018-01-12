@@ -1,9 +1,8 @@
 ﻿import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { DepartmentService } from '../../../shared/services/department.service';
-import { Department } from '../../../shared/models/department.model';
+import { DepartmentService } from '../../../shared/services/index';
+import { Department } from '../../../shared/models/index';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
-import { Curriculum } from '../../../shared/models/curriculum.model';
 
 @Component({
     templateUrl: './department.add.component.html'

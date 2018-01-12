@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CurriculumService } from '../../../shared/services/curriculum.service';
-import { Curriculum } from '../../../shared/models/curriculum.model';
+import { CurriculumService } from '../../../shared/services/index';
+import { Curriculum } from '../../../shared/models/index';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 
 @Component({

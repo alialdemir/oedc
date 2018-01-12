@@ -1,9 +1,8 @@
-﻿import { Component, Inject, AfterViewInit } from '@angular/core';
+﻿import { Component, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { InstructorService } from '../../../shared/services/instructor.service';
-import { Instructor } from '../../../shared/models/instructor.model';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { MatSnackBar } from '@angular/material';
+import { InstructorService } from '../../../shared/services/index';
+import { Instructor } from '../../../shared/models/index';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 
 @Component({
     templateUrl: './instructor.update.component.html'

@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { QuestionGroupService } from '../../../shared/services/questionGroup.service';
-import { QuestionGroup } from '../../../shared/models/questionGroup.model';
+import { QuestionGroupService } from '../../../shared/services/index';
+import { QuestionGroup } from '../../../shared/models/index';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 
 @Component({

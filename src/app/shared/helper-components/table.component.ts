@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators/catchError';
 import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
-import { TableRowAnimation } from '../animations/tablerow.animation';
+import { TableRowAnimation } from '../animations/index';
 import { SubscribeService } from '../services/subscribe.service';
 // tslint:disable-next-line:import-blacklist
 import { Subscription } from 'rxjs';

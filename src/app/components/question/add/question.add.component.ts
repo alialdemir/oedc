@@ -1,7 +1,7 @@
 ﻿import { Component, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
-import { QuestionService } from '../../../shared/services/question.service';
-import { Question } from '../../../shared/models/question.model';
+import { QuestionService } from '../../../shared/services/index';
+import { Question } from '../../../shared/models/index';
 import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({

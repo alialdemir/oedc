@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LessonService } from '../../../shared/services/lesson.service';
+import { LessonService } from '../../../shared/services/index';
 import { LessonUpdateComponent } from '../update/lesson.update.component';
 import { LessonAddComponent } from '../add/lesson.add.component';
 import { IColumn } from '../../../shared/models/index';

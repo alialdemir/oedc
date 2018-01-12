@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { InstructorService } from '../../../shared/services/instructor.service';
-import { Instructor } from '../../../shared/models/instructor.model';
+import { InstructorService } from '../../../shared/services/index';
+import { Instructor } from '../../../shared/models/index';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 
 @Component({

@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { QuestionGroupService } from '../../../shared/services/questionGroup.service';
+import { QuestionGroupService, SubscribeService } from '../../../shared/services/index';
 import { QuestionGroupUpdateComponent } from '../update/questionGroup.update.component';
 import { QuestionGroupAddComponent } from '../add/questionGroup.add.component';
 import { IColumn, IMenuItem, ModelBase } from '../../../shared/models/index';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import { SubscribeService } from '../../../shared/services/subscribe.service';
 
 @Component({
   styleUrls: ['../../../../assets/css/list.component.css'],

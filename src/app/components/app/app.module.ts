@@ -3,69 +3,74 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
-// Directives
-import { getDutchPaginatorIntl } from '../../shared/directives/dutch-paginator-intl';
-
 // Components
-import { CurriculumListComponent } from '../curriculum/list/curriculum.list.component';
-import { CurriculumAddComponent } from '../curriculum/add/curriculum.add.component';
-import { CurriculumUpdateComponent } from '../curriculum/update/curriculum.update.component';
+import {
+  AppComponent,
 
-import { DepartmentListComponent } from '../department/list/department.list.component';
-import { DepartmentAddComponent } from '../department/add/department.add.component';
-import { DepartmentUpdateComponent } from '../department/update/department.update.component';
+  CurriculumAddComponent,
+  CurriculumListComponent,
+  CurriculumUpdateComponent,
 
-import { LessonListComponent } from '../lesson/list/lesson.list.component';
-import { LessonAddComponent } from '../lesson/add/lesson.add.component';
-import { LessonUpdateComponent } from '../lesson/update/lesson.update.component';
+  DepartmentAddComponent,
+  DepartmentListComponent,
+  DepartmentUpdateComponent,
 
-import { InstructorListComponent } from '../instructor/list/instructor.list.component';
-import { InstructorAddComponent } from '../instructor/add/instructor.add.component';
-import { InstructorUpdateComponent } from '../instructor/update/instructor.update.component';
+  InstructorAddComponent,
+  InstructorListComponent,
+  InstructorUpdateComponent,
 
-import { QuestionGroupListComponent } from '../questionGroup/list/questionGroup.list.component';
-import { QuestionGroupAddComponent } from '../questionGroup/add/questionGroup.add.component';
-import { QuestionGroupUpdateComponent } from '../questionGroup/update/questionGroup.update.component';
+  LessonAddComponent,
+  LessonListComponent,
+  LessonUpdateComponent,
 
-import { QuestionListComponent } from '../question/list/question.list.component';
-import { QuestionAddComponent } from '../question/add/question.add.component';
-import { QuestionUpdateComponent } from '../question/update/question.update.component';
+  QuestionAddComponent,
+  QuestionListComponent,
+  QuestionUpdateComponent,
 
-import { AlertDialogComponent } from '../../shared/helper-components/alert.component';
+  QuestionGroupAddComponent,
+  QuestionGroupListComponent,
+  QuestionGroupUpdateComponent,
+} from '../index';
 
 // Services
-import { ApiService } from '../../shared/services/api.service';
-import { JwtService } from '../../shared/services/jwt.service';
-import { CurriculumService } from '../../shared/services/curriculum.service';
-import { DepartmentService } from '../../shared/services/department.service';
-import { LessonService } from '../../shared/services/lesson.service';
-import { InstructorService } from '../../shared/services/instructor.service';
-import { QuestionGroupService } from '../../shared/services/questionGroup.service';
-import { QuestionService } from '../../shared/services/question.service';
+import {
+  ApiService,
+  CurriculumService,
+  DepartmentService,
+  InstructorService,
+  JwtService,
+  LessonService,
+  QuestionGroupService,
+  QuestionService,
+  SubscribeService,
+  SurveyFormService,
+} from '../../shared/services/index';
 
-// Sub service
-import { SubscribeService } from '../../shared/services/subscribe.service';
+// Helper components
 
-// components
-import { CurriculumSelectComponent } from '../../shared/helper-components/curriculum.select.component';
-import { DepartmentSelectComponent } from '../../shared/helper-components/department.select.component';
-import { BranchSelectComponent } from '../../shared/helper-components/branch.select.component';
-import { PeriodSelectComponent } from '../../shared/helper-components/period.select.component';
-import { ActiveSelectComponent } from '../../shared/helper-components/active.select.component';
-import { DialogTitleComponent } from '../../shared/helper-components/dialog.title.component';
-import { InputComponent } from '../../shared/helper-components/input.component';
-import { LessonSelectComponent } from '../../shared/helper-components/lesson.select.component';
-import { TextAreaComponent } from '../../shared/helper-components/textarea.component';
-import { StylishSelectComponent } from '../../shared/helper-components/stylish.select.component';
-import { RequiredSelectComponent } from '../../shared/helper-components/required.select.component';
-import { TableComponent } from '../../shared/helper-components/table.component';
-import { TableMenuComponent } from '../../shared/helper-components/table.menu.component';
-import { StatusChipComponent } from '../../shared/helper-components/status.chip.component';
-import { ToolbarComponent } from '../../shared/helper-components/toolbar.component';
+import {
+  ActiveSelectComponent,
+  AlertDialogComponent,
+  BranchSelectComponent,
+  CurriculumSelectComponent,
+  DepartmentSelectComponent,
+  DialogTitleComponent,
+  InputComponent,
+  LessonSelectComponent,
+  PeriodSelectComponent,
+  RequiredSelectComponent,
+  StatusChipComponent,
+  StylishSelectComponent,
+  TableComponent,
+  TableMenuComponent,
+  TextAreaComponent,
+  ToolbarComponent,
+} from '../../shared/helper-components/index';
 
+// Directives
+import { getDutchPaginatorIntl } from '../../shared/directives/index';
 
 // Material
 import { CdkTableModule } from '@angular/cdk/table';

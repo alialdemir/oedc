@@ -1,9 +1,8 @@
 ﻿import { Component, Inject, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { QuestionService } from '../../../shared/services/question.service';
-import { Question } from '../../../shared/models/question.model';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { MatSnackBar } from '@angular/material';
+import { QuestionService } from '../../../shared/services/index';
+import { Question } from '../../../shared/models/index';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 
 @Component({
     templateUrl: './question.update.component.html'

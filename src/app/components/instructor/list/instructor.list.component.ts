@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { InstructorService } from '../../../shared/services/instructor.service';
+import { InstructorService } from '../../../shared/services/index';
 import { InstructorUpdateComponent } from '../update/instructor.update.component';
 import { InstructorAddComponent } from '../add/instructor.add.component';
 import { IColumn } from '../../../shared/models/index';

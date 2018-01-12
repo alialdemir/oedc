@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { QuestionService } from '../../../shared/services/question.service';
+import { QuestionService } from '../../../shared/services/index';
 import { QuestionUpdateComponent } from '../update/question.update.component';
 import { QuestionAddComponent } from '../add/question.add.component';
 import { IColumn } from '../../../shared/models/index';
