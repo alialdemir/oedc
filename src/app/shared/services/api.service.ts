@@ -1,13 +1,12 @@
 ﻿import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-// tslint:disable-next-line:import-blacklist
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { JwtService } from './jwt.service';
-import { ServiceModel } from '../models/service.model';
+import { ServiceModel } from '../models/index';
 import { MatSnackBar } from '@angular/material';
 
 @Injectable()
