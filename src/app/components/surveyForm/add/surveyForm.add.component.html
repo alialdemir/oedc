@@ -1,0 +1,6 @@
+<form [formGroup]="form" (submit)="onSubmit($event)">
+  <DialogTitleComponent title="Anket Ekle"></DialogTitleComponent>
+ 
+  <PeriodSelectComponent [form]="form"></PeriodSelectComponent>
+  <button mat-raised-button color="primary" type="submit">Kaydet</button>
+</form>

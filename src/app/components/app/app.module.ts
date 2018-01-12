@@ -32,6 +32,10 @@ import {
   QuestionGroupAddComponent,
   QuestionGroupListComponent,
   QuestionGroupUpdateComponent,
+
+  SurveyFormAddComponent,
+  SurveyFormListComponent,
+  SurveyFormUpdateComponent,
 } from '../index';
 
 // Services
@@ -131,6 +135,10 @@ import {
     QuestionListComponent,
     QuestionAddComponent,
     QuestionUpdateComponent,
+
+    SurveyFormAddComponent,
+    SurveyFormListComponent,
+    SurveyFormUpdateComponent,
     AlertDialogComponent,
     CurriculumSelectComponent,
     DepartmentSelectComponent,
@@ -201,6 +209,13 @@ import {
         component: QuestionListComponent,
         data: {
           title: 'Sorular'
+        }
+      },
+      {
+        path: 'Yonetim/Anketler',
+        component: SurveyFormListComponent,
+        data: {
+          title: 'Anketler'
         }
       },
       {
@@ -286,6 +301,7 @@ import {
     LessonService,
     InstructorService,
     QuestionGroupService,
+    SurveyFormService,
     QuestionService,
     SubscribeService,
     HttpClientModule,
@@ -305,6 +321,8 @@ import {
     QuestionGroupUpdateComponent,
     QuestionAddComponent,
     QuestionUpdateComponent,
+    SurveyFormAddComponent,
+    SurveyFormUpdateComponent,
     AlertDialogComponent,
   ]
 })

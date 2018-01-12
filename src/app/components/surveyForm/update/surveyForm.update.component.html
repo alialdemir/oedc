@@ -1,0 +1,6 @@
+<form [formGroup]="form" (submit)="onSubmit($event)">
+  <DialogTitleComponent title="Anket Güncelle"></DialogTitleComponent>
+ 
+  <PeriodSelectComponent [form]="form"></PeriodSelectComponent>
+  <button mat-raised-button color="primary" type="submit">Kaydet</button>
+</form>

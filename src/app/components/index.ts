@@ -24,3 +24,7 @@ export * from './question/update/question.update.component';
 export * from './questionGroup/add/questionGroup.add.component';
 export * from './questionGroup/list/questionGroup.list.component';
 export * from './questionGroup/update/questionGroup.update.component';
+// Survey Form
+export * from './surveyForm/add/surveyForm.add.component';
+export * from './surveyForm/list/surveyForm.list.component';
+export * from './surveyForm/update/surveyForm.update.component';
