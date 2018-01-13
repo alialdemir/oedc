@@ -13,7 +13,9 @@ const UserSchema = new Schema({
   lastLogin: Date
 })
 
-UserSchema.pre('save', (next) => {
+
+
+UserSchema.pre('save', function (next) {
   let user = this
   //if (!user.isModified('password')) return next()
 
@@ -27,6 +29,6 @@ UserSchema.pre('save', (next) => {
       next()
     })
   })
-})
+});
 
 module.exports = mongoose.model('User', UserSchema)

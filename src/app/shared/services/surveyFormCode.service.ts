@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { SurveyFormCode } from '../models/SurveyFormCode.model';
+import { SurveyFormCode } from '../models/surveyFormCode.model';
 import { ServiceModel } from '../models/service.model';
 import { IServiceBase } from '../models/IServiceBase.interface';
 import { Observable } from 'rxjs/Observable';
