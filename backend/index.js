@@ -14,3 +14,4 @@ mongoose.connect(config.db, {useMongoClient: true}, (err, res) => {
     console.log(`REST API runing on http://localhost:${config.port}`)
   })
 })
+mongoose.Promise = global.Promise;

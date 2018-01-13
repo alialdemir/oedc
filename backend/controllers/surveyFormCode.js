@@ -15,7 +15,7 @@ function GetAll(req, res) {
         populate: [
             {
                 path: 'lessonId',
-                select: '-_id name',
+                select  : '-_id name',
                 populate: { path: 'department', select: '-_id name' }
             },
             { path: 'instructorId', select: '-_id fullname' }

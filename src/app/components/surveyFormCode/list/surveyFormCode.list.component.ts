@@ -11,6 +11,7 @@ export class SurveyFormCodeListComponent {
 
   title = 'Anket Kodları';
 
+  isChoose = true;
 
   columns: IColumn[] = [
     { columnDef: 'instructor', header: 'Öğretim Elemanı', type: 'column', cell: (element: any) => `${element.instructorId.fullname}` },
