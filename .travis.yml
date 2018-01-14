@@ -14,5 +14,5 @@ before_deploy:
 deploy:
   provider: surge
   project: ./dist/
-  domain: oedc
+  domain: oedc.surge.sh
   skip_cleanup: true
