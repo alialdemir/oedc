@@ -1,4 +1,4 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+/*import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { CurriculumListComponent } from './curriculum.list.component';
 import { CurriculumService } from '../../../shared/services/curriculum.service';
 import {
@@ -56,3 +56,4 @@ describe('CurriculumListComponent', () => {
         return TestBed.createComponent(CurriculumListComponent);
     }
 });
+ */
