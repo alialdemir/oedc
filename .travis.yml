@@ -16,3 +16,4 @@ deploy:
   project: ./dist/
   domain: oedc.surge.sh
   skip_cleanup: true
+  
