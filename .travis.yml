@@ -5,19 +5,16 @@ node_js:
 
 sudo: false
 
-cache: yarn
-
-before_install:NPM 
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.21.3
+cache: npm
 
 script:
-  - yarn run test:ci
+  - npm run test:ci
 
 after_success:
   - codecov
 
 before_deploy:
-  - yarn run build
+  - npm run build
   - cp ./dist/index.html ./dist/200.html
 
 deploy:
