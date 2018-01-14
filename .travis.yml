@@ -7,12 +7,6 @@ sudo: false
 
 cache: npm
 
-script:
-  - npm run test:ci
-
-after_success:
-  - codecov
-
 before_deploy:
   - npm run build
   - cp ./dist/index.html ./dist/200.html
