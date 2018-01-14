@@ -8,8 +8,8 @@ import { MatDialogRef, MatSnackBar } from '@angular/material';
 })
 export class CurriculumAddComponent {
     public form = new FormGroup({
-        name: new FormControl(String, Validators.required),
-        isActive: new FormControl(Boolean, Validators.required)
+        name: new FormControl('', Validators.required),
+        isActive: new FormControl('', Validators.required)
     });
 
     constructor(
@@ -25,9 +25,7 @@ export class CurriculumAddComponent {
         this.curriculumService
             .Insert(this.form.value)
             .subscribe(isSuccess => {
-                this.snackBar.open(isSuccess.message, '', {
-                    duration: 3000,
-                });
+                this.snackBar.open(isSuccess.message, '', { duration: 3000, });
                 this.dialogRef.close(isSuccess.model);
             });
     }

@@ -1,7 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LessonService } from '../../../shared/services/index';
-import { Lesson } from '../../../shared/models/index';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 
 @Component({
@@ -11,11 +10,11 @@ export class LessonAddComponent {
     public form = new FormGroup({
         name: new FormControl('', Validators.required),
         code: new FormControl('', Validators.required),
-        period: new FormControl(String, Validators.required),
+        period: new FormControl('', Validators.required),
         branch: new FormControl([''], Validators.required),
-        isActive: new FormControl(Boolean, Validators.required),
-        departmentId: new FormControl('', Validators.required),
-        curriculumId: new FormControl('', Validators.required)
+        isActive: new FormControl('', Validators.required),
+        department: new FormControl('', Validators.required),
+        curriculum: new FormControl('', Validators.required)
     });
 
     constructor(
@@ -29,13 +28,7 @@ export class LessonAddComponent {
         }
 
         this.lessonService
-            .Insert(new Lesson(
-                this.form.controls.name.value,
-                this.form.controls.code.value,
-                this.form.controls.departmentId.value,
-                this.form.controls.period.value,
-                this.form.controls.branch.value,
-                this.form.controls.isActive.value))
+            .Insert(this.form.value)
             .subscribe(isSuccess => {
                 this.ShowSnackBar(isSuccess.message);
                 this.dialogRef.close(isSuccess.model);

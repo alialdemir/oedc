@@ -1,7 +1,6 @@
 ﻿import { Component, Inject, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { InstructorService } from '../../../shared/services/index';
-import { Instructor } from '../../../shared/models/index';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 
 @Component({
@@ -9,11 +8,12 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 })
 export class InstructorUpdateComponent implements AfterViewInit {
     public form = new FormGroup({
+        _id: new FormControl('', Validators.required),
         name: new FormControl('', Validators.required),
-        lessonId: new FormControl([''], Validators.required),
-        curriculumId: new FormControl([''], Validators.required),
-        departmentId: new FormControl([''], Validators.required),
-        isActive: new FormControl(Boolean, Validators.required),
+        lesson: new FormControl([''], Validators.required),
+        curriculum: new FormControl([''], Validators.required),
+        department: new FormControl([''], Validators.required),
+        isActive: new FormControl('', Validators.required),
     });
 
     constructor(
@@ -26,6 +26,7 @@ export class InstructorUpdateComponent implements AfterViewInit {
         this.instructorService
             .GetInstructorLessonInfo(this.params._id)
             .subscribe(data => {
+                this.form.controls._id.setValue(this.params._id);
                 this.form.controls.name.setValue(this.params.fullname);
                 this.form.controls.isActive.setValue(this.params.isActive);
 
@@ -42,11 +43,7 @@ export class InstructorUpdateComponent implements AfterViewInit {
         }
 
         this.instructorService
-            .Update(new Instructor(
-                this.form.controls.name.value,
-                this.form.controls.isActive.value,
-                this.form.controls.lessonId.value,
-                this.params._id))
+            .Update(this.form.value)
             .subscribe(isSuccess => {
                 this.ShowSnackBar(isSuccess.message);
                 this.dialogRef.close(isSuccess.model);

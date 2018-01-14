@@ -1,7 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { QuestionGroupService } from '../../../shared/services/index';
-import { QuestionGroup } from '../../../shared/models/index';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 
 @Component({
@@ -12,7 +11,7 @@ export class QuestionGroupAddComponent {
         title: new FormControl('', Validators.required),
         description: new FormControl('', Validators.required),
         stylishType: new FormControl('', Validators.required),
-        isRequired: new FormControl(Boolean, Validators.required),
+        isRequired: new FormControl('', Validators.required),
     });
 
     constructor(
@@ -26,15 +25,9 @@ export class QuestionGroupAddComponent {
         }
 
         this.questionGroupService
-            .Insert(new QuestionGroup(
-                this.form.controls.title.value,
-                this.form.controls.description.value,
-                this.form.controls.stylishType.value,
-                this.form.controls.isRequired.value))
+            .Insert(this.form.value)
             .subscribe(isSuccess => {
-                this.snackBar.open(isSuccess.message, '', {
-                    duration: 3000,
-                });
+                this.snackBar.open(isSuccess.message, '', { duration: 3000, });
                 this.dialogRef.close(isSuccess.model);
             });
     }

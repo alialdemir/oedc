@@ -1,7 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DepartmentService } from '../../../shared/services/index';
-import { Department } from '../../../shared/models/index';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 
 @Component({
@@ -9,9 +8,9 @@ import { MatDialogRef, MatSnackBar } from '@angular/material';
 })
 export class DepartmentAddComponent {
     public form = new FormGroup({
-        name: new FormControl(String, Validators.required),
-        isActive: new FormControl(Boolean, Validators.required),
-        curriculumId: new FormControl(String[''], Validators.required)
+        name: new FormControl('', Validators.required),
+        isActive: new FormControl('', Validators.required),
+        curriculum: new FormControl(String[''], Validators.required)
     });
 
     constructor(
@@ -25,14 +24,9 @@ export class DepartmentAddComponent {
         }
 
         this.departmentService
-            .Insert(new Department(
-                this.form.controls.name.value,
-                this.form.controls.isActive.value,
-                this.form.controls.curriculumId.value))
+            .Insert(this.form.value)
             .subscribe(isSuccess => {
-                this.snackBar.open(isSuccess.message, '', {
-                    duration: 3000,
-                });
+                this.snackBar.open(isSuccess.message, '', { duration: 3000, });
                 this.dialogRef.close(isSuccess.model);
             });
     }

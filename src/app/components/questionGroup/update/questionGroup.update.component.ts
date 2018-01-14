@@ -12,7 +12,7 @@ export class QuestionGroupUpdateComponent {
         title: new FormControl('', Validators.required),
         description: new FormControl('', Validators.required),
         stylishType: new FormControl('', Validators.required),
-        isRequired: new FormControl(Boolean, Validators.required),
+        isRequired: new FormControl('', Validators.required),
     });
 
     constructor(
@@ -20,10 +20,10 @@ export class QuestionGroupUpdateComponent {
         public dialogRef: MatDialogRef<QuestionGroupUpdateComponent>,
         public snackBar: MatSnackBar,
         @Inject(MAT_DIALOG_DATA) public params: any) {
-            this.form.controls.title.setValue(params.title);
-            this.form.controls.description.setValue(params.description);
-            this.form.controls.stylishType.setValue(params.stylishType);
-            this.form.controls.isRequired.setValue(params.isRequired);
+        this.form.controls.title.setValue(params.title);
+        this.form.controls.description.setValue(params.description);
+        this.form.controls.stylishType.setValue(params.stylishType);
+        this.form.controls.isRequired.setValue(params.isRequired);
     }
 
     onSubmit(event: any) {

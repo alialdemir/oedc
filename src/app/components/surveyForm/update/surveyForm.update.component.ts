@@ -1,7 +1,6 @@
 ﻿import { Component, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SurveyFormService } from '../../../shared/services/index';
-import { SurveyForm } from '../../../shared/models/index';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 
 @Component({
@@ -9,6 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 })
 export class SurveyFormUpdateComponent {
     public form = new FormGroup({
+        _id: new FormControl(this.params._id, Validators.required),
         startDate: new FormControl(this.params.startDate, Validators.required),
         finishDate: new FormControl(this.params.finishDate, Validators.required),
         period: new FormControl(this.params.period, Validators.required)
@@ -26,15 +26,9 @@ export class SurveyFormUpdateComponent {
         }
 
         this.surveyFormService
-            .Update(new SurveyForm(
-                this.form.controls.startDate.value,
-                this.form.controls.finishDate.value,
-                this.form.controls.period.value,
-                this.params._id))
+            .Update(this.form.value)
             .subscribe(isSuccess => {
-                this.snackBar.open(isSuccess.message, '', {
-                    duration: 3000,
-                });
+                this.snackBar.open(isSuccess.message, '', { duration: 3000, });
                 this.dialogRef.close(isSuccess.model);
             });
     }

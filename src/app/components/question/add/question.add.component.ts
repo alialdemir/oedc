@@ -26,9 +26,9 @@ export class QuestionAddComponent implements OnInit {
     ngOnInit() {
         this.form = this.formBuilder.group({
             questionGroup: new FormControl(this.params.questionGroup, Validators.required),
-            lessonId: new FormControl([]),
-            curriculumId: new FormControl([]),
-            departmentId: new FormControl([]),
+            lesson: new FormControl([]),
+            curriculum: new FormControl([]),
+            department: new FormControl([]),
             items: this.formBuilder.array([this.createItem()])
         });
     }
@@ -47,7 +47,7 @@ export class QuestionAddComponent implements OnInit {
             .Insert(new Question(
                 question,
                 this.form.controls.questionGroup.value,
-                this.form.controls.lessonId.value))
+                this.form.controls.lesson.value))
             .subscribe(isSuccess => this.addedItems.push(isSuccess.model));
     }
 
@@ -61,9 +61,7 @@ export class QuestionAddComponent implements OnInit {
                 this.InsertQuestion(element.question);
             }
         }
-        this.snackBar.open(this.form.value.items.length + ' adet soru eklendi.', '', {
-            duration: 3000,
-        });
+        this.snackBar.open(this.form.value.items.length + ' adet soru eklendi.', '', { duration: 3000, });
         this.dialogRef.close(this.addedItems);
     }
 }

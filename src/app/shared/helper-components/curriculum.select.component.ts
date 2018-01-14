@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
     selector: 'CurriculumSelectComponent',
     template: `
     <mat-form-field [formGroup]="form">
-    <mat-select formControlName="curriculumId" placeholder="Bölüm seçiniz" [multiple]="multiple" [required]="required">
+    <mat-select formControlName="curriculum" placeholder="Bölüm seçiniz" [multiple]="multiple" [required]="required">
       <mat-option *ngFor="let curriculum of curriculumList" [value]="curriculum._id">
       {{curriculum.name}}
       </mat-option>

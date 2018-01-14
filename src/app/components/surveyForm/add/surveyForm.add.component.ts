@@ -11,9 +11,9 @@ import { MatDialogRef, MatSnackBar } from '@angular/material';
 })
 export class SurveyFormAddComponent {
     public form = new FormGroup({
-        startDate: new FormControl(Date, Validators.required),
-        finishDate: new FormControl(Date, Validators.required),
-        period: new FormControl(String, Validators.required)
+        startDate: new FormControl('', Validators.required),
+        finishDate: new FormControl('', Validators.required),
+        period: new FormControl('', Validators.required)
     });
 
     constructor(
@@ -34,14 +34,9 @@ export class SurveyFormAddComponent {
         }
 
         this.surveyFormService
-            .Insert(new SurveyForm(
-                this.form.controls.startDate.value,
-                this.form.controls.finishDate.value,
-                this.form.controls.period.value))
+            .Insert(this.form.value)
             .subscribe(isSuccess => {
-                this.snackBar.open(isSuccess.message, '', {
-                    duration: 3000,
-                });
+                this.snackBar.open(isSuccess.message, '', { duration: 3000, });
                 this.dialogRef.close(isSuccess.model);
             });
     }
