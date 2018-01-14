@@ -5,6 +5,15 @@ module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular/cli'],
+    // Config values to allow TravisCI to run chrome in it's container
+    browsers: ['Chrome', 'ChromeCanary'],
+    customLaunchers: {
+      // tell TravisCI to use chromium when testing
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
@@ -12,11 +21,11 @@ module.exports = function (config) {
       require('karma-coverage-istanbul-reporter'),
       require('@angular/cli/plugins/karma')
     ],
-    client:{
+    client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      reports: [ 'html', 'lcovonly' ],
+      reports: ['html', 'lcovonly'],
       fixWebpackSourcePaths: true
     },
     angularCli: {
@@ -31,3 +40,7 @@ module.exports = function (config) {
     singleRun: false
   });
 };
+// Detect if this is TravisCI running the tests and tell it to use chromium
+if (process.env.TRAVIS) {
+  config.browsers = ['Chrome_travis_ci'];
+}
