@@ -1,4 +1,4 @@
-﻿import { Component, Inject } from '@angular/core';
+﻿import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { QuestionService } from '../../../shared/services/index';
 import { Question } from '../../../shared/models/index';
@@ -7,7 +7,7 @@ import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 @Component({
     templateUrl: './question.add.component.html'
 })
-export class QuestionAddComponent {
+export class QuestionAddComponent implements OnInit {
     public form: FormGroup;
     addedItems: Question[] = [];
 
@@ -23,7 +23,6 @@ export class QuestionAddComponent {
         private formBuilder: FormBuilder) {
     }
 
-    // tslint:disable-next-line:use-life-cycle-interface
     ngOnInit() {
         this.form = this.formBuilder.group({
             questionGroup: new FormControl(this.params.questionGroup, Validators.required),

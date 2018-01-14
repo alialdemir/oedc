@@ -1,4 +1,4 @@
-﻿import { Component, Inject } from '@angular/core';
+﻿import { Component, Inject, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { InstructorService } from '../../../shared/services/index';
 import { Instructor } from '../../../shared/models/index';
@@ -7,7 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 @Component({
     templateUrl: './instructor.update.component.html'
 })
-export class InstructorUpdateComponent {
+export class InstructorUpdateComponent implements AfterViewInit {
     public form = new FormGroup({
         name: new FormControl('', Validators.required),
         lessonId: new FormControl([''], Validators.required),
@@ -22,7 +22,6 @@ export class InstructorUpdateComponent {
         public snackBar: MatSnackBar,
         @Inject(MAT_DIALOG_DATA) public params: any) { }
 
-    // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit() {
         this.instructorService
             .GetInstructorLessonInfo(this.params._id)

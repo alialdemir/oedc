@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { QuestionService } from '../../../shared/services/index';
 import { QuestionUpdateComponent } from '../update/question.update.component';
 import { QuestionAddComponent } from '../add/question.add.component';
@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './question.list.component.html',
 })
 
-export class QuestionListComponent {
+export class QuestionListComponent implements OnInit, OnDestroy {
 
   title = 'Sorular';
 
@@ -43,14 +43,12 @@ export class QuestionListComponent {
     private questionService: QuestionService,
     private route: ActivatedRoute) { }
 
-  // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
     this.subscribe = this.route.params.subscribe(params => {
       this.Query = { questionGroup: params['id'] };
     });
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     this.subscribe.unsubscribe();
   }

@@ -7,7 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 @Component({
     templateUrl: './question.update.component.html'
 })
-export class QuestionUpdateComponent {
+export class QuestionUpdateComponent implements AfterViewInit {
     public form = new FormGroup({
         questionGroup: new FormControl('', Validators.required),
         lessonId: new FormControl([]),
@@ -25,7 +25,6 @@ export class QuestionUpdateComponent {
         this.form.controls.questionGroup.setValue(this.params.questionGroup);
     }
 
-    // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit() {
         if (this.params.lessons.length > 0) {
             this.questionService

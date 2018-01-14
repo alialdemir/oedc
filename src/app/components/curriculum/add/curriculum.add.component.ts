@@ -1,7 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CurriculumService } from '../../../shared/services/index';
-import { Curriculum } from '../../../shared/models/index';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 
 @Component({
@@ -9,7 +8,7 @@ import { MatDialogRef, MatSnackBar } from '@angular/material';
 })
 export class CurriculumAddComponent {
     public form = new FormGroup({
-        name: new FormControl('', Validators.required),
+        name: new FormControl(String, Validators.required),
         isActive: new FormControl(Boolean, Validators.required)
     });
 
@@ -24,7 +23,7 @@ export class CurriculumAddComponent {
         }
 
         this.curriculumService
-            .Insert(new Curriculum(this.form.controls.name.value, this.form.controls.isActive.value))
+            .Insert(this.form.value)
             .subscribe(isSuccess => {
                 this.snackBar.open(isSuccess.message, '', {
                     duration: 3000,

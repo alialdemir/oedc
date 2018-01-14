@@ -1,4 +1,4 @@
-﻿import { Component, Inject } from '@angular/core';
+﻿import { Component, Inject, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LessonService } from '../../../shared/services/index';
 import { Lesson } from '../../../shared/models/index';
@@ -7,7 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 @Component({
     templateUrl: './lesson.update.component.html'
 })
-export class LessonUpdateComponent {
+export class LessonUpdateComponent implements AfterViewInit {
     public form = new FormGroup({
         name: new FormControl('', Validators.required),
         code: new FormControl('', Validators.required),
@@ -24,7 +24,6 @@ export class LessonUpdateComponent {
         public snackBar: MatSnackBar,
         @Inject(MAT_DIALOG_DATA) public params: any) { }
 
-    // tslint:disable-next-line:use-life-cycle-interface
     ngAfterViewInit() {
         setTimeout(() => {
             this.form.controls.name.setValue(this.params.name);

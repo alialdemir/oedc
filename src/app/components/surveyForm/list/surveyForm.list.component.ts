@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import { SurveyFormService, SubscribeService, InstructorService, SurveyFormCodeService } from '../../../shared/services/index';
 import { SurveyFormUpdateComponent } from '../update/surveyForm.update.component';
 import { SurveyFormAddComponent } from '../add/surveyForm.add.component';
@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material';
   templateUrl: './surveyForm.list.component.html',
 })
 
-export class SurveyFormListComponent implements AfterViewInit {
+export class SurveyFormListComponent implements AfterViewInit, OnDestroy {
 
   title = 'Anketler';
 
@@ -119,7 +119,6 @@ export class SurveyFormListComponent implements AfterViewInit {
       });
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();

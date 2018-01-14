@@ -8,7 +8,7 @@ import { Menus } from '../../shared/models/index';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   Menus: Array<Menus> = [
     {
       Text: 'Bölümler',
@@ -74,7 +74,6 @@ export class AppComponent {
     private titleService: Title,
   ) { }
 
-  // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
     this.router.events
       .filter((event) => event instanceof NavigationEnd)

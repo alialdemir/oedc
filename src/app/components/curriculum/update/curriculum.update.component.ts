@@ -1,7 +1,6 @@
 ﻿import { Component, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CurriculumService } from '../../../shared/services/index';
-import { Curriculum } from '../../../shared/models/index';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 
 @Component({
@@ -25,7 +24,7 @@ export class CurriculumUpdateComponent {
         }
 
         this.curriculumService
-            .Update(new Curriculum(this.form.controls.name.value, this.form.controls.isActive.value, this.params._id))
+            .Update(this.form.value)
             .subscribe(isSuccess => {
                 this.snackBar.open(isSuccess.message, '', {
                     duration: 3000,
