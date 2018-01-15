@@ -22,8 +22,5 @@ script:
 
 deploy:
   provider: heroku
-  project: ./dist/
-  app: https://odce.herokuapp.com
   api_key: $HEROKU_AUTH_TOKEN
-  skip_cleanup: true
-  
+  app: odce
