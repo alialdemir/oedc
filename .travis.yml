@@ -14,12 +14,12 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
 before_script:
-  - npm install
-  - npm run build --prod
+  -   npm install -g @angular/cli
   - cp ./dist/index.html ./dist/200.html
 
 script:
   - npm run test:ci
+  - ng build --prod
 
 deploy:
   provider: surge
@@ -27,5 +27,4 @@ deploy:
   domain: oedc.surge.sh
   skip_cleanup: true
 
-
-
+  
