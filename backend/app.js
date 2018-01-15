@@ -4,10 +4,12 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const api = require('./routes')
+var cors = require('cors')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+app.use(cors())
 // Add headers
 app.use(function (req, res, next) {
 
