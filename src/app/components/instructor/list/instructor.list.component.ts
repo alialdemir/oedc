@@ -22,5 +22,5 @@ export class InstructorListComponent {
     { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => element.isActive },
   ];
 
-  constructor(private instructorService: InstructorService) { }
+  constructor(public instructorService: InstructorService) { }
 }

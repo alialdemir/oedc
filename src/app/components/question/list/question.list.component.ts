@@ -40,7 +40,7 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   private subscribe: Subscription;
 
   constructor(
-    private questionService: QuestionService,
+    public questionService: QuestionService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {

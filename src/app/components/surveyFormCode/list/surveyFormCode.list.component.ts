@@ -20,5 +20,5 @@ export class SurveyFormCodeListComponent {
     { columnDef: 'department', header: 'Program', type: 'column', cell: (element: any) => `${element.lessonId.department.name}` },
   ];
 
-  constructor(private surveyFormCodeService: SurveyFormCodeService) { }
+  constructor(public surveyFormCodeService: SurveyFormCodeService) { }
 }

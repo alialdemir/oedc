@@ -23,5 +23,5 @@ export class DepartmentListComponent {
     { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => element.isActive },
   ];
 
-  constructor(private departmentService: DepartmentService) { }
+  constructor(public departmentService: DepartmentService) { }
 }

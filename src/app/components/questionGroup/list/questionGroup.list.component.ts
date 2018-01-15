@@ -68,7 +68,7 @@ export class QuestionGroupListComponent {
     {
       icon: 'help',
       text: 'Sorular',
-     onClick: (e, element: ModelBase) => this.router.navigate(['/Yonetim/SoruGruplari/Sorular', element._id])
+      onClick: (e, element: ModelBase) => this.router.navigate(['/Yonetim/SoruGruplari/Sorular', element._id])
     },
     {
       icon: 'open_with',
@@ -90,7 +90,7 @@ export class QuestionGroupListComponent {
   ];
 
   constructor(
-    private questionGroupService: QuestionGroupService,
+    public questionGroupService: QuestionGroupService,
     private snackBar: MatSnackBar,
     private subscribeService: SubscribeService,
     private router: Router) { }

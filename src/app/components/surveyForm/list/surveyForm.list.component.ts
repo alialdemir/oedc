@@ -61,7 +61,7 @@ export class SurveyFormListComponent implements AfterViewInit, OnDestroy {
   constructor(
     private surveyFormService: SurveyFormService,
     private instructorService: InstructorService,
-    private surveyFormCodeService: SurveyFormCodeService,
+    public surveyFormCodeService: SurveyFormCodeService,
     private subscribeService: SubscribeService,
     private router: Router,
     public snackBar: MatSnackBar) { }

@@ -22,5 +22,5 @@ export class CurriculumListComponent {
     { columnDef: 'isActive', header: 'Durum', type: 'status', cell: (element: any) => element.isActive },
   ];
 
-  constructor(private curriculumService: CurriculumService) { }
+  constructor(public curriculumService: CurriculumService) { }
 }
