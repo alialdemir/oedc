@@ -21,8 +21,9 @@ script:
   - cp ./dist/index.html ./dist/200.html
 
 deploy:
-  provider: surge
+  provider: heroku
   project: ./dist/
-  domain: oedc.surge.sh
+  app: https://odce.herokuapp.com
+  api_key: $HEROKU_AUTH_TOKEN
   skip_cleanup: true
 
