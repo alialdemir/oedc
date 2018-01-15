@@ -42,5 +42,6 @@ module.exports = function (config) {
   // Detect if this is TravisCI running the tests and tell it to use chromium
   if (process.env.TRAVIS) {
     config.browsers = ['Chrome_travis_ci'];
+    config.singleRun = true;
   }
 };
