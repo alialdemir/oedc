@@ -5,15 +5,6 @@ module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular/cli'],
-    // Config values to allow TravisCI to run chrome in it's container
-    browsers: ['Chrome', 'ChromeCanary'],
-    customLaunchers: {
-      // tell TravisCI to use chromium when testing
-      Chrome_travis_ci: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      }
-    },
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
@@ -39,9 +30,4 @@ module.exports = function (config) {
     browsers: ['Chrome'],
     singleRun: false
   });
-  // Detect if this is TravisCI running the tests and tell it to use chromium
-  if (process.env.TRAVIS) {
-    config.browsers = ['Chrome_travis_ci'];
-    config.singleRun = true;
-  }
 };
