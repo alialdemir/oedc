@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const app = require('./app')
 const config = require('./config/config')
 
-mongoose.connect(config.db, {useMongoClient: true}, (err, res) => {
+mongoose.connect(config.db, { useMongoClient: true }, (err, res) => {
   if (err) {
     return console.log(`Failure to connect to database: ${err}`)
   }
