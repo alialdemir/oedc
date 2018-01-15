@@ -7,7 +7,7 @@
     "start": "concurrently 'ng serve' 'cd backend/ && npm start'",
     "build": "ng build --prod",
     "test": "ng test",
-    "test:ci": "npm run test",
+    "test:ci": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
