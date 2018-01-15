@@ -14,12 +14,12 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
 before_script:
-  -   npm install -g @angular/cli
-  - cp ./dist/index.html ./dist/200.html
+  - npm install -g @angular/cli
 
 script:
   - npm run test:ci
   - ng build --prod
+  - cp ./dist/index.html ./dist/200.html
 
 deploy:
   provider: surge
