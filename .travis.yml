@@ -23,4 +23,8 @@ script:
 deploy:
   provider: heroku
   api_key: $HEROKU_AUTH_TOKEN
-  app: odce
+  app: https://odce.herokuapp.com
+
+notifications:
+  email: false
+  

@@ -2,8 +2,9 @@
 
 const User = require('../models/user')
 const service = require('../services')
+const bcrypt = require('bcrypt-nodejs')
 
-function signUp (req, res) {
+function signUp(req, res) {
   const user = new User({
     email: req.body.email,
     displayName: req.body.displayName,
@@ -17,17 +18,20 @@ function signUp (req, res) {
   })
 }
 
-function signIn (req, res) {
-  User.find({ email: req.body.email }, (err, user) => {
-    if (err) return res.status(500).send({ message: err })
-    if (!user) return res.status(404).send({ message: 'No existe el usuario' })
-
-    req.user = user
-    res.status(200).send({
-      message: 'You have successfully logged in!',
+function signIn(req, res) {
+  User.findOne({
+    email: req.body.email
+  }, function (err, user) {
+    if (err) return res.status(401).send({ message: 'Bir hata oluştu!', err });
+    if (!user || !user.comparePassword(req.body.password)) {
+      return res.status(401).send({ message: 'Giriş işlemi başarısız. Kullanıcı adı veya eposta yanlış.' });
+    }
+    return res.status(200).send({
+      message: 'Giriş işlemi başarılı!',
+      token_type: 'bearer',
       token: service.createToken(user)
-    })
-  })
+    });
+  });
 }
 
 module.exports = {

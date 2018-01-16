@@ -68,7 +68,7 @@ export class QuestionGroupListComponent {
     {
       icon: 'help',
       text: 'Sorular',
-      onClick: (e, element: ModelBase) => this.router.navigate(['/Yonetim/SoruGruplari/Sorular', element._id])
+      onClick: (e, element: ModelBase) => this.router.navigate(['/yonetim/soruGruplari/sorular', element._id])
     },
     {
       icon: 'open_with',

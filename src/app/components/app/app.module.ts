@@ -38,6 +38,8 @@ import {
   SurveyFormAddComponent,
   SurveyFormListComponent,
   SurveyFormUpdateComponent,
+
+  LoginComponent,
 } from '../index';
 
 // Services
@@ -53,7 +55,7 @@ import {
   SubscribeService,
   SurveyFormService,
   SurveyFormCodeService,
-
+  UserService,
 } from '../../shared/services/index';
 
 // Helper components
@@ -81,6 +83,12 @@ import {
 
 // Directives
 import { getDutchPaginatorIntl } from '../../shared/directives/index';
+
+// Middleware
+import { AuthMiddleware } from '../../shared/middlewares/auth.middleware';
+
+// Routing
+import { routing } from './app.routing';
 
 // Material
 import { CdkTableModule } from '@angular/cdk/table';
@@ -142,6 +150,7 @@ import {
     QuestionAddComponent,
     QuestionUpdateComponent,
     SurveyFormCodeListComponent,
+    LoginComponent,
 
     SurveyFormAddComponent,
     SurveyFormListComponent,
@@ -172,73 +181,7 @@ import {
     FormsModule,
     HttpModule,
     HttpClientModule,
-    RouterModule.forRoot([
-      {
-        path: '',
-        redirectTo: 'Yonetim/Bolumler',
-        pathMatch: 'full'
-      },
-      {
-        path: 'Yonetim/Bolumler',
-        component: CurriculumListComponent,
-        data: {
-          title: 'Bölümler'
-        }
-      },
-      {
-        path: 'Yonetim/Programlar',
-        component: DepartmentListComponent,
-        data: {
-          title: 'Programlar'
-        }
-      },
-      {
-        path: 'Yonetim/Dersler',
-        component: LessonListComponent,
-        data: {
-          title: 'Dersler'
-        }
-      },
-      {
-        path: 'Yonetim/OgretimElemanlari',
-        component: InstructorListComponent,
-        data: {
-          title: 'Öğretim Elemanları'
-        }
-      },
-      {
-        path: 'Yonetim/SoruGruplari',
-        component: QuestionGroupListComponent,
-        data: {
-          title: 'Soru Grupları'
-        }
-      },
-      {
-        path: 'Yonetim/SoruGruplari/Sorular/:id',
-        component: QuestionListComponent,
-        data: {
-          title: 'Sorular'
-        }
-      },
-      {
-        path: 'Yonetim/Anketler',
-        component: SurveyFormListComponent,
-        data: {
-          title: 'Anketler'
-        }
-      },
-      {
-        path: 'Yonetim/Anketler/Kodlar/:id',
-        component: SurveyFormCodeListComponent,
-        data: {
-          title: 'Anket Kodları'
-        }
-      },
-      {
-        path: '**',
-        redirectTo: 'home'
-      }
-    ]),
+    routing,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
@@ -321,7 +264,9 @@ import {
     SurveyFormCodeService,
     QuestionService,
     SubscribeService,
+    UserService,
     HttpClientModule,
+    AuthMiddleware,
     { provide: MatPaginatorIntl, useValue: getDutchPaginatorIntl() },
   ],
   bootstrap: [AppComponent],

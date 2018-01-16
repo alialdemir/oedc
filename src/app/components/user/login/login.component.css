@@ -1,0 +1,29 @@
+.login-bg {
+  background-color: #fff;
+  height:100vh;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+.login-grid {
+    z-index: 1;
+}
+.login-box {
+    max-width:  90%;
+    min-width:  90%;
+    width: 700px;
+  }
+  .mat-card-title{
+    margin-top: -24px !important;
+    margin-left: -8px;
+    margin-right: -40px;
+  }
+
+  .mat-toolbar {
+     margin-left: -16px;
+  }
+  .login-button {
+      background-color: #00a39f;
+      color:#fff;
+  }

@@ -30,3 +30,5 @@ export * from './surveyFormCode/list/surveyFormCode.list.component';
 export * from './surveyForm/add/surveyForm.add.component';
 export * from './surveyForm/list/surveyForm.list.component';
 export * from './surveyForm/update/surveyForm.update.component';
+// Login
+export * from './user/login/login.component';

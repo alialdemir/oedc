@@ -9,3 +9,4 @@ export * from './questionGroup.service';
 export * from './subscribe.service';
 export * from './surveyForm.service';
 export * from './surveyFormCode.service';
+export * from './user.service';

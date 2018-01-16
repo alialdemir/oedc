@@ -1,0 +1,23 @@
+<mat-grid-list cols="3" rowHeight="1:1" class="login-grid">
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile gutterSize="5">
+        <div class="login-box" layout-align="center center">
+            <mat-card class="login-card">
+                <mat-card-title>
+                    <mat-toolbar>
+                        <span>Giriş Yap</span>
+                    </mat-toolbar>
+                </mat-card-title>
+                <mat-card-content>
+                    <form [formGroup]="form" (submit)="onSubmit($event)">
+                        <InputComponent [form]="form" controlName="email" placeholder="Eposta"></InputComponent>
+                        <InputComponent [form]="form" controlName="password" type="password" placeholder="Şifre"></InputComponent>
+                        <button mat-raised-button type="submit" class="login-button">Giriş Yap</button>
+                    </form>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+</mat-grid-list>
+<div class="login-bg"></div>

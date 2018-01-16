@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Menus } from '../../shared/models/index';
+import { SubscribeService, JwtService } from '../../shared/services/index';
 
 @Component({
   selector: 'app-root',
@@ -12,55 +13,55 @@ export class AppComponent implements OnInit {
   Menus: Array<Menus> = [
     {
       Text: 'Bölümler',
-      Link: 'Yonetim/Bolumler',
+      Link: '/yonetim/bolumler',
       Icon: 'account_balance',
       Role: ['Bolum.Ekle', 'Bolum.Guncelle', 'Bolum.Listele', 'Bolum.Sil']
     },
     {
       Text: 'Programlar',
-      Link: 'Yonetim/Programlar',
+      Link: '/yonetim/programlar',
       Icon: 'local_library',
       Role: []
     },
     {
       Text: 'Dersler',
-      Link: 'Yonetim/Dersler',
+      Link: '/yonetim/dersler',
       Icon: 'library_books',
       Role: []
     },
     {
       Text: 'Öğretim Elemanları',
-      Link: 'Yonetim/OgretimElemanlari',
+      Link: '/yonetim/ogretimElemanlari',
       Icon: 'school',
       Role: []
     },
     {
       Text: 'Soru Grupları',
-      Link: 'Yonetim/SoruGruplari',
+      Link: '/yonetim/soruGruplari',
       Icon: 'help',
       Role: []
     },
     {
       Text: 'Anketler',
-      Link: 'Yonetim/Anketler',
+      Link: '/yonetim/anketler',
       Icon: 'insert_chart',
       Role: []
     },
     {
       Text: 'Raporlar',
-      Link: 'Yonetim/Raporlar',
+      Link: '/yonetim/raporlar',
       Icon: 'pie_chart',
       Role: []
     },
     {
       Text: 'Üyeler',
-      Link: 'Yonetim/Uyeler',
+      Link: '/yonetim/yyeler',
       Icon: 'account_box',
       Role: []
     },
     {
       Text: 'Çıkış Yap',
-      Link: 'Yonetim/CikisYap',
+      Link: '/login',
       Icon: 'exit_to_app',
       Role: []
     }
@@ -68,10 +69,14 @@ export class AppComponent implements OnInit {
 
   Title: string;
 
+  isLogin = false;
+
   constructor(
-    private router: Router,
+    public router: Router,
     private activatedRoute: ActivatedRoute,
+    private subscribeService: SubscribeService,
     private titleService: Title,
+    private jwtService: JwtService
   ) { }
 
   ngOnInit() {
@@ -90,5 +95,24 @@ export class AppComponent implements OnInit {
         this.titleService.setTitle(title);
         this.Title = event['title'];
       });
+
+    this.loginSubscribe();
+  }
+
+  gotoLink(e, link) {
+    if (link === '/login') {
+      this.loginSubscribe();
+      this.isLogin = false;
+      this.jwtService.destroyToken();
+    }
+
+    this.router.navigate([link]);
+  }
+
+  loginSubscribe() {
+    const sub = this.subscribeService.Subscribe('login', isLogin => {
+      this.isLogin = isLogin;
+      sub.unsubscribe();
+    });
   }
 }

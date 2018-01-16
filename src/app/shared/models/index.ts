@@ -13,3 +13,4 @@ export * from './questionGroup.model';
 export * from './service.model';
 export * from './surveyForm.model';
 export * from './surveyFormCode.model';
+export * from './user.model';

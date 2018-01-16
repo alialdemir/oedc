@@ -18,10 +18,11 @@ export class ApiService {
     ) { }
 
     private setHeaders(): HttpHeaders {
+        const jwt = this.jwtService.getToken();
         return new HttpHeaders()
             .set('Content-Type', 'application/json')
             .set('Accept', 'application/json')
-            .set('Authorization', this.jwtService.getToken());
+            .set('Authorization', jwt !== undefined ? jwt : '');
     }
 
     private setParams(params: any): HttpParams {

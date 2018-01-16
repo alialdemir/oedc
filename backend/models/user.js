@@ -7,8 +7,8 @@ const crypto = require('crypto')
 
 const UserSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
+  password: { type: String },
   displayName: String,
-  password: { type: String, select: false },
   signupDate: { type: Date, default: Date.now() },
   lastLogin: Date
 })
@@ -30,5 +30,9 @@ UserSchema.pre('save', function (next) {
     })
   })
 });
+
+UserSchema.methods.comparePassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 module.exports = mongoose.model('User', UserSchema)
