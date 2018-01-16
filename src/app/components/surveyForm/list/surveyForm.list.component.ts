@@ -52,7 +52,7 @@ export class SurveyFormListComponent implements AfterViewInit, OnDestroy {
     {
       icon: 'spellcheck',
       text: 'Anket Kodları',
-      onClick: (e, element: ModelBase) => this.router.navigate(['/Yonetim/Anketler/Kodlar', element._id])
+      onClick: (e, element: ModelBase) => this.router.navigate(['/yonetim/anketler/kodlar', element._id])
     },
   ];
 
