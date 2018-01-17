@@ -1,6 +1,6 @@
 <form [formGroup]="form" (submit)="onSubmit($event)">
   <DialogTitleComponent title="Öğretim Elemanı Ekle"></DialogTitleComponent>
-  <InputComponent [form]="form" controlName="name" placeholder="Ad Soyad"></InputComponent>
+  <InputComponent [form]="form" controlName="fullname" placeholder="Ad Soyad"></InputComponent>
   <CurriculumSelectComponent [form]="form"></CurriculumSelectComponent>
   <DepartmentSelectComponent [form]="form"></DepartmentSelectComponent>
   <LessonSelectComponent [form]="form"></LessonSelectComponent>

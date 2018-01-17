@@ -9,7 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 export class InstructorUpdateComponent implements AfterViewInit {
     public form = new FormGroup({
         _id: new FormControl('', Validators.required),
-        name: new FormControl('', Validators.required),
+        fullname: new FormControl('', Validators.required),
         lesson: new FormControl([''], Validators.required),
         curriculum: new FormControl([''], Validators.required),
         department: new FormControl([''], Validators.required),

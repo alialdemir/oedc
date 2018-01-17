@@ -8,7 +8,7 @@ import { MatDialogRef, MatSnackBar } from '@angular/material';
 })
 export class InstructorAddComponent {
     public form = new FormGroup({
-        name: new FormControl('', Validators.required),
+        fullname: new FormControl('', Validators.required),
         lesson: new FormControl([''], Validators.required),
         curriculum: new FormControl('', Validators.required),
         department: new FormControl('', Validators.required),
