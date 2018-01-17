@@ -93,14 +93,13 @@ export class SurveyFormListComponent implements AfterViewInit, OnDestroy {
         // Aktif olan öğretim elemanlarının aktif olan derslerinin parametreden gelen dönemdeki derslerinin bilgilerini getirdik
         .ActiveLessons(addedModel.period)
         .subscribe(activeLessons => {
-          console.log('activeLessons');
           activeLessons.forEach(activeLesson => {// Öğretim elemanı ders bilgileri
             activeLesson.lessons.forEach(lesson => {// Öğretim elemanı ders bilgileri
               lesson.branch.forEach(branch => {// Derslerin şubeleri
                 this.InserSurveyFormCode(new SurveyFormCode(// Her dersin her şubesi için anket kodu oluşturuldu
                   lesson._id,
                   addedModel._id,
-                  activeLesson.instructorId,
+                  activeLesson._id,
                   branch
                 ));
               });

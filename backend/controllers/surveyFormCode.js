@@ -15,24 +15,22 @@ function GetAll(req, res) {
         populate: [
             {
                 path: 'lessonId',
-                select  : '-_id name',
+                select: '-_id name',
                 populate: { path: 'department', select: '-_id name' }
             },
             { path: 'instructorId', select: '-_id fullname' }
         ], select: fields, sort: { _id: -1 }, offset: pageSize * (pageNumber - 1), limit: pageSize
-    })
-        .then(function (result) {
-            res.status(200)
-                .send({
-                    total_count: result.total,
-                    pageSize: result.limit,
-                    pageNumber: result.pages,
-                    items: result.docs
-                })
-        })
-        .catch(function (err) {
-            if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
-        });
+    }).then(function (result) {
+        res.status(200)
+            .send({
+                total_count: result.total,
+                pageSize: result.limit,
+                pageNumber: result.pages,
+                items: result.docs
+            })
+    }).catch(function (err) {
+        if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
+    });
 }
 
 function Insert(req, res) {
