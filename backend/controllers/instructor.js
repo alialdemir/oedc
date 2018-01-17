@@ -130,17 +130,24 @@ function GetInstructorLessonInfo(req, res) {
 // Aktif olan hocaların aktif olan derslerinin parametreden gelen dönemdeki derslerinin bilgilerini getirir
 function ActiveLessons(req, res) {
     let period = req.query.period;
-    Model.aggregate([
-        { $match: { isActive: true } },
-    ]).exec((err, result) => {
 
-        if (err) {
-            console.log(err);
-            return;
-        }
+    Model.find({ isActive: true })
+        .populate({
+            path: 'lessons',
+            select: { branch: 1, },
+            match: {
+                $and: [
+                    { period: { $eq: period } },
+                    { isActive: { eq: true } },
+                ]
+            }
+        })
+        .select({ _id: 1, })
+        .exec((err, result) => {
+            if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
 
-        res.status(200).send(result);
-    });
+            return res.status(200).send(result);
+        });
 }
 
 module.exports = {

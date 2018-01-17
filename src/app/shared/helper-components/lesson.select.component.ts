@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
     selector: 'LessonSelectComponent',
     template: `
     <mat-form-field [formGroup]="form">
-    <mat-select formControlName="lesson" [placeholder]="placeholder" multiple  [required]="required">
+    <mat-select formControlName="lessons" [placeholder]="placeholder" multiple  [required]="required">
       <mat-option *ngFor="let  lesson of lessonList" [value]="lesson._id">
       {{lesson.name}}
       </mat-option>
