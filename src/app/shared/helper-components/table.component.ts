@@ -29,31 +29,18 @@ import { SelectionModel } from '@angular/cdk/collections';
 
     <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="column.class ? column.class : 'customWidthClass'">
      {{ column.header }}
-
-     <!-- Checkbox Column -->
-        <mat-checkbox (change)="$event ? masterToggle() : null"
-                      [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()"
-                      *ngIf="column.type === 'check' && IsChoose">
-        </mat-checkbox>
     </mat-header-cell>
 
     <mat-cell *matCellDef="let row" [ngClass]="column.class ? column.class : 'customWidthClass'">
 
-
-    <mat-checkbox
-    *ngIf="column.type === 'check' && IsChoose"
-    (click)="$event.stopPropagation()"
-    (change)="$event ? selection.toggle(row) : null"
-    [checked]="selection.isSelected(row)"></mat-checkbox>
+    <TableCheckComponent *ngIf="column.type === 'check' && IsChoose" [dataSource]="dataSource" [row]="row"></TableCheckComponent>
 
     <TableMenuComponent
-    *ngIf="UpdateComponent && i === 0"
-    [row]="row"
-    [MenuItems]="MenuItems"
-    [UpdateComponent]="UpdateComponent"
-    [ServiceBase]="ServiceBase">
-    </TableMenuComponent>
+            *ngIf="UpdateComponent && i === 0"
+            [row]="row"
+            [MenuItems]="MenuItems"
+            [UpdateComponent]="UpdateComponent"
+            [ServiceBase]="ServiceBase"></TableMenuComponent>
 
     <span *ngIf="column.type === 'column' && i > 0">
      {{ column.cell(row) }}
@@ -106,29 +93,9 @@ export class TableComponent implements AfterViewInit {
     @Input()
     MenuItems: IMenuItem[] = [];
 
-
     // Select
-
     @Input()
     IsChoose: Boolean = false;
-
-    selection = new SelectionModel<ModelBase>(true, []);
-    /** Whether the number of selected elements matches the total number of rows. */
-    isAllSelected() {
-        const numSelected = this.selection.selected.length;
-        const numRows = this.dataSource.data.length;
-        const isSelected = numSelected === numRows;
-        return isSelected;
-    }
-
-    /** Selects all rows if they are not all selected; otherwise clear selection. */
-    masterToggle() {
-        this.isAllSelected() ?
-            this.selection.clear() :
-            this.dataSource.data.forEach(selectedRow => {
-                this.selection.select(selectedRow);
-            });
-    }
 
     constructor(private subscribeService: SubscribeService) { }
 
@@ -136,7 +103,9 @@ export class TableComponent implements AfterViewInit {
     ngAfterViewInit() {
         setTimeout(() => {
             this.Columns.unshift({ columnDef: ' ', header: ' ', type: 'menu', cell: (element: any) => '' }); // menu column
-            this.Columns.unshift({ columnDef: 'check', header: ' ', type: 'check', cell: (element: any) => '' });
+            if (this.IsChoose) {
+                this.Columns.unshift({ columnDef: 'check', header: ' ', type: 'check', cell: (element: any) => '' });
+            }
             this.displayedColumns.push(...this.Columns.map(c => c.columnDef));
         });
         this.dataSource.sort = this.sort;

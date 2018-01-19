@@ -12,6 +12,7 @@ export * from './period.select.component';
 export * from './required.select.component';
 export * from './status.chip.component';
 export * from './stylish.select.component';
+export * from './table.check.component';
 export * from './table.component';
 export * from './table.menu.component';
 export * from './textarea.component';

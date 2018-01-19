@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -79,6 +78,7 @@ import {
   TableMenuComponent,
   TextAreaComponent,
   ToolbarComponent,
+  TableCheckComponent,
 } from '../../shared/helper-components/index';
 
 // Directives
@@ -173,19 +173,18 @@ import {
     TableMenuComponent,
     StatusChipComponent,
     ToolbarComponent,
+    TableCheckComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpModule,
     HttpClientModule,
     routing,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpModule,
     MatAutocompleteModule,
     MatButtonModule,
     MatButtonToggleModule,

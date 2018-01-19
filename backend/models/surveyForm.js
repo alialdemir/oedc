@@ -16,6 +16,10 @@ const ModelSchema = Schema({
     period: { type: String, enum: ['Güz', 'Bahar'] },
 })
 
+ModelSchema.pre('remove', function (next) {
+    this.model('SurveyFormCode').remove({ surveyFormId: this._id }, next);
+});
+
 ModelSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('SurveyForm', ModelSchema)

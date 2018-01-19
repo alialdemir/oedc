@@ -33,6 +33,8 @@ export class SurveyFormCodeService implements IServiceBase {
 
     // Anet kodu güncelle
     Update(surveyFormCode: SurveyFormCode) {
-        throw new Error('Method not implemented.');
+        return this.apiService
+            .put('/SurveyFormCode', surveyFormCode)
+            .map(data => data);
     }
 }

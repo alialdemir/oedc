@@ -21,7 +21,7 @@ function GetAll(req, res) {
             { path: 'instructorId', select: '-_id fullname' }
         ], select: fields, sort: { _id: -1 }, offset: pageSize * (pageNumber - 1), limit: pageSize
     }).then(function (result) {
-        res.status(200)
+        return res.status(200)
             .send({
                 total_count: result.total,
                 pageSize: result.limit,
@@ -44,10 +44,27 @@ function Insert(req, res) {
     model.save((err, newModel) => {
         if (err) res.status(500).send({ message: `Veritabanında kaydedilirken hata oluştu: ${err} ` })
 
-        res.status(200).send('Ok')
+        return res.status(200).send('Ok')
     })
 }
+
+function Update(req, res) {
+    Model.findById(req.body._id, (err, model) => {
+        if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
+        if (!model) return res.status(404).send({ message: `Anket kodu mevcut değil.` })
+
+        if (req.body.isShow !== undefined) model.isShow = req.body.isShow
+
+        model.save((err) => {
+            if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
+
+            return res.status(200).send({ message: model.isShow ? 'Anket aktif edildi.' : 'Anket pasif yapıldı.' })
+        });
+    });
+}
+
 module.exports = {
     GetAll,
-    Insert
+    Insert,
+    Update
 }

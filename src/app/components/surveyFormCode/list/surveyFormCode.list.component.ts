@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
-import { SurveyFormCodeService } from '../../../shared/services/index';
-import { IColumn } from '../../../shared/models/index';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { SurveyFormCodeService, SubscribeService } from '../../../shared/services/index';
+import { IColumn, SurveyFormCode } from '../../../shared/models/index';
+import { Subscription } from 'rxjs/Subscription';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   styleUrls: ['../../../../assets/css/list.component.css'],
   templateUrl: './surveyFormCode.list.component.html',
 })
 
-export class SurveyFormCodeListComponent {
+export class SurveyFormCodeListComponent implements OnInit, OnDestroy {
 
   title = 'Anket Kodları';
 
@@ -20,5 +22,29 @@ export class SurveyFormCodeListComponent {
     { columnDef: 'branch', header: 'Şube', type: 'column', cell: (element: any) => `${element.branch}` },
   ];
 
-  constructor(public surveyFormCodeService: SurveyFormCodeService) { }
+  sub: Subscription;
+
+  constructor(
+    public surveyFormCodeService: SurveyFormCodeService,
+    private subscribeService: SubscribeService,
+    public snackBar: MatSnackBar
+  ) { }
+
+  ngOnInit(): void {
+    this.sub = this.subscribeService.Subscribe('datatablecheck', data => this.isShow(data));
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  isShow(row) {
+    row.isShow = !row.isShow;
+    this.surveyFormCodeService
+      .Update(row)
+      .subscribe(isSuccess => {
+        this.snackBar.open(isSuccess.message, '', { duration: 3000, });
+        this.subscribeService.Publish('dataupdate', row);
+      });
+  }
 }
