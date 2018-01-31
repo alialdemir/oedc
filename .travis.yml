@@ -1,26 +1,21 @@
 language: node_js
-
 node_js:
-  - '7'
-
+- '7'
 sudo: false
-
 cache: npm
-
 before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.21.3
-  - export CHROME_BIN=chromium-browser
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-
+- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.21.3
+- export CHROME_BIN=chromium-browser
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
 before_script:
-  - npm install
-
+- npm install
 script:
-  - ng build --prod
-
+- ng build --prod
 deploy:
   provider: heroku
   api_key:
-    secure: SC9xoq6jGtanuNyx3lAGGqKegyEig7KEQmXrC/snk3xKhSMbw39WqQy314ax+ARNWrvlFjkjxPI2U45yc3hl/wcCMarAqFUVX3VidH0Vwu3Rgn6K1A2Uu+fTCh8NHQhFIqawEeYPssO8Uuff7F2duBb5WXcyiXlrJbPCpAUxZmvX/cA1z6sT8ZaWNijabWp4JdZvBygUw335bpibfxBPYPReHY8my8REdJRapBh+vOj/DPzeqx0TE2s5/K9NXAOejd8XGx+TsqJDG8eQgatKybXc6rkrm3G9oGqnHkWefuy5uKZqgkr+i253FGTpRnlzQUuBtI1FYtLGjYK4FYNnAQDX4rCHffzz1JcDG/Np3AANLEznE9pf1c0ggkiSCVWPCuRHW6WBK+N2HPh/BBM4XMBf9shGvRrspG75Gf5JChOnd+BvjJSEZagDAYUcSYtFfJ0yQ07NYs9Hb6zUESJnvXpiS7+UOy9W/11VYKGiv7CxayJne/+VGlVOiU8r8BAnLB7FAuITQ6epc0IZ4ZQoJXaXSuZQwiAnCgzsRoMZCStm5w4A4LokVciAPpL5+gSGC0ZgX8pTYZ6oL9UTsDI/AbTAsUUHzpSfNUyAc0T2XapMOvtsYuJNe2DdeDyPGVJ2HfqPEwthJ8DRdLS0JX4zLPMSkyMssD62AyVAq3DS3bg=
-  app: oedc
+    secure: ECdHjsIuk3DeRGW3bycPy2uqeBxvEax1kQbyGaZ4fUmvqRIS/ARfOu3QoLWXajlyI6bQKSAYSMvsRaFNwLETE7rAqNS+ND995d7GuSprvfelPwKo0ECTnfpMuc4ssJ+FBs7/T80xVmIERZmGn+EwxPMZx6CaDf5w9o/5yBBa/Jaeshukz0koa87NOizNFhOFadqlXy/pWjiCZlHEmQoD1gcec/BGItkyWpv1AWsEVSlC+Tap/jcYQcNDts1+//DQ/h/GSIN5l4ZDFuPqQWH6Ju+ZVtwOSIYvwoX4FTbFnhhJzSVwAGnUFpYScllHWOUzjXCI68JGwQFwT5+IzZ2XV0qY7GDaKTCn/nCsi10oncpft0WKrZmbLfo4kMwkyx3xHxCRneSN7zohxfan2xSqHSHDSempYtFFnb/QId9dhZA41olEEwnnBzfsH/ZtsvjdNOlKkF7RM+ihWF3rx/DEgFKlXNWGSShIUsw+QXLZ67eV0+pxunkdTZKJDPDdKVHw4oqmrx4ePadkg21cQUTnYn7uhGwrHBYlGDrPRbIEoOKhQN/4crjuI3JHqfqqg5ILirCdNn++McboJf7TruopGh8pkZq2TCtpzx843lUYOnUpXFhRb9fDn4/L84E3byqPq0ZvAqac+wrbl96DC310+7fVtAuSpH1s8ORXNNOJQbo=
+  app: fathomless-badlands-91659
+  on:
+    repo: alialdemir/oedc
