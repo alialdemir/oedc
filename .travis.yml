@@ -17,7 +17,7 @@ before_script:
   - npm install
 
 script:
-  - ng build --prod
+  - npm run build
 
 deploy:
   provider: heroku
