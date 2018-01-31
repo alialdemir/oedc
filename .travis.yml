@@ -1,8 +1,7 @@
-
 language: node_js
 
 node_js:
-    - "7"
+  - '7'
 
 sudo: false
 
@@ -23,7 +22,5 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: Uo7+DsqI3Taf5/nvspQsK9OF6LH16E3pqZPxkl8D+1z+hCsKSBrvWCyW9PbyeCTCAlF7+hw43Yt33SJAHFKroDfd2jqodgvStNqzvFS27Tv/CMt99o2ZSDG4cK45VsVRG7ctScDU9pRpPbfvtKZ+KASxN3kIlXGnMccYIw0nXIeKPgPcRoRWBBcsi62tfcSOSKMLNqm6KLcRlSTlb892rErqb6jLabujsE+MHBF78xaVqazsLnN9taWSukXSbL5ugfwTZe9HWuxoKk9CHiTmnF4LchtwvdoODEqYr6I93Qqrycr54asR5RZa4H3pET4ZmAdvEtpUdFR1gzpKC2qix8j/We9yUKSUxRKp/Ge2VEO+Ooc2AA/AIjB3U3MPF5k7LU9QVVAVutQXlhWYHurcz1jyxJe5062fch/TrWyFFxIp+Z11eNMXKhNOIhyre1JCDPtupLgEoSr7x77sxEzW2AX5vNnUCmtDSrKMD4AzO1cU+xEKiu5i/yoRftHNRcY4wcXkNWqzQ8/6vy7Z5FW2yCUPfiRYdo6Ld0uXw9AgVXCyz+eyliyLDcf0T2cahrnRAykWkKgQ9mp6akIwsfzaQl88OX2mg/9S/TxaJQpDrNYvN8m5Cf8JPCp+zYxzdbFFzCr2EM9fJ9MB0/Vhm1aajsaxwGLN44zhTXNTYxtk0eY=
-  app: oedc
-  on:
-    repo: alialdemir/oedc
+    secure: SC9xoq6jGtanuNyx3lAGGqKegyEig7KEQmXrC/snk3xKhSMbw39WqQy314ax+ARNWrvlFjkjxPI2U45yc3hl/wcCMarAqFUVX3VidH0Vwu3Rgn6K1A2Uu+fTCh8NHQhFIqawEeYPssO8Uuff7F2duBb5WXcyiXlrJbPCpAUxZmvX/cA1z6sT8ZaWNijabWp4JdZvBygUw335bpibfxBPYPReHY8my8REdJRapBh+vOj/DPzeqx0TE2s5/K9NXAOejd8XGx+TsqJDG8eQgatKybXc6rkrm3G9oGqnHkWefuy5uKZqgkr+i253FGTpRnlzQUuBtI1FYtLGjYK4FYNnAQDX4rCHffzz1JcDG/Np3AANLEznE9pf1c0ggkiSCVWPCuRHW6WBK+N2HPh/BBM4XMBf9shGvRrspG75Gf5JChOnd+BvjJSEZagDAYUcSYtFfJ0yQ07NYs9Hb6zUESJnvXpiS7+UOy9W/11VYKGiv7CxayJne/+VGlVOiU8r8BAnLB7FAuITQ6epc0IZ4ZQoJXaXSuZQwiAnCgzsRoMZCStm5w4A4LokVciAPpL5+gSGC0ZgX8pTYZ6oL9UTsDI/AbTAsUUHzpSfNUyAc0T2XapMOvtsYuJNe2DdeDyPGVJ2HfqPEwthJ8DRdLS0JX4zLPMSkyMssD62AyVAq3DS3bg=
+  app: fathomless-badlands-91659
