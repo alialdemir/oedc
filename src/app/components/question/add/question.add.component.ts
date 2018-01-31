@@ -44,7 +44,7 @@ export class QuestionAddComponent implements OnInit {
     }
     private InsertQuestion(question: string) {
         this.questionService
-            .Insert(new Question(
+            .insert(new Question(
                 question,
                 this.form.controls.questionGroup.value,
                 this.form.controls.lesson.value))

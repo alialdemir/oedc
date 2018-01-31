@@ -98,22 +98,22 @@ export class QuestionGroupListComponent {
 
   // Related entity are moved up.
   onUpMove(row) {
-    this.QuestionGroupMove(row, row.order - 1, row.order - 2);
+    this.questionGroupMove(row, row.order - 1, row.order - 2);
   }
 
   // Related entity are moved down.
   onDownMove(row) {
-    this.QuestionGroupMove(row, row.order - 1, row.order);
+    this.questionGroupMove(row, row.order - 1, row.order);
   }
 
   // Change the locations of the entity.
-  private QuestionGroupMove(row, fromIndex, toIndex) {
-    this.subscribeService.Publish('datarowmove', { fromIndex, toIndex });
-    this.SnackBarMessage(row.title + ' başlıklı soru grubu ' + row.order + '. sıraya getirildi.');
+  private questionGroupMove(row, fromIndex, toIndex) {
+    this.subscribeService.publish('datarowmove', { fromIndex, toIndex });
+    this.snackBarMessage(row.title + ' başlıklı soru grubu ' + row.order + '. sıraya getirildi.');
   }
 
   // Show message
-  private SnackBarMessage(message: string) {
+  private snackBarMessage(message: string) {
     this.snackBar.open(message, '', {
       duration: 3000,
     });

@@ -13,11 +13,12 @@ type MessageCallback = (data: any) => void;
 @Injectable()
 export class SubscribeService {
     private subject = new Subject<Message>();
-    Publish(key: string, data?: any) {
+
+    publish(key: string, data?: any) {
         this.subject.next({ key, data });
     }
 
-    Subscribe(type: string, callback: MessageCallback): Subscription {
+    subscribe(type: string, callback: MessageCallback): Subscription {
         return this.subject
             .filter(message => message.key === type)
             .map(message => message.data)

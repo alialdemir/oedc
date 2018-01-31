@@ -43,14 +43,14 @@ export class LessonUpdateComponent implements AfterViewInit {
         }
 
         this.lessonService
-            .Update(this.form.value)
+            .update(this.form.value)
             .subscribe(isSuccess => {
-                this.ShowSnackBar(isSuccess.message);
+                this.showSnackBar(isSuccess.message);
                 this.dialogRef.close(isSuccess.model);
-            }, err => this.ShowSnackBar(err.error.message));
+            }, err => this.showSnackBar(err.error.message));
     }
 
-    ShowSnackBar(message: string) {
+    showSnackBar(message: string) {
         this.snackBar.open(message, '', {
             duration: 3000,
         });

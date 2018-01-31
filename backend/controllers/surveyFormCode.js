@@ -63,8 +63,9 @@ function Update(req, res) {
     });
 }
 
+
 module.exports = {
     GetAll,
     Insert,
-    Update
+    Update,
 }

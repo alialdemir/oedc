@@ -13,29 +13,29 @@ export class DepartmentService implements IServiceBase {
     ) { }
 
     // Program ekleme
-    Insert(department: Department) {
+    insert(department: Department) {
         return this.apiService
-            .post('/Department', department)
+            .post('/department', department)
             .map(data => data);
     }
 
     // Tüm program listesi döndürür
-    GetAll(pageSize: number, pageNumber: number, fields: string = '', query: any = {}): Observable<ServiceModel<Department>> {
+    getAll(pageSize: number, pageNumber: number, fields: string = '', query: any = {}): Observable<ServiceModel<Department>> {
         const q = JSON.stringify(query);
-        return this.apiService.get<Department>(`/Department?PageSize=${pageSize}&PageNumber=${pageNumber}&Fields=${fields}&Query=${q}`);
+        return this.apiService.get<Department>(`/department?pageSize=${pageSize}&pageNumber=${pageNumber}&fields=${fields}&query=${q}`);
     }
 
     // Program sil
-    Delete(_id: String) {
+    delete(_id: String) {
         return this.apiService
-            .delete('/Department?_id=' + _id)
+            .delete('/department?_id=' + _id)
             .map(data => data);
     }
 
     // Program güncelle
-    Update(department: Department) {
+    update(department: Department) {
         return this.apiService
-            .put('/Department', department)
+            .put('/department', department)
             .map(data => data);
     }
 }

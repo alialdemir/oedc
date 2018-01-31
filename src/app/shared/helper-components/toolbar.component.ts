@@ -56,18 +56,18 @@ export class ToolbarComponent {
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim(); // Remove whitespace
         filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-        this.subscribeService.Publish('datafilterclose', filterValue);
+        this.subscribeService.publish('datafilterclose', filterValue);
     }
 
     // Reflesh
     onReflesh(e) {
-        this.subscribeService.Publish('datareflesh');
+        this.subscribeService.publish('datareflesh');
     }
 
     // Search input close
     onSearchClose(e) {
         this.isFilterShow = !this.isFilterShow;
-        this.subscribeService.Publish('datafilterclose', '');
+        this.subscribeService.publish('datafilterclose', '');
     }
 
     // Open new entity popup
@@ -85,7 +85,7 @@ export class ToolbarComponent {
             .afterClosed()
             .subscribe(addedModel => {
                 if (addedModel) {
-                    this.subscribeService.Publish('dataadded', ...addedModel);
+                    this.subscribeService.publish('dataadded', ...addedModel);
                 }
             });
     }

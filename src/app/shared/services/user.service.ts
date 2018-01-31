@@ -6,10 +6,12 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
+
     constructor(
         private apiService: ApiService
     ) { }
-    SignIn(user: User) {
+
+    signIn(user: User) {
         return this.apiService
             .post('/signIn', user)
             .map(data => data);

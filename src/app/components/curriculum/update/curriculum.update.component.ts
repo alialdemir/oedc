@@ -25,7 +25,7 @@ export class CurriculumUpdateComponent {
         }
 
         this.curriculumService
-            .Update(this.form.value)
+            .update(this.form.value)
             .subscribe(isSuccess => {
                 this.snackBar.open(isSuccess.message, '', { duration: 3000, });
                 this.dialogRef.close(isSuccess.model);

@@ -25,7 +25,7 @@ export class QuestionGroupAddComponent {
         }
 
         this.questionGroupService
-            .Insert(this.form.value)
+            .insert(this.form.value)
             .subscribe(isSuccess => {
                 this.snackBar.open(isSuccess.message, '', { duration: 3000, });
                 this.dialogRef.close(isSuccess.model);

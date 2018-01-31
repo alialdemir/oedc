@@ -14,43 +14,43 @@ export class InstructorService implements IServiceBase {
     ) { }
 
     // Öğretim elemanı ekleme
-    Insert(instructor: Instructor) {
+    insert(instructor: Instructor) {
         return this.apiService
-            .post('/Instructor', instructor)
+            .post('/instructor', instructor)
             .map(data => data);
     }
 
     // Tüm öğretim elemanı listesi döndürür
-    GetAll(pageSize: number, pageNumber: number, fields: string = '', query: any = {}): Observable<ServiceModel<Instructor>> {
+    getAll(pageSize: number, pageNumber: number, fields: string = '', query: any = {}): Observable<ServiceModel<Instructor>> {
         const q = JSON.stringify(query);
-        return this.apiService.get<Instructor>(`/Instructor?PageSize=${pageSize}&PageNumber=${pageNumber}&Fields=${fields}&Query=${q}`);
+        return this.apiService.get<Instructor>(`/instructor?pageSize=${pageSize}&pageNumber=${pageNumber}&fields=${fields}&query=${q}`);
     }
 
     // Öğretim elemanı sil
-    Delete(_id: String) {
+    delete(_id: String) {
         return this.apiService
-            .delete('/Instructor?_id=' + _id)
+            .delete('/instructor?_id=' + _id)
             .map(data => data);
     }
 
     // Öğretim elemanı güncelle
-    Update(instructor: Instructor) {
+    update(instructor: Instructor) {
         return this.apiService
-            .put('/Instructor', instructor)
+            .put('/instructor', instructor)
             .map(data => data);
     }
 
     // Öğretim elemanının ders, bölüm ve program id'lerini döndürür
-    GetInstructorLessonInfo(_id: String): any {
+    getInstructorLessonInfo(_id: String): any {
         return this.apiService
-            .Get(`/Instructor/Lesson?_id=${_id}`)
+            .Get(`/instructor/lesson?_id=${_id}`)
             .map(data => data);
     }
 
     // Aktif olan hocaların aktif olan derslerinin parametreden gelen dönemdeki derslerinin bilgilerini getirir
-    ActiveLessons(period: String): any/*: Observable<ActiveLesson> */{
+    activeLessons(period: String): any/*: Observable<ActiveLesson> */ {
         return this.apiService
-            .Get(`/Instructor/ActiveLessons?period=${period}`)
+            .Get(`/instructor/activeLessons?period=${period}`)
             .map(data => data);
     }
 }

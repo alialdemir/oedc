@@ -32,6 +32,8 @@ import {
   QuestionGroupListComponent,
   QuestionGroupUpdateComponent,
 
+  SurveyListComponent,
+
   SurveyFormCodeListComponent,
 
   SurveyFormAddComponent,
@@ -149,6 +151,7 @@ import {
     QuestionListComponent,
     QuestionAddComponent,
     QuestionUpdateComponent,
+    SurveyListComponent,
     SurveyFormCodeListComponent,
     LoginComponent,
 

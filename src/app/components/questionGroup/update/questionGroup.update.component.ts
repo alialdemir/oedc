@@ -32,7 +32,7 @@ export class QuestionGroupUpdateComponent {
         }
 
         this.questionGroupService
-            .Update(new QuestionGroup(
+            .update(new QuestionGroup(
                 this.form.controls.title.value,
                 this.form.controls.description.value,
                 this.form.controls.stylishType.value,

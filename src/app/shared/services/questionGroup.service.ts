@@ -12,30 +12,30 @@ export class QuestionGroupService implements IServiceBase {
     ) { }
 
     // Soru grubu ekleme
-    Insert(questionGroup: QuestionGroup) {
+    insert(questionGroup: QuestionGroup) {
         return this.apiService
-            .post('/QuestionGroup', questionGroup)
+            .post('/questionGroup', questionGroup)
             .map(data => data);
     }
 
     // Tüm soru grubu listesi döndürür
-    GetAll(pageSize: number, pageNumber: number, fields: string = '', query: any = {}): Observable<ServiceModel<QuestionGroup>> {
+    getAll(pageSize: number, pageNumber: number, fields: string = '', query: any = {}): Observable<ServiceModel<QuestionGroup>> {
         const q = JSON.stringify(query);
         return this.apiService
-            .get<QuestionGroup>(`/QuestionGroup?PageSize=${pageSize}&PageNumber=${pageNumber}&Fields=${fields}&Query=${q}`);
+            .get<QuestionGroup>(`/questionGroup?pageSize=${pageSize}&pageNumber=${pageNumber}&fields=${fields}&query=${q}`);
     }
 
     // Soru grubu sil
-    Delete(_id: String) {
+    delete(_id: String) {
         return this.apiService
-            .delete('/QuestionGroup?_id=' + _id)
+            .delete('/questionGroup?_id=' + _id)
             .map(data => data);
     }
 
     // Soru grubu güncelle
-    Update(questionGroup: QuestionGroup) {
+    update(questionGroup: QuestionGroup) {
         return this.apiService
-            .put('/QuestionGroup', questionGroup)
+            .put('/questionGroup', questionGroup)
             .map(data => data);
     }
 }

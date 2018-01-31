@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.subscribe.unsubscribe();
     }
 
-    ShowSnackBar(message: string) {
+    showSnackBar(message: string) {
         this.snackBar.open(message, '', {
             duration: 3000,
         });
@@ -53,12 +53,12 @@ export class LoginComponent implements OnInit, OnDestroy {
             return false;
         }
         this.userService
-            .SignIn(this.form.value)
+            .signIn(this.form.value)
             .subscribe(isSuccess => {
-                this.ShowSnackBar(isSuccess.message);
+                this.showSnackBar(isSuccess.message);
                 this.jwtService.saveToken(`${isSuccess.token_type} ${isSuccess.token}`);
-                this.subscribeService.Publish('login', true);
+                this.subscribeService.publish('login', true);
                 this.router.navigate([this.returnUrl]);
-            }, err => this.ShowSnackBar(err.error.message));
+            }, err => this.showSnackBar(err.error.message));
     }
 }

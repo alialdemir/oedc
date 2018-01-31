@@ -47,6 +47,7 @@ api.put('/question', auth, questionCtrl.Update)
 api.delete('/question', auth, questionCtrl.Delete)
 
 api.get('/surveyform', auth, surveyFormCtrl.GetAll)
+api.get('/surveyform/survey', auth, surveyFormCtrl.SurveyList)
 api.post('/surveyform', auth, surveyFormCtrl.Insert)
 api.put('/surveyform', auth, surveyFormCtrl.Update)
 api.delete('/surveyform', auth, surveyFormCtrl.Delete)

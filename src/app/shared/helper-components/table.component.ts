@@ -109,19 +109,19 @@ export class TableComponent implements AfterViewInit {
             this.displayedColumns.push(...this.Columns.map(c => c.columnDef));
         });
         this.dataSource.sort = this.sort;
-        this.GetData();
-        this.Subscribes();
+        this.getData();
+        this.subscribes();
     }
 
-    Subscribes() {
+    subscribes() {
         this.subscription[0] = this.subscribeService// reflesh subscribe
-            .Subscribe('datareflesh', message => {
+            .subscribe('datareflesh', message => {
                 this.paginator.pageIndex = 0;
-                this.GetData();
+                this.getData();
             });
 
         this.subscription[1] = this.subscribeService// new entity added subscribe
-            .Subscribe('dataadded', addedModel => {
+            .subscribe('dataadded', addedModel => {
                 if (addedModel) {
                     this.dataSource.data.unshift({ ...addedModel, state: 'active' });
                     this.dataSource.data = [...this.dataSource.data];
@@ -130,12 +130,12 @@ export class TableComponent implements AfterViewInit {
             });
 
         this.subscription[2] = this.subscribeService// seach filter clear subscribe
-            .Subscribe('datafilterclose', filter => {
+            .subscribe('datafilterclose', filter => {
                 this.dataSource.filter = filter;
             });
 
         this.subscription[3] = this.subscribeService// update item subscribe
-            .Subscribe('dataupdate', updatedModel => {
+            .subscribe('dataupdate', updatedModel => {
                 if (updatedModel) {
                     const index = this.dataSource.data.findIndex(p => p._id === updatedModel._id);
                     this.dataSource.data.splice(index, 1, updatedModel);
@@ -144,7 +144,7 @@ export class TableComponent implements AfterViewInit {
             });
 
         this.subscription[4] = this.subscribeService// delete item subscribe
-            .Subscribe('datadelete', _id => {
+            .subscribe('datadelete', _id => {
                 if (_id) {
                     this.dataSource.data = this.dataSource.data.filter(p => {
                         return p._id !== _id;
@@ -154,7 +154,7 @@ export class TableComponent implements AfterViewInit {
             });
 
         this.subscription[4] = this.subscribeService// question group move row subscribe
-            .Subscribe('datarowmove', data => {
+            .subscribe('datarowmove', data => {
                 if (!data || data.toIndex < 0 || data.toIndex >= this.dataSource.data.length) {
                     return;
                 }
@@ -170,10 +170,10 @@ export class TableComponent implements AfterViewInit {
                 toElement.order = data.fromIndex + 1;
 
                 this.ServiceBase
-                    .Update(fromElement)
+                    .update(fromElement)
                     .subscribe(res => { });
                 this.ServiceBase
-                    .Update(toElement)
+                    .update(toElement)
                     .subscribe(res => { });
 
                 this.dataSource.data.splice(data.fromIndex, 1, toElement);
@@ -192,7 +192,7 @@ export class TableComponent implements AfterViewInit {
         }
     }
 
-    GetData() {
+    getData() {
         if (!this.ServiceBase) {
             console.log('table-menu: ServiceBase undefined');
             return;
@@ -201,7 +201,7 @@ export class TableComponent implements AfterViewInit {
             .pipe(
             startWith({}),
             switchMap(() => {
-                return this.ServiceBase.GetAll(this.paginator.pageSize, this.paginator.pageIndex + 1, '', this.Query);
+                return this.ServiceBase.getAll(this.paginator.pageSize, this.paginator.pageIndex + 1, '', this.Query);
             }),
             map(data => {
                 this.resultsLength = data.total_count;

@@ -18,7 +18,7 @@ export class AuthMiddleware implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         if (this.loginControl()) {
             // logged in so return true
-            this.subscribeService.Publish('login', true);
+            this.subscribeService.publish('login', true);
             return true;
         }
 

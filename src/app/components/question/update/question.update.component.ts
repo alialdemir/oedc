@@ -28,7 +28,7 @@ export class QuestionUpdateComponent implements AfterViewInit {
     ngAfterViewInit() {
         if (this.params.lessons.length > 0) {
             this.questionService
-                .GetQuestionLessonInfo(this.params._id)
+                .getQuestionLessonInfo(this.params._id)
                 .subscribe(data => {
                     this.form.controls._id.setValue(this.params._id);
                     this.form.controls.curriculumId.setValue(data.curriculums);
@@ -44,7 +44,7 @@ export class QuestionUpdateComponent implements AfterViewInit {
         }
 
         this.questionService
-            .Update(this.form.value)
+            .update(this.form.value)
             .subscribe(isSuccess => {
                 this.snackBar.open(isSuccess.message, '', { duration: 3000, });
                 this.dialogRef.close(isSuccess.model);

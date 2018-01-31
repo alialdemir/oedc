@@ -74,7 +74,7 @@ export class SurveyFormListComponent implements AfterViewInit, OnDestroy {
 
   private InserSurveyFormCode(surveyFormCode: SurveyFormCode) {
     this.surveyFormCodeService
-      .Insert(surveyFormCode)
+      .insert(surveyFormCode)
       .subscribe(
       data => { },
       err => {
@@ -91,7 +91,7 @@ export class SurveyFormListComponent implements AfterViewInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.instructorService
         // Aktif olan öğretim elemanlarının aktif olan derslerinin parametreden gelen dönemdeki derslerinin bilgilerini getirdik
-        .ActiveLessons(addedModel.period)
+        .activeLessons(addedModel.period)
         .subscribe(activeLessons => {
           activeLessons.forEach(activeLesson => {// Öğretim elemanı ders bilgileri
             activeLesson.lessons.forEach(lesson => {// Öğretim elemanı ders bilgileri
@@ -111,7 +111,7 @@ export class SurveyFormListComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.subscription = this.subscribeService// new entity added subscribe
-      .Subscribe('dataadded', addedModel => {
+      .subscribe('dataadded', addedModel => {
         if (addedModel) {
           this.DataAddedSubscribe(addedModel)
             .then(success => this.SnackBarMessage('Anket kodları oluşturuldu!'));

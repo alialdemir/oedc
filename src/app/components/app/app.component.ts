@@ -110,7 +110,7 @@ export class AppComponent implements OnInit {
   }
 
   loginSubscribe() {
-    const sub = this.subscribeService.Subscribe('login', isLogin => {
+    const sub = this.subscribeService.subscribe('login', isLogin => {
       this.isLogin = isLogin;
       sub.unsubscribe();
     });

@@ -24,7 +24,7 @@ export class InstructorUpdateComponent implements AfterViewInit {
 
     ngAfterViewInit() {
         this.instructorService
-            .GetInstructorLessonInfo(this.params._id)
+            .getInstructorLessonInfo(this.params._id)
             .subscribe(data => {
                 this.form.controls._id.setValue(this.params._id);
                 this.form.controls.name.setValue(this.params.fullname);
@@ -43,14 +43,14 @@ export class InstructorUpdateComponent implements AfterViewInit {
         }
 
         this.instructorService
-            .Update(this.form.value)
+            .update(this.form.value)
             .subscribe(isSuccess => {
-                this.ShowSnackBar(isSuccess.message);
+                this.showSnackBar(isSuccess.message);
                 this.dialogRef.close(isSuccess.model);
-            }, err => this.ShowSnackBar(err.error.message));
+            }, err => this.showSnackBar(err.error.message));
     }
 
-    ShowSnackBar(message: string) {
+    showSnackBar(message: string) {
         this.snackBar.open(message, '', {
             duration: 3000,
         });

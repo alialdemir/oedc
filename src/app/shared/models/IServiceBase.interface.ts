@@ -3,8 +3,8 @@ import { ServiceModel } from '../models/service.model';
 import { Observable } from 'rxjs/Observable';
 
 export interface IServiceBase {
-    Insert(model: ModelBase);
-    GetAll(pageSize: number, pageNumber: number, fields: string, query: any): Observable<ServiceModel<ModelBase>>;
-    Delete(_id: string) ;
-    Update(model: ModelBase);
+    insert(model: ModelBase);
+    getAll(pageSize: number, pageNumber: number, fields: string, query: any): Observable<ServiceModel<ModelBase>>;
+    delete(_id: string);
+    update(model: ModelBase);
 }

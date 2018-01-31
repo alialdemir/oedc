@@ -14,14 +14,22 @@ import {
     QuestionListComponent,
     SurveyFormListComponent,
     SurveyFormCodeListComponent,
+    SurveyListComponent,
     LoginComponent,
 } from '../index';
 
 const appRoutes: Routes = [
     {
         path: '',
-        redirectTo: 'login',
+        redirectTo: 'anketler',
         pathMatch: 'full'
+    },
+    {
+        path: 'anketler',
+        component: SurveyListComponent,
+        data: {
+            title: 'Anket'
+        }
     },
     {
         path: 'login',

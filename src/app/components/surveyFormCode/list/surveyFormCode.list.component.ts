@@ -31,7 +31,7 @@ export class SurveyFormCodeListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.sub = this.subscribeService.Subscribe('datatablecheck', data => this.isShow(data));
+    this.sub = this.subscribeService.subscribe('datatablecheck', data => this.isShow(data));
   }
 
   ngOnDestroy(): void {
@@ -41,10 +41,10 @@ export class SurveyFormCodeListComponent implements OnInit, OnDestroy {
   isShow(row) {
     row.isShow = !row.isShow;
     this.surveyFormCodeService
-      .Update(row)
+      .update(row)
       .subscribe(isSuccess => {
         this.snackBar.open(isSuccess.message, '', { duration: 3000, });
-        this.subscribeService.Publish('dataupdate', row);
+        this.subscribeService.publish('dataupdate', row);
       });
   }
 }

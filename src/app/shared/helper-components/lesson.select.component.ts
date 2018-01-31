@@ -41,7 +41,7 @@ export class LessonSelectComponent {
 
     GetLessonList(id) {
         this.lessonService
-            .GetAll(9999, 1, '_id name', { isActive: true, department: id })
+            .getAll(9999, 1, '_id name', { isActive: true, department: id })
             .subscribe(data => this.lessonList = data.items);
     }
 }

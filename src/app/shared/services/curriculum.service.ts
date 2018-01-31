@@ -12,29 +12,29 @@ export class CurriculumService implements IServiceBase {
     ) { }
 
     // Bölüm ekleme
-    Insert(curriculum: Curriculum) {
+    insert(curriculum: Curriculum) {
         return this.apiService
-            .post('/Curriculum', curriculum)
+            .post('/curriculum', curriculum)
             .map(data => data);
     }
 
     // Tüm bölüm listesi döndürür
-    GetAll(pageSize: number, pageNumber: number, fields: string = '', query: any = {}): Observable<ServiceModel<Curriculum>> {
+    getAll(pageSize: number, pageNumber: number, fields: string = '', query: any = {}): Observable<ServiceModel<Curriculum>> {
         const q = JSON.stringify(query);
-        return this.apiService.get<Curriculum>(`/Curriculum?PageSize=${pageSize}&PageNumber=${pageNumber}&Fields=${fields}&Query=${q}`);
+        return this.apiService.get<Curriculum>(`/curriculum?pageSize=${pageSize}&pageNumber=${pageNumber}&fields=${fields}&query=${q}`);
     }
 
     // Bölüm sil
-    Delete(_id: String) {
+    delete(_id: String) {
         return this.apiService
-            .delete('/Curriculum?_id=' + _id)
+            .delete('/curriculum?_id=' + _id)
             .map(data => data);
     }
 
     // Bölüm güncelle
-    Update(curriculum: Curriculum) {
+    update(curriculum: Curriculum) {
         return this.apiService
-            .put('/Curriculum', curriculum)
+            .put('/curriculum', curriculum)
             .map(data => data);
     }
 }

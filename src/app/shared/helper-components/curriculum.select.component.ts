@@ -37,7 +37,7 @@ export class CurriculumSelectComponent {
 
     GetCurriculumList() {
         this.curriculumService
-            .GetAll(9999, 1, '_id name', { isActive: true })
+            .getAll(9999, 1, '_id name', { isActive: true })
             .subscribe(data => this.curriculumList = data.items);
     }
 }

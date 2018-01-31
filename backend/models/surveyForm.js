@@ -1,6 +1,6 @@
 'use strict'
 
-const mongoose = require('mongoose')
+const mongoose = require('mongoose').set('debug', true);
 var mongoosePaginate = require('mongoose-paginate');
 const Schema = mongoose.Schema
 

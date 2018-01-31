@@ -12,29 +12,29 @@ export class SurveyFormCodeService implements IServiceBase {
     ) { }
 
     // Anket kodu ekleme
-    Insert(surveyFormCode: SurveyFormCode) {
+    insert(surveyFormCode: SurveyFormCode) {
         return this.apiService
-            .post('/SurveyFormCode', surveyFormCode)
+            .post('/surveyFormCode', surveyFormCode)
             .map(data => data);
     }
 
     // Tüm anket kodlarının listesini döndürür
-    GetAll(pageSize: number, pageNumber: number, fields: string = '', query: any = {}): Observable<ServiceModel<SurveyFormCode>> {
+    getAll(pageSize: number, pageNumber: number, fields: string = '', query: any = {}): Observable<ServiceModel<SurveyFormCode>> {
         const q = JSON.stringify(query);
         return this
             .apiService
-            .get<SurveyFormCode>(`/SurveyFormCode?PageSize=${pageSize}&PageNumber=${pageNumber}&Fields=${fields}&Query=${q}`);
+            .get<SurveyFormCode>(`/surveyFormCode?pageSize=${pageSize}&pageNumber=${pageNumber}&fields=${fields}&query=${q}`);
     }
 
     // Anket kodu sil
-    Delete(_id: String) {
+    delete(_id: String) {
         throw new Error('Method not implemented.');
     }
 
     // Anet kodu güncelle
-    Update(surveyFormCode: SurveyFormCode) {
+    update(surveyFormCode: SurveyFormCode) {
         return this.apiService
-            .put('/SurveyFormCode', surveyFormCode)
+            .put('/surveyFormCode', surveyFormCode)
             .map(data => data);
     }
 }

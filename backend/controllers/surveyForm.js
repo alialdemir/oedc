@@ -1,6 +1,7 @@
 'use strict'
 
 const Model = require('../models/surveyForm')
+var moment = require('moment');
 
 function GetAll(req, res) {
   let query = JSON.parse(req.query.Query) || {}
@@ -34,8 +35,8 @@ function findById(id, res, message) {
 
 function Insert(req, res) {
   let model = new Model()
-  model.startDate = req.body.startDate
-  model.finishDate = req.body.finishDate
+  model.startDate = new Date(req.body.startDate).toUTCString()
+  model.finishDate = new Date(req.body.finishDate).toUTCString()
   model.period = req.body.period
 
   model.save((err, newModel) => {
@@ -50,8 +51,8 @@ function Update(req, res) {
     if (err) return res.status(500).send({ message: `İstekte hata oluştu: ${err}` })
     if (!model) return res.status(404).send({ message: `Anket mevcut değil.` })
 
-    model.startDate = req.body.startDate || model.startDate
-    model.finishDate = req.body.finishDate || model.finishDate
+    model.startDate = new Date(req.body.startDate).toUTCString() || model.startDate
+    model.finishDate = new Date(req.body.finishDate).toUTCString() || model.finishDate
     model.period = req.body.period || model.period
 
     model.save((err) => {
@@ -71,9 +72,25 @@ function Delete(req, res) {
   });
 }
 
+function SurveyList(req, res) {
+  const surveyFormId = req.params.id;
+  const now = moment();
+  console.log(now.toISOString());
+  Model.find({
+    $and: [
+      // { startDate: { $gte: '2018-01-19T14:55:50.000Z' } },
+      { finishDate: { $lt: ISODate("2013-11-19T20:00:00Z") } },
+    ]
+  }).then(resolve => {
+    res.status(200).send({ message: resolve });
+  });
+}
+
+
 module.exports = {
   GetAll,
   Insert,
   Update,
-  Delete
+  Delete,
+  SurveyList,
 }

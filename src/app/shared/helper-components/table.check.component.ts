@@ -36,7 +36,7 @@ export class TableCheckComponent {
     }
 
     masterToggle() {
-        this.subscribeService.Publish('datatablecheck', this.row);
+        this.subscribeService.publish('datatablecheck', this.row);
         this.isAllSelected();
     }
 }

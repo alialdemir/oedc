@@ -10,29 +10,29 @@ export class SurveyFormService implements IServiceBase {
     ) { }
 
     // Anket formu ekleme
-    Insert(surveyForm: SurveyForm) {
+    insert(surveyForm: SurveyForm) {
         return this.apiService
-            .post('/SurveyForm', surveyForm)
+            .post('/surveyForm', surveyForm)
             .map(data => data);
     }
 
     // Tüm anket form listesi döndürür
-    GetAll(pageSize: number, pageNumber: number, fields: string = '', query: any = {}): Observable<ServiceModel<SurveyForm>> {
+    getAll(pageSize: number, pageNumber: number, fields: string = '', query: any = {}): Observable<ServiceModel<SurveyForm>> {
         const q = JSON.stringify(query);
-        return this.apiService.get<SurveyForm>(`/SurveyForm?PageSize=${pageSize}&PageNumber=${pageNumber}&Fields=${fields}&Query=${q}`);
+        return this.apiService.get<SurveyForm>(`/surveyForm?pageSize=${pageSize}&pageNumber=${pageNumber}&fields=${fields}&query=${q}`);
     }
 
     // Anket formu sil
-    Delete(_id: String) {
+    delete(_id: String) {
         return this.apiService
-            .delete('/SurveyForm?_id=' + _id)
+            .delete('/surveyForm?_id=' + _id)
             .map(data => data);
     }
 
     // Anket formu güncelle
-    Update(surveyForm: SurveyForm) {
+    update(surveyForm: SurveyForm) {
         return this.apiService
-            .put('/SurveyForm', surveyForm)
+            .put('/surveyForm', surveyForm)
             .map(data => data);
     }
 }

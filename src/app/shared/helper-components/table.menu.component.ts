@@ -80,7 +80,7 @@ export class TableMenuComponent {
 
         dialogRef.afterClosed().subscribe(updatedModel => {
             if (updatedModel) {
-                this.subscribeService.Publish('dataupdate', updatedModel);
+                this.subscribeService.publish('dataupdate', updatedModel);
             }
         });
     }
@@ -112,12 +112,12 @@ export class TableMenuComponent {
         }
 
         this.ServiceBase
-            .Delete(this.row._id)
+            .delete(this.row._id)
             .subscribe(isSuccess => {
                 this.snackBar.open(isSuccess.message, '', {
                     duration: 3000,
                 });
-                this.subscribeService.Publish('datadelete', this.row._id);
+                this.subscribeService.publish('datadelete', this.row._id);
             });
     }
 }
