@@ -5,9 +5,9 @@ const Question = require('../models/question')
 var ObjectId = require('mongodb').ObjectID;
 
 function GetAll(req, res) {
-  let query = JSON.parse(req.query.Query) || {}
-  let pageSize = Number.parseInt(req.query.PageSize)
-  let pageNumber = Number.parseInt(req.query.PageNumber)
+  let query = JSON.parse(req.query.query) || {}
+  let pageSize = Number.parseInt(req.query.pageSize)
+  let pageNumber = Number.parseInt(req.query.pageNumber)
   let fields = {}
   if (req.query.Fields !== undefined || req.query.Fields !== '') fields = req.query.Fields
   if (pageSize === NaN) pageSize = 10;
